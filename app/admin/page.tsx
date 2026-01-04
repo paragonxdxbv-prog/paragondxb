@@ -587,15 +587,15 @@ export default function AdminPage() {
 
                     <div>
                       <label className="block text-sm font-medium tracking-widest uppercase mb-2 text-black dark:text-white">
-                        DESCRIPTION
+                        THE VIBE
                       </label>
                       <Textarea
                         name="description"
                         value={formData.description}
                         onChange={handleInputChange}
-                        placeholder="Enter product description"
+                        placeholder="Enter the vibe of this product..."
                         rows={4}
-                        className="border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-white text-black dark:text-black"
+                        className="border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-900 text-black dark:text-white"
                       />
                     </div>
 

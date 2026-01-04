@@ -218,10 +218,45 @@ export default function ProductDetailPage() {
                 {/* Description */}
                 <div className="space-y-4">
                   <h2 className="text-xl font-medium tracking-widest uppercase">
-                    PRODUCT DETAILS
+                    THE VIBE
                   </h2>
                   <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                     {product.description}
+                  </p>
+                </div>
+
+                {/* Digital Product Specs */}
+                <div className="bg-gray-50 dark:bg-gray-900 border border-black dark:border-white p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-sm font-bold tracking-widest uppercase">WHAT'S INSIDE THE PACK</h2>
+                    <span className="bg-black dark:bg-white text-white dark:text-black text-[10px] font-bold px-2 py-1 tracking-wider uppercase">
+                      HIGH QUALITY DIGITAL DOWNLOAD
+                    </span>
+                  </div>
+                  <ul className="space-y-3">
+                    <li className="flex justify-between text-xs font-mono border-b border-gray-200 dark:border-gray-800 pb-2">
+                      <span>2:3 RATIO FILE</span>
+                      <span className="text-gray-500">3000x4500PX</span>
+                    </li>
+                    <li className="flex justify-between text-xs font-mono border-b border-gray-200 dark:border-gray-800 pb-2">
+                      <span>3:4 RATIO FILE</span>
+                      <span className="text-gray-500">3000x4000PX</span>
+                    </li>
+                    <li className="flex justify-between text-xs font-mono border-b border-gray-200 dark:border-gray-800 pb-2">
+                      <span>4:5 RATIO FILE</span>
+                      <span className="text-gray-500">3000x3750PX</span>
+                    </li>
+                    <li className="flex justify-between text-xs font-mono border-b border-gray-200 dark:border-gray-800 pb-2">
+                      <span>11:14 RATIO FILE</span>
+                      <span className="text-gray-500">3300x4200PX</span>
+                    </li>
+                    <li className="flex justify-between text-xs font-mono pb-2">
+                      <span>ISO RATIO FILE</span>
+                      <span className="text-gray-500">3000x4242PX</span>
+                    </li>
+                  </ul>
+                  <p className="text-[10px] text-gray-400 mt-4 text-center tracking-wider">
+                    *CUSTOM RESOLUTIONS AVAILABLE UPON REQUEST
                   </p>
                 </div>
 
@@ -280,6 +315,6 @@ export default function ProductDetailPage() {
           </p>
         </div>
       </footer>
-    </div>
+    </div >
   )
 }

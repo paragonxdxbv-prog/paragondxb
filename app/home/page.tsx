@@ -262,7 +262,7 @@ export default function HomePage() {
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
                         {currentProduct.discountPercentage ? (
-                          <div className="absolute top-3 right-3 bg-black dark:bg-white text-white dark:text-black px-3 py-1 text-xs font-bold tracking-widest">
+                          <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 text-xs font-bold tracking-widest">
                             -{currentProduct.discountPercentage}%
                           </div>
                         ) : null}
@@ -281,7 +281,7 @@ export default function HomePage() {
                         </div>
                         {currentProduct.originalPrice ? (
                           <div className="flex items-center gap-2">
-                            <span className="text-lg font-bold">
+                            <span className="text-lg font-bold text-red-600">
                               {currentProduct.price}
                             </span>
                             <span className="text-sm text-gray-400 line-through">
