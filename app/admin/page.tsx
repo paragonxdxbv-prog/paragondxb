@@ -1001,11 +1001,14 @@ export default function AdminPage() {
           style={{ transitionDelay: "1000ms" }}
         >
           <div className="max-w-4xl mx-auto text-center">
-            <img src="/paragondxb-logo.jpg" alt="ParagonDXB" className="h-8 w-8 rounded-full opacity-40" />
-            2025 ParagonDXB, INC. ALL RIGHTS RESERVED.
-          </p>
-      </div>
-    </footer>
+            <div className="flex justify-center mb-6">
+              <img src="/paragondxb-logo.jpg" alt="ParagonDXB" className="h-8 w-8 rounded-full opacity-40" />
+            </div>
+            <p className="text-gray-400 text-xs font-mono tracking-widest uppercase">
+              2025 ParagonDXB, INC. ALL RIGHTS RESERVED.
+            </p>
+          </div>
+        </footer>
       </div >
     </AdminAuth >
   )
