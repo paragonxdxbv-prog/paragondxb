@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { useAuth } from "@/lib/auth-context"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, Loader2 } from "lucide-react"
@@ -11,6 +11,13 @@ export default function LoginPage() {
     const router = useRouter()
     const [isSigningIn, setIsSigningIn] = useState(false)
     const [error, setError] = useState<string | null>(null)
+
+    // Help user identify the domain to authorize
+    React.useEffect(() => {
+        console.log("------------------------------------------------")
+        console.log("CURRENT DOMAIN TO AUTHORIZE IN FIREBASE:", window.location.hostname)
+        console.log("------------------------------------------------")
+    }, [])
 
     // Redirect if already logged in
     if (!loading && user) {
