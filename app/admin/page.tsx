@@ -11,7 +11,7 @@ import { FirebaseAnalytics } from "@/components/firebase-analytics"
 import { AdminAuth } from "@/components/admin-auth"
 import { Navigation } from "@/components/navigation"
 import { logEvent } from '@/lib/firebase-utils'
-import { getProducts, addProduct, updateProduct, deleteProduct, getAboutContent, saveAboutContent, getCompanyRules, saveCompanyRules, getSocialMediaUrls, saveSocialMediaUrls } from '@/lib/firebase-utils'
+import { subscribeToProducts, addProduct, updateProduct, deleteProduct, getAboutContent, saveAboutContent, getCompanyRules, saveCompanyRules, getSocialMediaUrls, saveSocialMediaUrls } from '@/lib/firebase-utils'
 
 interface Product {
   id: string
@@ -75,23 +75,20 @@ export default function AdminPage() {
   }, [])
 
   useEffect(() => {
-    loadProducts()
+    // Real-time subscription for products
+    const unsubscribeProducts = subscribeToProducts((productsData) => {
+      setProducts(productsData)
+      setLoading(false)
+    })
+
     loadAboutContent()
     loadCompanyRules()
     loadSocialMediaUrls()
+
+    return () => unsubscribeProducts()
   }, [])
 
-  const loadProducts = async () => {
-    try {
-      setLoading(true)
-      const productsData = await getProducts()
-      setProducts(productsData)
-    } catch (error) {
-      console.error('Error loading products:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+
 
   const loadAboutContent = async () => {
     try {
@@ -197,9 +194,21 @@ export default function AdminPage() {
         logEvent('admin_action', { action: 'add_product' })
       }
 
-      await loadProducts()
       setShowForm(false)
       setEditingProduct(null)
+      // Reset form data
+      setFormData({
+        name: "",
+        price: "",
+        originalPrice: "",
+        discountPercentage: "",
+        category: "",
+        image: "",
+        images: [""],
+        description: "",
+        buyUrl: ""
+      })
+      alert(editingProduct ? 'Product updated successfully!' : 'Product added successfully!')
     } catch (error) {
       console.error('Error saving product:', error)
       alert('Error saving product. Please try again.')
@@ -211,7 +220,6 @@ export default function AdminPage() {
       try {
         await deleteProduct(productId)
         logEvent('admin_action', { action: 'delete_product', product_id: productId })
-        await loadProducts()
       } catch (error) {
         console.error('Error deleting product:', error)
         alert('Error deleting product. Please try again.')
