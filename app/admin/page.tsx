@@ -980,10 +980,10 @@ export default function AdminPage() {
                   </h2>
 
                   <div className="grid md:grid-cols-2 gap-6 mb-8">
-                    <div className="bg-gray-50 dark:bg-gray-900 p-6 border border-gray-200 dark:border-gray-700">
-                      <h3 className="text-sm font-bold tracking-widest uppercase mb-2">TRACKED EVENTS</h3>
+                    <div className="bg-gray-50 dark:bg-black p-6 border border-gray-200 dark:border-white">
+                      <h3 className="text-sm font-bold tracking-widest uppercase mb-2 text-black dark:text-white">TRACKED EVENTS</h3>
                       <p className="text-2xl font-bold mb-4 text-green-600">LIVE</p>
-                      <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400 font-mono">
+                      <ul className="space-y-2 text-sm text-black dark:text-white font-mono">
                         <li className="flex justify-between">
                           <span>• PAGE VIEWS</span>
                           <span className="text-green-500">● Active</span>
@@ -1022,31 +1022,31 @@ export default function AdminPage() {
                   </div>
 
                   <div className="border-t border-gray-200 dark:border-gray-800 pt-8">
-                    <h3 className="text-sm font-bold tracking-widest uppercase mb-4">DATA OVERVIEW</h3>
+                    <h3 className="text-sm font-bold tracking-widest uppercase mb-4 text-black dark:text-white">DATA OVERVIEW</h3>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
-                        <div className="text-xs text-gray-500 mb-1">PRODUCTS</div>
-                        <div className="text-2xl font-bold">{products.length}</div>
+                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
+                        <div className="text-xs text-black dark:text-white mb-1">PRODUCTS</div>
+                        <div className="text-2xl font-bold text-black dark:text-white">{products.length}</div>
                       </div>
-                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
-                        <div className="text-xs text-gray-500 mb-1">CATEGORIES</div>
-                        <div className="text-2xl font-bold">5</div>
+                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
+                        <div className="text-xs text-black dark:text-white mb-1">CATEGORIES</div>
+                        <div className="text-2xl font-bold text-black dark:text-white">5</div>
                       </div>
-                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
-                        <div className="text-xs text-gray-500 mb-1">SOCIAL LINKS</div>
-                        <div className="text-2xl font-bold">3</div>
+                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
+                        <div className="text-xs text-black dark:text-white mb-1">SOCIAL LINKS</div>
+                        <div className="text-2xl font-bold text-black dark:text-white">3</div>
                       </div>
-                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
-                        <div className="text-xs text-gray-500 mb-1">TOTAL SITE VIEWS</div>
-                        <div className="text-3xl font-bold">{analyticsData.totalViews || 0}</div>
+                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
+                        <div className="text-xs text-black dark:text-white mb-1">TOTAL SITE VIEWS</div>
+                        <div className="text-3xl font-bold text-black dark:text-white">{analyticsData.totalViews || 0}</div>
                       </div>
-                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
-                        <div className="text-xs text-gray-500 mb-1">HOME PAGE VIEWS</div>
-                        <div className="text-2xl font-bold">{analyticsData.pageViews?.home || 0}</div>
+                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
+                        <div className="text-xs text-black dark:text-white mb-1">HOME PAGE VIEWS</div>
+                        <div className="text-2xl font-bold text-black dark:text-white">{analyticsData.pageViews?.home || 0}</div>
                       </div>
-                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
-                        <div className="text-xs text-gray-500 mb-1">PRODUCTS PAGE VIEWS</div>
-                        <div className="text-2xl font-bold">{analyticsData.pageViews?.products || 0}</div>
+                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
+                        <div className="text-xs text-black dark:text-white mb-1">PRODUCTS PAGE VIEWS</div>
+                        <div className="text-2xl font-bold text-black dark:text-white">{analyticsData.pageViews?.products || 0}</div>
                       </div>
                     </div>
                   </div>
@@ -1057,7 +1057,7 @@ export default function AdminPage() {
             {/* Categories Tab */}
             {activeTab === "categories" && (
               <div className="max-w-4xl mx-auto space-y-8">
-                <div className="bg-white dark:bg-gray-900 p-8 border-2 border-black dark:border-white">
+                <div className="bg-white dark:bg-black p-8 border-2 border-black dark:border-white">
                   <h2 className="text-2xl font-bold mb-6 tracking-widest uppercase">Manage Categories</h2>
                   <div className="flex gap-4 mb-8">
                     <Input
@@ -1087,7 +1087,7 @@ export default function AdminPage() {
             {/* Site Control Tab */}
             {activeTab === "site_control" && (
               <div className="max-w-4xl mx-auto space-y-8">
-                <div className="bg-white dark:bg-gray-900 p-8 border-2 border-black dark:border-white">
+                <div className="bg-white dark:bg-black p-8 border-2 border-black dark:border-white">
                   <h2 className="text-2xl font-bold mb-6 tracking-widest uppercase">Announcement Bar</h2>
                   <div className="space-y-4">
                     <div className="flex items-center gap-4">

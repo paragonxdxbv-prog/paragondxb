@@ -297,7 +297,7 @@ export default function ProductsPage() {
                           </div>
                         )}
                         {showOnSale && (
-                          <div className="flex items-center justify-between bg-gray-100 dark:bg-gray-900 px-3 py-2 text-xs">
+                          <div className="flex items-center justify-between bg-gray-100 dark:bg-black px-3 py-2 text-xs border border-gray-200 dark:border-white">
                             <span>ON SALE</span>
                             <button onClick={() => setShowOnSale(false)}>
                               <X className="w-3 h-3" />
