@@ -4,10 +4,11 @@ import { useAuth } from "@/lib/auth-context"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Navigation } from "@/components/navigation"
-import { Loader2, Package, Ticket, LogOut, MessageSquare, ExternalLink } from "lucide-react"
+import { Loader2, LogOut, MessageSquare, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { subscribeToUserTickets } from "@/lib/firebase-utils"
 import { ChatInterface } from "@/components/chat-interface"
+import { Input } from "@/components/ui/input"
 
 export default function AccountPage() {
     const { user, loading, logout } = useAuth()
@@ -15,6 +16,7 @@ export default function AccountPage() {
     const [isPageLoaded, setIsPageLoaded] = useState(false)
     const [tickets, setTickets] = useState<any[]>([])
     const [selectedTicket, setSelectedTicket] = useState<any | null>(null)
+    const [searchTicket, setSearchTicket] = useState("")
 
     useEffect(() => {
         if (!loading && !user) {
@@ -28,10 +30,15 @@ export default function AccountPage() {
         if (user) {
             const unsubscribe = subscribeToUserTickets(user.uid, (data) => {
                 setTickets(data)
+                // If we have a selected ticket, update it with new data
+                if (selectedTicket) {
+                    const updated = data.find(t => t.id === selectedTicket.id)
+                    if (updated) setSelectedTicket(updated)
+                }
             })
             return () => unsubscribe()
         }
-    }, [user])
+    }, [user, selectedTicket])
 
     if (loading || !user) {
         return (
@@ -41,17 +48,21 @@ export default function AccountPage() {
         )
     }
 
-    const orderTickets = tickets.filter(t => t.type === 'order_request')
-    const supportTickets = tickets.filter(t => t.type === 'general_inquiry')
+    // Filter tickets based on search
+    const filteredTickets = tickets.filter(t =>
+        t.subject?.toLowerCase().includes(searchTicket.toLowerCase()) ||
+        t.productName?.toLowerCase().includes(searchTicket.toLowerCase()) ||
+        t.type?.toLowerCase().includes(searchTicket.toLowerCase())
+    )
 
     return (
-        <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-mono">
+        <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-mono flex flex-col">
             <Navigation isPageLoaded={isPageLoaded} currentPage="account" />
 
-            <main className={`container mx-auto px-6 py-24 transition-all duration-700 ${isPageLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+            <main className={`container mx-auto px-6 py-8 flex-1 flex flex-col transition-all duration-700 ${isPageLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
 
                 {/* Header */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-gray-200 dark:border-gray-800 pb-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-gray-200 dark:border-gray-800 pb-8">
                     <div>
                         <h1 className="text-3xl font-black tracking-tighter mb-2">MY ACCOUNT</h1>
                         <p className="text-gray-500 dark:text-gray-400 text-sm">WELCOME BACK, {user.displayName?.toUpperCase()}</p>
@@ -66,95 +77,103 @@ export default function AccountPage() {
                     </Button>
                 </div>
 
-                {/* Chat Modal / View */}
-                {selectedTicket && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-                        <div className="w-full max-w-2xl bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow-2xl flex flex-col max-h-[80vh]">
-                            <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800">
-                                <h3 className="font-bold tracking-widest uppercase text-sm flex items-center gap-2">
-                                    <MessageSquare className="w-4 h-4" />
-                                    {selectedTicket.subject}
-                                </h3>
-                                <button onClick={() => setSelectedTicket(null)} className="text-gray-500 hover:text-black dark:hover:text-white">
-                                    CLOSE
-                                </button>
-                            </div>
-                            <div className="flex-1 overflow-hidden">
-                                <ChatInterface ticketId={selectedTicket.id} />
-                            </div>
-                        </div>
-                    </div>
-                )}
+                {/* Chat / Ticket Layout */}
+                <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 min-h-[600px]">
 
-                {/* Dashboard Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                    {/* Orders Section */}
-                    <div className="border border-gray-200 dark:border-gray-800 p-6 bg-gray-50 dark:bg-black">
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="p-2 bg-black dark:bg-white text-white dark:text-black">
-                                <Package className="w-5 h-5" />
-                            </div>
-                            <h2 className="text-xl font-bold tracking-widest">ORDER HISTORY</h2>
+                    {/* Sidebar List */}
+                    <div className="md:col-span-1 border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-black p-4 flex flex-col">
+                        <div className="mb-4 relative">
+                            <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+                            <Input
+                                placeholder="Search orders & tickets..."
+                                value={searchTicket}
+                                onChange={(e) => setSearchTicket(e.target.value)}
+                                className="pl-9 bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700"
+                            />
                         </div>
 
-                        {orderTickets.length > 0 ? (
-                            <div className="space-y-4">
-                                {orderTickets.map(ticket => (
-                                    <div key={ticket.id} className="border border-gray-200 dark:border-gray-700 p-4 hover:bg-white dark:hover:bg-gray-900 transition-colors cursor-pointer" onClick={() => setSelectedTicket(ticket)}>
-                                        <div className="flex justify-between items-start mb-2">
-                                            <span className="font-bold text-sm tracking-wide">{ticket.productName}</span>
+                        <div className="space-y-2 overflow-y-auto flex-1 max-h-[600px]">
+                            {filteredTickets.length > 0 ? (
+                                filteredTickets.map(ticket => (
+                                    <div
+                                        key={ticket.id}
+                                        onClick={() => setSelectedTicket(ticket)}
+                                        className={`p-4 border cursor-pointer transition-colors ${selectedTicket?.id === ticket.id
+                                            ? "border-black dark:border-white bg-white dark:bg-gray-900"
+                                            : "border-transparent hover:bg-white dark:hover:bg-gray-900 border-b-gray-200 dark:border-b-gray-800"
+                                            }`}
+                                    >
+                                        <div className="flex justify-between items-start mb-1">
+                                            <span className="font-bold text-sm tracking-wide line-clamp-1">
+                                                {ticket.type === 'order_request' ? ticket.productName : ticket.subject}
+                                            </span>
+                                            <span className="text-[10px] text-gray-400">
+                                                {ticket.lastMessageAt?.seconds ? new Date(ticket.lastMessageAt.seconds * 1000).toLocaleDateString() : 'New'}
+                                            </span>
+                                        </div>
+                                        <p className="text-xs font-mono text-gray-500 mb-2 truncate">
+                                            {ticket.lastMessage || 'No messages yet'}
+                                        </p>
+                                        <div className="flex justify-between items-center">
                                             <span className={`px-2 py-0.5 text-[10px] font-bold uppercase ${ticket.status === 'open' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
                                                 {ticket.status}
                                             </span>
-                                        </div>
-                                        <p className="text-xs text-gray-500 mb-2">{ticket.subject}</p>
-                                        <div className="flex items-center gap-2 text-[10px] font-mono text-gray-400">
-                                            <span>{ticket.createdAt?.seconds ? new Date(ticket.createdAt.seconds * 1000).toLocaleDateString() : 'Just now'}</span>
-                                            {ticket.lastMessage && <span>• {ticket.lastMessage.substring(0, 30)}...</span>}
+                                            {ticket.type === 'order_request' ? (
+                                                <span className="text-[10px] bg-black dark:bg-white text-white dark:text-black px-1 font-bold">ORDER</span>
+                                            ) : (
+                                                <span className="text-[10px] bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-1 font-bold">SUPPORT</span>
+                                            )}
                                         </div>
                                     </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="text-center py-12 border-2 border-dashed border-gray-200 dark:border-gray-800">
-                                <p className="text-gray-400 dark:text-gray-600 text-sm mb-4">NO ORDERS YET</p>
-                                <Button onClick={() => router.push('/products')} variant="outline" className="text-xs tracking-widest">
-                                    START BROWSING
-                                </Button>
-                            </div>
-                        )}
+                                ))
+                            ) : (
+                                <div className="text-center py-12">
+                                    <p className="text-gray-400 text-xs">NO TICKETS FOUND</p>
+                                    <Button
+                                        onClick={() => router.push('/products')}
+                                        variant="link"
+                                        className="text-xs text-black dark:text-white underline mt-2"
+                                    >
+                                        BROWSE PRODUCTS
+                                    </Button>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
-                    {/* Support Tickets Section */}
-                    <div className="border border-gray-200 dark:border-gray-800 p-6 bg-gray-50 dark:bg-black">
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="p-2 bg-black dark:bg-white text-white dark:text-black">
-                                <Ticket className="w-5 h-5" />
-                            </div>
-                            <h2 className="text-xl font-bold tracking-widest">SUPPORT TICKETS</h2>
-                        </div>
-
-                        {supportTickets.length > 0 ? (
-                            <div className="space-y-4">
-                                {supportTickets.map(ticket => (
-                                    <div key={ticket.id} className="border border-gray-200 dark:border-gray-700 p-4 hover:bg-white dark:hover:bg-gray-900 transition-colors cursor-pointer" onClick={() => setSelectedTicket(ticket)}>
-                                        <div className="flex justify-between items-start mb-2">
-                                            <span className="font-bold text-sm tracking-wide">{ticket.subject}</span>
-                                            <span className={`px-2 py-0.5 text-[10px] font-bold uppercase ${ticket.status === 'open' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
-                                                {ticket.status}
-                                            </span>
-                                        </div>
-                                        <div className="flex items-center gap-2 text-[10px] font-mono text-gray-400">
-                                            <span>{ticket.createdAt?.seconds ? new Date(ticket.createdAt.seconds * 1000).toLocaleDateString() : 'Just now'}</span>
-                                        </div>
+                    {/* Chat Area */}
+                    <div className="md:col-span-2 border border-gray-200 dark:border-gray-800 bg-white dark:bg-black flex flex-col shadow-sm">
+                        {selectedTicket ? (
+                            <div className="flex flex-col h-full h-[600px]">
+                                <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-zinc-950">
+                                    <div>
+                                        <h3 className="font-bold tracking-widest uppercase text-sm">
+                                            {selectedTicket.type === 'order_request' ? `ORDER: ${selectedTicket.productName}` : selectedTicket.subject}
+                                        </h3>
+                                        <p className="text-xs text-gray-500">ID: {selectedTicket.id.slice(0, 8)}</p>
                                     </div>
-                                ))}
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => setSelectedTicket(null)}
+                                        className="md:hidden"
+                                    >
+                                        CLOSE
+                                    </Button>
+                                </div>
+                                <div className="flex-1 overflow-hidden">
+                                    <ChatInterface ticketId={selectedTicket.id} isAdmin={false} />
+                                </div>
                             </div>
                         ) : (
-                            <div className="text-center py-12 border-2 border-dashed border-gray-200 dark:border-gray-800">
-                                <p className="text-gray-400 dark:text-gray-600 text-sm mb-4">NO ACTIVE TICKETS</p>
-                                {/* We could open a new ticket modal here, but for now specific general inq flow is via global chat */}
+                            <div className="flex items-center justify-center h-full h-[600px] text-gray-400 bg-gray-50/50 dark:bg-black/50">
+                                <div className="text-center p-6">
+                                    <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-20" />
+                                    <p className="text-sm tracking-widest uppercase mb-2">SELECT A TICKET TO VIEW CHAT</p>
+                                    <p className="text-xs text-gray-500 max-w-xs mx-auto">
+                                        Select an existing order or support ticket from the left to view messages and updates.
+                                    </p>
+                                </div>
                             </div>
                         )}
                     </div>

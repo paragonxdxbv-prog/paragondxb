@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { AuthProvider } from "@/lib/auth-context"
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
@@ -22,8 +23,15 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${inter.className} min-h-screen bg-white dark:bg-black antialiased selection:bg-red-500 selection:text-white`}>
         <AuthProvider>
-          {children}
-          <GlobalChat />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <GlobalChat />
+          </ThemeProvider>
         </AuthProvider>
       </body>
     </html>

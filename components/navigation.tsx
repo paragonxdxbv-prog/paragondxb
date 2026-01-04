@@ -26,6 +26,7 @@ export function Navigation({ isPageLoaded, currentPage = "home" }: NavigationPro
     { href: "/home", label: "HOME", page: "home", delay: "200ms" },
     { href: "/products", label: "PRODUCTS", page: "products", delay: "250ms" },
     { href: "/about", label: "ABOUT", page: "about", delay: "300ms" },
+    { href: "/account", label: "SUPPORT", page: "account", delay: "350ms" },
   ]
 
   return (

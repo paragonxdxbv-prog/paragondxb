@@ -10,6 +10,7 @@ export default function LoginPage() {
     const { user, signInWithGoogle, loading } = useAuth()
     const router = useRouter()
     const [isSigningIn, setIsSigningIn] = useState(false)
+    const [error, setError] = useState<string | null>(null)
 
     // Redirect if already logged in
     if (!loading && user) {
@@ -19,10 +20,19 @@ export default function LoginPage() {
 
     const handleGoogleSignIn = async () => {
         setIsSigningIn(true)
+        setError(null)
         try {
             await signInWithGoogle()
-        } catch (error) {
+        } catch (error: any) {
             console.error("Login failed", error)
+            // Handle common Firebase Auth errors
+            if (error?.code === 'auth/unauthorized-domain') {
+                setError("Domain not authorized. Admin: Add this domain to Firebase Console.")
+            } else if (error?.code === 'auth/popup-closed-by-user') {
+                setError("Sign-in cancelled.")
+            } else {
+                setError(error?.message || "Failed to sign in. Please try again.")
+            }
         } finally {
             setIsSigningIn(false)
         }
@@ -33,7 +43,7 @@ export default function LoginPage() {
             {/* Navigation */}
             <nav className="p-6">
                 <Link
-                    href="/"
+                    href="/home"
                     className="inline-flex items-center gap-2 text-sm font-bold tracking-widest hover:opacity-70 transition-opacity"
                 >
                     <ArrowLeft className="w-4 h-4" />
@@ -102,6 +112,14 @@ export default function LoginPage() {
                             By continuing, you agree to our Terms of Service.
                             We only use essential data for your account.
                         </p>
+
+                        {error && (
+                            <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-center">
+                                <p className="text-xs text-red-600 dark:text-red-400 font-mono">
+                                    {error}
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </main>
