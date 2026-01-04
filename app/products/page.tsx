@@ -7,7 +7,7 @@ import { Search, SlidersHorizontal, X } from "lucide-react"
 import { ImageWithLoading } from "@/components/image-with-loading"
 import { FirebaseAnalytics } from "@/components/firebase-analytics"
 import { Navigation } from "@/components/navigation"
-import { logEvent, subscribeToProducts } from "@/lib/firebase-utils"
+import { logEvent, subscribeToProducts, subscribeToCategories, incrementPageView, incrementProductView } from "@/lib/firebase-utils"
 
 interface Product {
   id: string
@@ -22,7 +22,7 @@ interface Product {
   buyUrl?: string
 }
 
-const categories = ["ALL", "DIGITAL PRODUCTS", "SHOES", "CLOTHING", "ACCESSORIES", "NEW ARRIVALS"]
+
 const sortOptions = [
   { label: "NEWEST FIRST", value: "newest" },
   { label: "PRICE: LOW TO HIGH", value: "price-asc" },
@@ -34,6 +34,7 @@ const sortOptions = [
 export default function ProductsPage() {
   const [isPageLoaded, setIsPageLoaded] = useState(false)
   const [products, setProducts] = useState<Product[]>([])
+  const [categories, setCategories] = useState<string[]>(["ALL"])
   const [loading, setLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState("ALL")
   const [searchQuery, setSearchQuery] = useState("")
@@ -42,6 +43,9 @@ export default function ProductsPage() {
   const [showFilters, setShowFilters] = useState(true)
 
   useEffect(() => {
+    // Track page view
+    incrementPageView('products')
+
     const timer = setTimeout(() => {
       setIsPageLoaded(true)
     }, 100)
@@ -57,8 +61,16 @@ export default function ProductsPage() {
       setLoading(false)
     })
 
+    // Real-time categories subscription
+    const unsubscribeCategories = subscribeToCategories((cats) => {
+      setCategories(["ALL", ...cats])
+    })
+
     // Cleanup subscription on unmount
-    return () => unsubscribe()
+    return () => {
+      unsubscribe()
+      unsubscribeCategories()
+    }
   }, [])
 
   const handleCategoryFilter = (category: string) => {
@@ -396,6 +408,7 @@ export default function ProductsPage() {
                               <Button
                                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                                   e.stopPropagation()
+                                  incrementProductView(product.id, product.name)
                                   window.location.href = `/products/${product.id}`
                                 }}
                                 className="flex-1 bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 border-0 text-xs font-medium tracking-widest uppercase py-4 transition-all duration-300"
@@ -440,7 +453,7 @@ export default function ProductsPage() {
       >
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-gray-400 dark:text-gray-500 text-xs font-mono tracking-widest uppercase">
-            © 2025 ParagonDXB, INC. ALL RIGHTS RESERVED.
+            © 2026 ParagonDXB, INC. ALL RIGHTS RESERVED.
           </p>
         </div>
       </footer>

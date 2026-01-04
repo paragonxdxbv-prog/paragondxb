@@ -15,7 +15,9 @@ import {
   onSnapshot,
   QuerySnapshot,
   DocumentSnapshot,
-  FirestoreError
+  FirestoreError,
+  increment,
+  writeBatch
 } from 'firebase/firestore'
 import {
   ref,
@@ -381,3 +383,105 @@ export const subscribeToCompanyRules = (callback: (rules: string[]) => void) => 
   })
 }
 
+
+// Analytics Functions
+export const incrementPageView = async (pageName: string) => {
+  try {
+    const analyticsRef = doc(db, 'analytics', 'stats')
+    // Use setDoc with merge to ensure document exists
+    await setDoc(analyticsRef, {
+      [`pageViews.${pageName}`]: increment(1),
+      totalViews: increment(1),
+      updatedAt: new Date()
+    }, { merge: true })
+  } catch (error) {
+    console.error('Error incrementing page view:', error)
+  }
+}
+
+export const incrementProductView = async (productId: string, productName: string) => {
+  try {
+    const analyticsRef = doc(db, 'analytics', 'stats')
+    await setDoc(analyticsRef, {
+      [`productViews.${productId}`]: increment(1),
+      [`productNames.${productId}`]: productName,
+      updatedAt: new Date()
+    }, { merge: true })
+  } catch (error) {
+    console.error('Error incrementing product view:', error)
+  }
+}
+
+export const subscribeToAnalytics = (callback: (data: any) => void) => {
+  const docRef = doc(db, 'analytics', 'stats')
+  return onSnapshot(docRef, (docSnap: DocumentSnapshot) => {
+    if (docSnap.exists()) {
+      callback(docSnap.data())
+    } else {
+      callback({ pageViews: {}, productViews: {}, totalViews: 0 })
+    }
+  })
+}
+
+// Category Management
+export const subscribeToCategories = (callback: (categories: string[]) => void) => {
+  const docRef = doc(db, 'settings', 'categories')
+  return onSnapshot(docRef, (docSnap: DocumentSnapshot) => {
+    if (docSnap.exists()) {
+      callback(docSnap.data()?.list || [])
+    } else {
+      // Default initial categories
+      const defaults = ["DIGITAL PRODUCTS", "SHOES", "CLOTHING", "ACCESSORIES", "NEW ARRIVALS"]
+      callback(defaults)
+    }
+  })
+}
+
+export const saveCategories = async (categories: string[]) => {
+  try {
+    await setDoc(doc(db, 'settings', 'categories'), {
+      list: categories,
+      updatedAt: new Date()
+    })
+  } catch (error) {
+    console.error('Error saving categories:', error)
+    throw error
+  }
+}
+
+// Announcement Bar
+export interface Announcement {
+  enabled: boolean
+  text: string
+  backgroundColor: string
+  textColor: string
+  link?: string
+}
+
+export const subscribeToAnnouncement = (callback: (announcement: Announcement) => void) => {
+  const docRef = doc(db, 'settings', 'announcement')
+  return onSnapshot(docRef, (docSnap: DocumentSnapshot) => {
+    if (docSnap.exists()) {
+      callback(docSnap.data() as Announcement)
+    } else {
+      callback({
+        enabled: false,
+        text: "WELCOME TO PARAGON DXB - PREMIUM AUTOMOTIVE & LIFESTYLE",
+        backgroundColor: "#000000",
+        textColor: "#FFFFFF"
+      })
+    }
+  })
+}
+
+export const saveAnnouncement = async (announcement: Announcement) => {
+  try {
+    await setDoc(doc(db, 'settings', 'announcement'), {
+      ...announcement,
+      updatedAt: new Date()
+    })
+  } catch (error) {
+    console.error('Error saving announcement:', error)
+    throw error
+  }
+}

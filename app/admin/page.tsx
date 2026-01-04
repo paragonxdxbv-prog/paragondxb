@@ -11,7 +11,7 @@ import { FirebaseAnalytics } from "@/components/firebase-analytics"
 import { AdminAuth } from "@/components/admin-auth"
 import { Navigation } from "@/components/navigation"
 import { logEvent } from '@/lib/firebase-utils'
-import { subscribeToProducts, addProduct, updateProduct, deleteProduct, getAboutContent, saveAboutContent, getCompanyRules, saveCompanyRules, getSocialMediaUrls, saveSocialMediaUrls } from '@/lib/firebase-utils'
+import { subscribeToProducts, addProduct, updateProduct, deleteProduct, getAboutContent, saveAboutContent, getCompanyRules, saveCompanyRules, getSocialMediaUrls, saveSocialMediaUrls, subscribeToCategories, saveCategories, subscribeToAnnouncement, saveAnnouncement, subscribeToAnalytics, type Announcement } from '@/lib/firebase-utils'
 
 interface Product {
   id: string
@@ -26,7 +26,7 @@ interface Product {
   buyUrl?: string
 }
 
-const categories = ["DIGITAL PRODUCTS", "SHOES", "CLOTHING", "ACCESSORIES", "NEW ARRIVALS"]
+
 
 export default function AdminPage() {
   const [isPageLoaded, setIsPageLoaded] = useState(false)
@@ -66,6 +66,16 @@ export default function AdminPage() {
     description: "",
     buyUrl: ""
   })
+  // New States
+  const [categories, setCategories] = useState<string[]>([])
+  const [newCategory, setNewCategory] = useState("")
+  const [announcement, setAnnouncement] = useState<Announcement>({
+    enabled: false,
+    text: "",
+    backgroundColor: "#000000",
+    textColor: "#FFFFFF"
+  })
+  const [analyticsData, setAnalyticsData] = useState<any>({ pageViews: {}, productViews: {}, totalViews: 0 })
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -75,18 +85,54 @@ export default function AdminPage() {
   }, [])
 
   useEffect(() => {
-    // Real-time subscription for products
     const unsubscribeProducts = subscribeToProducts((productsData) => {
       setProducts(productsData)
       setLoading(false)
+    })
+
+    const unsubscribeCategories = subscribeToCategories((cats) => {
+      setCategories(cats)
+    })
+
+    const unsubscribeAnnouncement = subscribeToAnnouncement((data) => {
+      setAnnouncement(data)
+    })
+
+    const unsubscribeAnalytics = subscribeToAnalytics((data) => {
+      setAnalyticsData(data)
     })
 
     loadAboutContent()
     loadCompanyRules()
     loadSocialMediaUrls()
 
-    return () => unsubscribeProducts()
+    return () => {
+      unsubscribeProducts()
+      unsubscribeCategories()
+      unsubscribeAnnouncement()
+      unsubscribeAnalytics()
+    }
   }, [])
+
+  const handleAddCategory = async () => {
+    if (!newCategory.trim()) return
+    const updated = [...categories, newCategory.trim().toUpperCase()]
+    await saveCategories(updated)
+    setNewCategory("")
+    alert("Category Added")
+  }
+
+  const handleDeleteCategory = async (category: string) => {
+    if (confirm(`Delete category ${category}?`)) {
+      const updated = categories.filter(c => c !== category)
+      await saveCategories(updated)
+    }
+  }
+
+  const handleSaveAnnouncement = async () => {
+    await saveAnnouncement(announcement)
+    alert("Announcement Saved")
+  }
 
 
 
@@ -991,10 +1037,110 @@ export default function AdminPage() {
                         <div className="text-2xl font-bold">3</div>
                       </div>
                       <div className="p-4 bg-gray-50 dark:bg-gray-900">
-                        <div className="text-xs text-gray-500 mb-1">COMPANY RULES</div>
-                        <div className="text-2xl font-bold">{companyRules.length}</div>
+                        <div className="text-xs text-gray-500 mb-1">TOTAL SITE VIEWS</div>
+                        <div className="text-3xl font-bold">{analyticsData.totalViews || 0}</div>
+                      </div>
+                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
+                        <div className="text-xs text-gray-500 mb-1">HOME PAGE VIEWS</div>
+                        <div className="text-2xl font-bold">{analyticsData.pageViews?.home || 0}</div>
+                      </div>
+                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
+                        <div className="text-xs text-gray-500 mb-1">PRODUCTS PAGE VIEWS</div>
+                        <div className="text-2xl font-bold">{analyticsData.pageViews?.products || 0}</div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Categories Tab */}
+            {activeTab === "categories" && (
+              <div className="max-w-4xl mx-auto space-y-8">
+                <div className="bg-white dark:bg-gray-900 p-8 border-2 border-black dark:border-white">
+                  <h2 className="text-2xl font-bold mb-6 tracking-widest uppercase">Manage Categories</h2>
+                  <div className="flex gap-4 mb-8">
+                    <Input
+                      value={newCategory}
+                      onChange={(e) => setNewCategory(e.target.value)}
+                      placeholder="New Category Name"
+                      className="uppercase"
+                    />
+                    <Button onClick={handleAddCategory} className="bg-black text-white hover:bg-gray-800">
+                      <Plus className="w-4 h-4 mr-2" /> ADD
+                    </Button>
+                  </div>
+                  <div className="space-y-2">
+                    {categories.map((cat) => (
+                      <div key={cat} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-800">
+                        <span className="font-medium">{cat}</span>
+                        <Button variant="ghost" size="sm" onClick={() => handleDeleteCategory(cat)} className="text-red-500 hover:text-red-700">
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Site Control Tab */}
+            {activeTab === "site_control" && (
+              <div className="max-w-4xl mx-auto space-y-8">
+                <div className="bg-white dark:bg-gray-900 p-8 border-2 border-black dark:border-white">
+                  <h2 className="text-2xl font-bold mb-6 tracking-widest uppercase">Announcement Bar</h2>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <label className="font-bold">ENABLE:</label>
+                      <input
+                        type="checkbox"
+                        checked={announcement.enabled}
+                        onChange={(e) => setAnnouncement({ ...announcement, enabled: e.target.checked })}
+                        className="w-6 h-6"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold mb-2">TEXT</label>
+                      <Input
+                        value={announcement.text}
+                        onChange={(e) => setAnnouncement({ ...announcement, text: e.target.value })}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-bold mb-2">BACKGROUND COLOR</label>
+                        <div className="flex gap-2">
+                          <Input
+                            type="color"
+                            value={announcement.backgroundColor}
+                            onChange={(e) => setAnnouncement({ ...announcement, backgroundColor: e.target.value })}
+                            className="w-12 h-10 p-1"
+                          />
+                          <Input
+                            value={announcement.backgroundColor}
+                            onChange={(e) => setAnnouncement({ ...announcement, backgroundColor: e.target.value })}
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold mb-2">TEXT COLOR</label>
+                        <div className="flex gap-2">
+                          <Input
+                            type="color"
+                            value={announcement.textColor}
+                            onChange={(e) => setAnnouncement({ ...announcement, textColor: e.target.value })}
+                            className="w-12 h-10 p-1"
+                          />
+                          <Input
+                            value={announcement.textColor}
+                            onChange={(e) => setAnnouncement({ ...announcement, textColor: e.target.value })}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <Button onClick={handleSaveAnnouncement} className="bg-black text-white hover:bg-gray-800 w-full mt-4">
+                      SAVE ANNOUNCEMENT
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -1013,7 +1159,7 @@ export default function AdminPage() {
               <img src="/paragondxb-logo.jpg" alt="ParagonDXB" className="h-8 w-8 rounded-full opacity-40" />
             </div>
             <p className="text-gray-400 text-xs font-mono tracking-widest uppercase">
-              2025 ParagonDXB, INC. ALL RIGHTS RESERVED.
+              2026 ParagonDXB, INC. ALL RIGHTS RESERVED.
             </p>
           </div>
         </footer>

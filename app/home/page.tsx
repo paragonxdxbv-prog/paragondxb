@@ -7,7 +7,7 @@ import { ArrowRight, Instagram, Youtube } from "lucide-react"
 import { ImageWithLoading } from "@/components/image-with-loading"
 import { FirebaseAnalytics } from "@/components/firebase-analytics"
 import { Navigation } from "@/components/navigation"
-import { logEvent, subscribeToProducts, subscribeToSocialMedia } from '@/lib/firebase-utils'
+import { logEvent, subscribeToProducts, subscribeToSocialMedia, incrementPageView, subscribeToAnnouncement, type Announcement } from '@/lib/firebase-utils'
 
 // TikTok Icon Component
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -40,8 +40,17 @@ export default function HomePage() {
     youtube: "https://youtube.com/@paragondxb",
     tiktok: "https://tiktok.com/@paragondxb"
   })
+  const [announcement, setAnnouncement] = useState<Announcement>({
+    enabled: false,
+    text: "",
+    backgroundColor: "#000000",
+    textColor: "#FFFFFF"
+  })
 
   useEffect(() => {
+    // Track page view
+    incrementPageView('home')
+
     const timer = setTimeout(() => {
       setIsPageLoaded(true)
     }, 100)
@@ -56,10 +65,16 @@ export default function HomePage() {
       setSocialMedia(urls)
     })
 
+    // Real-time subscription to announcement
+    const unsubscribeAnnouncement = subscribeToAnnouncement((data) => {
+      setAnnouncement(data)
+    })
+
     return () => {
       clearTimeout(timer)
       unsubscribeProducts()
       unsubscribeSocial()
+      unsubscribeAnnouncement()
     }
   }, [])
 
@@ -310,7 +325,7 @@ export default function HomePage() {
       >
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-gray-400 dark:text-gray-500 text-xs font-mono tracking-widest uppercase">
-            © 2025 ParagonDXB, INC. ALL RIGHTS RESERVED.
+            © 2026 ParagonDXB, INC. ALL RIGHTS RESERVED.
           </p>
         </div>
       </footer>
