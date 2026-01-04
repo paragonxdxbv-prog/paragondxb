@@ -1,13 +1,12 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, ExternalLink } from "lucide-react"
+import { ArrowLeft, MessageSquare } from "lucide-react"
 import { ImageWithLoading } from "@/components/image-with-loading"
 import { FirebaseAnalytics } from "@/components/firebase-analytics"
 import { Navigation } from "@/components/navigation"
 import { getProduct, logEvent } from "@/lib/firebase-utils"
+import { RequestOrderModal } from "@/components/request-order-modal"
 
 interface Product {
   id: string
@@ -30,6 +29,7 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -60,17 +60,12 @@ export default function ProductDetailPage() {
     }
   }
 
-  const handleBuyNow = () => {
-    if (product?.buyUrl) {
-      logEvent('purchase_attempt', {
-        item_id: product.id,
-        item_name: product.name,
-        category: product.category,
-        price: product.price,
-        redirect_url: product.buyUrl
-      })
-      window.open(product.buyUrl, '_blank', 'noopener,noreferrer')
-    }
+  const handleRequestOrder = () => {
+    setIsOrderModalOpen(true)
+    logEvent('request_order_click', {
+      item_id: product?.id,
+      item_name: product?.name
+    })
   }
 
   const productImages = product?.images && product.images.length > 0
@@ -114,6 +109,13 @@ export default function ProductDetailPage() {
     >
       <FirebaseAnalytics />
       <Navigation isPageLoaded={isPageLoaded} currentPage="products" />
+
+      <RequestOrderModal
+        isOpen={isOrderModalOpen}
+        onClose={() => setIsOrderModalOpen(false)}
+        productName={product.name}
+        productId={product.id}
+      />
 
       {/* Product Detail Section */}
       <div className="px-8 py-16">
@@ -260,26 +262,18 @@ export default function ProductDetailPage() {
                   </p>
                 </div>
 
-                {/* Buy Button - Always Visible */}
+                {/* Buy Button - Changed to Request Order */}
                 <div className="pt-6">
                   <Button
-                    onClick={handleBuyNow}
-                    disabled={!product.buyUrl}
-                    className="w-full bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed border-0 text-base font-medium tracking-widest uppercase px-8 py-8 transition-all duration-300 hover:scale-105"
+                    onClick={handleRequestOrder}
+                    className="w-full bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 border-0 text-base font-medium tracking-widest uppercase px-8 py-8 transition-all duration-300 hover:scale-105"
                   >
-                    {product.buyUrl ? 'BUY NOW' : 'COMING SOON'}
-                    {product.buyUrl && <ExternalLink className="ml-3 w-5 h-5" />}
+                    REQUEST ORDER
+                    <MessageSquare className="ml-3 w-5 h-5" />
                   </Button>
-                  {product.buyUrl && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-4">
-                      You will be redirected to complete your purchase
-                    </p>
-                  )}
-                  {!product.buyUrl && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-4">
-                      Purchase link not yet available
-                    </p>
-                  )}
+                  <p className="text-xs text-center mt-4 font-mono text-gray-400">
+                    Direct personalized order via Concierge Chat
+                  </p>
                 </div>
 
                 {/* Features */}

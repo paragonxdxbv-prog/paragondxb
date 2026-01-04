@@ -1,34 +1,30 @@
 import type { Metadata } from 'next'
-import { ThemeProvider } from '@/components/theme-provider'
-import './globals.css'
+import { AuthProvider } from "@/lib/auth-context"
+import "./globals.css"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: 'ParagonDXB',
-  description: 'ParagonDXB - Premium Automotive Products',
-  generator: 'ParagonDXB',
-  icons: {
-    icon: '/paragondxb-logo.jpg',
-    shortcut: '/paragondxb-logo.jpg',
-    apple: '/paragondxb-logo.jpg',
-  },
+  title: "ParagonDXB | Premium Automotive & Digital Assets",
+  description: "Exclusive automotive content, digital assets, and premium merchandise.",
 }
+
+import { GlobalChat } from "@/components/global-chat"
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="font-mono">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
-          disableTransitionOnChange={false}
-        >
+    <html lang="en" className="dark">
+      <body className={`${inter.className} min-h-screen bg-white dark:bg-black antialiased selection:bg-red-500 selection:text-white`}>
+        <AuthProvider>
           {children}
-        </ThemeProvider>
+          <GlobalChat />
+        </AuthProvider>
       </body>
     </html>
   )

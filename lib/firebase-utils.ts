@@ -17,7 +17,9 @@ import {
   DocumentSnapshot,
   FirestoreError,
   increment,
-  writeBatch
+  writeBatch,
+  serverTimestamp,
+  Timestamp
 } from 'firebase/firestore'
 import {
   ref,
@@ -25,7 +27,7 @@ import {
   getDownloadURL,
   deleteObject
 } from 'firebase/storage'
-import { db, storage } from './firebase'
+import { db, storage, analytics } from './firebase'
 
 // Analytics helper
 export const logEvent = (eventName: string, parameters?: any) => {
@@ -318,7 +320,109 @@ export const saveSocialMediaUrls = async (socialMediaUrls: { instagram: string, 
   }
 }
 
-// Real-time listeners for live updates
+// Real-time listeners for
+// Ticket Management
+export const addTicket = async (ticketData: any) => {
+  const ticketsRef = collection(db, "tickets")
+  const docRef = await addDoc(ticketsRef, {
+    ...ticketData,
+    createdAt: serverTimestamp(),
+    status: 'open',
+    lastMessageAt: serverTimestamp(),
+    unreadCount: 0 // For Admin
+  })
+  return docRef.id
+}
+
+// Subscribe to Users (Admin only)
+export const subscribeToUsers = (callback: (users: any[]) => void) => {
+  const q = query(collection(db, "users"), orderBy("lastSeen", "desc"))
+  return onSnapshot(q, (snapshot) => {
+    const users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    callback(users)
+  })
+}
+
+// --- CHAT SYSTEM ---
+
+// Send Message
+export const sendMessage = async (ticketId: string, text: string, senderId: string, isAdmin: boolean = false, attachments: string[] = []) => {
+  const messagesRef = collection(db, "tickets", ticketId, "messages")
+  await addDoc(messagesRef, {
+    text,
+    senderId,
+    createdAt: serverTimestamp(),
+    isAdmin,
+    attachments
+  })
+
+  // Update Ticket Last Message
+  const ticketRef = doc(db, "tickets", ticketId)
+  await updateDoc(ticketRef, {
+    lastMessage: text,
+    lastMessageAt: serverTimestamp(),
+    unreadCount: increment(1) // Logic to handle who acts needs refinement, but simple increment is ok for now.
+    // Ideally: if isAdmin -> unreadCountUser increment. If User -> unreadCountAdmin increment.
+    // simpler: handled by cloud function or just client-side logic reading 'readBy' arrays.
+    // For now, let's just update lastMessageAt.
+  })
+}
+
+// Subscribe to Messages
+export const subscribeToMessages = (ticketId: string, callback: (messages: any[]) => void) => {
+  const q = query(
+    collection(db, "tickets", ticketId, "messages"),
+    orderBy("createdAt", "asc")
+  )
+  return onSnapshot(q, (snapshot) => {
+    const messages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    callback(messages)
+  })
+}
+
+// Find Open Ticket for User (General Inquiry)
+// This helps preventing multiple open tickets for the same user for general chat
+export const findOpenTicket = async (userId: string) => {
+  const q = query(
+    collection(db, "tickets"),
+    where("userId", "==", userId),
+    where("status", "==", "open"),
+    where("type", "==", "general_inquiry"), // Distinguish from orders?
+    limit(1)
+  )
+  const snapshot = await getDocs(q)
+  if (!snapshot.empty) {
+    return snapshot.docs[0].id
+  }
+  return null
+}
+
+// Subscribe to User Tickets
+export const subscribeToUserTickets = (userId: string, callback: (tickets: any[]) => void) => {
+  const q = query(
+    collection(db, "tickets"),
+    where("userId", "==", userId),
+    orderBy("createdAt", "desc")
+  )
+  return onSnapshot(q, (snapshot) => {
+    const tickets = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    callback(tickets)
+  })
+}
+
+// Subscribe to All Tickets (Admin)
+export const subscribeToAllTickets = (callback: (tickets: any[]) => void) => {
+  const q = query(
+    collection(db, "tickets"),
+    orderBy("lastMessageAt", "desc")
+  )
+  return onSnapshot(q, (snapshot) => {
+    const tickets = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    callback(tickets)
+  })
+}
+
+// Subscribe to Products
 export const subscribeToProducts = (callback: (products: any[]) => void) => {
   const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'))
 

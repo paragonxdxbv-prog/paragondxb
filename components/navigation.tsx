@@ -3,6 +3,7 @@
 import * as React from "react"
 import { useTheme } from "next-themes"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { NavbarAuth } from "@/components/ui/navbar-auth"
 import { Menu, X } from "lucide-react"
 
 interface NavigationProps {
@@ -64,8 +65,8 @@ export function Navigation({ isPageLoaded, currentPage = "home" }: NavigationPro
               {/* Active indicator */}
               <span
                 className={`absolute bottom-0 left-0 w-full h-0.5 bg-black dark:bg-white transition-all duration-300 ${currentPage === link.page
-                    ? "opacity-100 scale-x-100"
-                    : "opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"
+                  ? "opacity-100 scale-x-100"
+                  : "opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"
                   }`}
               />
             </a>
@@ -74,6 +75,14 @@ export function Navigation({ isPageLoaded, currentPage = "home" }: NavigationPro
 
         {/* Right side - Theme Toggle & Mobile Menu */}
         <div className="flex items-center space-x-4">
+          <div
+            className={`transition-all duration-700 ${isPageLoaded ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+              }`}
+            style={{ transitionDelay: "350ms" }}
+          >
+            <NavbarAuth />
+          </div>
+
           <div
             className={`transition-all duration-700 ${isPageLoaded ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
               }`}
@@ -104,8 +113,8 @@ export function Navigation({ isPageLoaded, currentPage = "home" }: NavigationPro
               key={link.page}
               href={link.href}
               className={`px-4 py-3 text-sm font-medium tracking-widest uppercase border-2 transition-all duration-300 ${currentPage === link.page
-                  ? "bg-black dark:bg-white text-white dark:text-black border-black dark:border-white"
-                  : "bg-transparent border-gray-300 dark:border-gray-700 text-black dark:text-white hover:border-black dark:hover:border-white"
+                ? "bg-black dark:bg-white text-white dark:text-black border-black dark:border-white"
+                : "bg-transparent border-gray-300 dark:border-gray-700 text-black dark:text-white hover:border-black dark:hover:border-white"
                 }`}
               style={{
                 transitionDelay: mobileMenuOpen ? `${100 + index * 50}ms` : "0ms",
