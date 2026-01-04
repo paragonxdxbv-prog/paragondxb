@@ -7,7 +7,7 @@ import { Search, SlidersHorizontal, X } from "lucide-react"
 import { ImageWithLoading } from "@/components/image-with-loading"
 import { FirebaseAnalytics } from "@/components/firebase-analytics"
 import { Navigation } from "@/components/navigation"
-import { logEvent, getProducts } from "@/lib/firebase-utils"
+import { logEvent, subscribeToProducts } from "@/lib/firebase-utils"
 
 interface Product {
   id: string
@@ -49,20 +49,17 @@ export default function ProductsPage() {
   }, [])
 
   useEffect(() => {
-    loadProducts()
-  }, [])
+    setLoading(true)
 
-  const loadProducts = async () => {
-    try {
-      setLoading(true)
-      const productsData = await getProducts()
+    // Real-time subscription - products appear instantly when added/edited/deleted
+    const unsubscribe = subscribeToProducts((productsData) => {
       setProducts(productsData)
-    } catch (error) {
-      console.error('Error loading products:', error)
-    } finally {
       setLoading(false)
-    }
-  }
+    })
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe()
+  }, [])
 
   const handleCategoryFilter = (category: string) => {
     logEvent('filter_products', {
@@ -201,8 +198,8 @@ export default function ProductsPage() {
                           key={category}
                           onClick={() => handleCategoryFilter(category)}
                           className={`w-full text-left px-4 py-3 text-sm tracking-wider transition-all duration-300 border-2 ${selectedCategory === category
-                              ? "bg-black dark:bg-white text-white dark:text-black border-black dark:border-white font-bold"
-                              : "bg-transparent border-gray-300 dark:border-gray-700 hover:border-black dark:hover:border-white"
+                            ? "bg-black dark:bg-white text-white dark:text-black border-black dark:border-white font-bold"
+                            : "bg-transparent border-gray-300 dark:border-gray-700 hover:border-black dark:hover:border-white"
                             }`}
                         >
                           <div className="flex justify-between items-center">

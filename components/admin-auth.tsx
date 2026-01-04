@@ -27,7 +27,7 @@ export function AdminAuth({ children }: AdminAuthProps) {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     // Simple password check - in production, use proper authentication
-    if (password === 'apex.auto.prints@1!.com') {
+    if (password === 'paragon.v.dxb@1!.com') {
       localStorage.setItem('admin_authenticated', 'true')
       setIsAuthenticated(true)
     } else {

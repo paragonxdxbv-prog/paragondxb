@@ -336,8 +336,8 @@ export default function AdminPage() {
               <button
                 onClick={() => setActiveTab("products")}
                 className={`px-6 py-3 text-sm font-medium tracking-widest uppercase transition-all duration-300 ${activeTab === "products"
-                    ? "border-b-2 border-black dark:border-white text-black dark:text-white"
-                    : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                  ? "border-b-2 border-black dark:border-white text-black dark:text-white"
+                  : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
                   }`}
               >
                 PRODUCTS ({products.length})
@@ -345,8 +345,8 @@ export default function AdminPage() {
               <button
                 onClick={() => setActiveTab("about")}
                 className={`px-6 py-3 text-sm font-medium tracking-widest uppercase transition-all duration-300 ${activeTab === "about"
-                    ? "border-b-2 border-black dark:border-white text-black dark:text-white"
-                    : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                  ? "border-b-2 border-black dark:border-white text-black dark:text-white"
+                  : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
                   }`}
               >
                 ABOUT PAGE
@@ -354,8 +354,8 @@ export default function AdminPage() {
               <button
                 onClick={() => setActiveTab("rules")}
                 className={`px-6 py-3 text-sm font-medium tracking-widest uppercase transition-all duration-300 ${activeTab === "rules"
-                    ? "border-b-2 border-black dark:border-white text-black dark:text-white"
-                    : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                  ? "border-b-2 border-black dark:border-white text-black dark:text-white"
+                  : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
                   }`}
               >
                 COMPANY RULES
@@ -363,20 +363,20 @@ export default function AdminPage() {
               <button
                 onClick={() => setActiveTab("social")}
                 className={`px-6 py-3 text-sm font-medium tracking-widest uppercase transition-all duration-300 ${activeTab === "social"
-                    ? "border-b-2 border-black dark:border-white text-black dark:text-white"
-                    : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                  ? "border-b-2 border-black dark:border-white text-black dark:text-white"
+                  : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
                   }`}
               >
                 SOCIAL MEDIA
               </button>
               <button
-                onClick={() => setActiveTab("sync")}
-                className={`px-6 py-3 text-sm font-medium tracking-widest uppercase transition-all duration-300 ${activeTab === "sync"
-                    ? "border-b-2 border-black dark:border-white text-black dark:text-white"
-                    : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                onClick={() => setActiveTab("analytics")}
+                className={`px-6 py-3 text-sm font-medium tracking-widest uppercase transition-all duration-300 ${activeTab === "analytics"
+                  ? "border-b-2 border-black dark:border-white text-black dark:text-white"
+                  : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
                   }`}
               >
-                ETSY SYNC
+                ANALYTICS
               </button>
             </div>
 
@@ -917,61 +917,75 @@ export default function AdminPage() {
               </div>
             )}
 
-            {/* Etsy Sync Tab */}
-            {activeTab === "sync" && (
+            {/* Analytics Tab */}
+            {activeTab === "analytics" && (
               <div className="max-w-4xl mx-auto">
                 <div className="bg-white dark:bg-black border-2 border-black dark:border-white p-8">
                   <h2 className="text-2xl font-bold tracking-widest uppercase mb-6">
-                    SYNC ETSY PRODUCTS
+                    WEBSITE ANALYTICS
                   </h2>
 
-                  <div className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6 mb-8">
                     <div className="bg-gray-50 dark:bg-gray-900 p-6 border border-gray-200 dark:border-gray-700">
-                      <h3 className="text-sm font-bold tracking-widest uppercase mb-4">HOW TO SYNC YOUR ETSY PRODUCTS:</h3>
-                      <ol className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                        <li className="flex gap-3">
-                          <span className="font-bold">1.</span>
-                          <span>Go to your Etsy shop and copy your product details</span>
+                      <h3 className="text-sm font-bold tracking-widest uppercase mb-2">TRACKED EVENTS</h3>
+                      <p className="text-2xl font-bold mb-4 text-green-600">LIVE</p>
+                      <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400 font-mono">
+                        <li className="flex justify-between">
+                          <span>• PAGE VIEWS</span>
+                          <span className="text-green-500">● Active</span>
                         </li>
-                        <li className="flex gap-3">
-                          <span className="font-bold">2.</span>
-                          <span>Add products manually using the PRODUCTS tab above</span>
+                        <li className="flex justify-between">
+                          <span>• PRODUCT CLICKS</span>
+                          <span className="text-green-500">● Active</span>
                         </li>
-                        <li className="flex gap-3">
-                          <span className="font-bold">3.</span>
-                          <span>Make sure to include the Etsy product URL in the "Buy URL" field</span>
+                        <li className="flex justify-between">
+                          <span>• SOCIAL CLICKS</span>
+                          <span className="text-green-500">● Active</span>
                         </li>
-                        <li className="flex gap-3">
-                          <span className="font-bold">4.</span>
-                          <span>When users click "BUY NOW", they'll be redirected to your Etsy listing</span>
+                        <li className="flex justify-between">
+                          <span>• PURCHASES</span>
+                          <span className="text-green-500">● Active</span>
                         </li>
-                      </ol>
-                    </div>
-
-                    <div className="bg-blue-50 dark:bg-blue-900/20 p-6 border border-blue-200 dark:border-blue-800">
-                      <h3 className="text-sm font-bold tracking-widest uppercase mb-3 text-blue-900 dark:text-blue-300">
-                        TIP: PRODUCT STRUCTURE
-                      </h3>
-                      <p className="text-sm text-blue-800 dark:text-blue-400 mb-3">
-                        Each product should have:
-                      </p>
-                      <ul className="space-y-2 text-sm text-blue-700 dark:text-blue-400">
-                        <li>• Product Name</li>
-                        <li>• Price (your Etsy price)</li>
-                        <li>• Category (DIGITAL PRODUCTS, SHOES, CLOTHING, etc.)</li>
-                        <li>• Image URL (from Etsy or your hosting)</li>
-                        <li>• Description</li>
-                        <li>• Buy URL (your Etsy product link)</li>
                       </ul>
                     </div>
 
-                    <div className="text-center pt-4">
+                    <div className="bg-blue-50 dark:bg-blue-900/20 p-6 border border-blue-200 dark:border-blue-800 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-sm font-bold tracking-widest uppercase mb-2 text-blue-900 dark:text-blue-300">
+                          REAL-TIME DASHBOARD
+                        </h3>
+                        <p className="text-sm text-blue-800 dark:text-blue-400 mb-6">
+                          View live visitor count, top locations, and popular pages directly in the Firebase Console.
+                        </p>
+                      </div>
                       <Button
-                        onClick={() => setActiveTab("products")}
-                        className="bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 border-0 text-sm font-medium tracking-widest uppercase px-8 py-4"
+                        onClick={() => window.open('https://console.firebase.google.com/u/0/project/paragondxb-v/analytics/app/web%3A1a526b2725fbd1ba347461/overview/reports~2Fdashboard%3Fcreate_report=true', '_blank')}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white border-0 text-sm font-medium tracking-widest uppercase py-4"
                       >
-                        GO TO PRODUCTS TAB
+                        OPEN ANALYTICS DASHBOARD
                       </Button>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-gray-200 dark:border-gray-800 pt-8">
+                    <h3 className="text-sm font-bold tracking-widest uppercase mb-4">DATA OVERVIEW</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
+                        <div className="text-xs text-gray-500 mb-1">PRODUCTS</div>
+                        <div className="text-2xl font-bold">{products.length}</div>
+                      </div>
+                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
+                        <div className="text-xs text-gray-500 mb-1">CATEGORIES</div>
+                        <div className="text-2xl font-bold">5</div>
+                      </div>
+                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
+                        <div className="text-xs text-gray-500 mb-1">SOCIAL LINKS</div>
+                        <div className="text-2xl font-bold">3</div>
+                      </div>
+                      <div className="p-4 bg-gray-50 dark:bg-gray-900">
+                        <div className="text-xs text-gray-500 mb-1">COMPANY RULES</div>
+                        <div className="text-2xl font-bold">{companyRules.length}</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -987,16 +1001,12 @@ export default function AdminPage() {
           style={{ transitionDelay: "1000ms" }}
         >
           <div className="max-w-4xl mx-auto text-center">
-            <div className="flex justify-center mb-6">
-              <img src="/apex-auto-light.png" alt="APEX AUTO" className="h-8 w-auto opacity-40 dark:hidden" />
-              <img src="/apex-auto-dark.png" alt="APEX AUTO" className="h-8 w-auto opacity-40 hidden dark:block" />
-            </div>
-            <p className="text-gray-400 text-xs font-mono tracking-widest uppercase">
-              2025 APEX AUTO, INC. ALL RIGHTS RESERVED.
-            </p>
-          </div>
-        </footer>
+            <img src="/paragondxb-logo.jpg" alt="ParagonDXB" className="h-8 w-8 rounded-full opacity-40" />
+            2025 ParagonDXB, INC. ALL RIGHTS RESERVED.
+          </p>
       </div>
-    </AdminAuth>
+    </footer>
+      </div >
+    </AdminAuth >
   )
 }

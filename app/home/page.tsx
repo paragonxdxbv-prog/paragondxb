@@ -7,7 +7,7 @@ import { ArrowRight, Instagram, Youtube } from "lucide-react"
 import { ImageWithLoading } from "@/components/image-with-loading"
 import { FirebaseAnalytics } from "@/components/firebase-analytics"
 import { Navigation } from "@/components/navigation"
-import { logEvent, getSocialMediaUrls, getProducts } from '@/lib/firebase-utils'
+import { logEvent, subscribeToProducts, subscribeToSocialMedia } from '@/lib/firebase-utils'
 
 // TikTok Icon Component
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -46,10 +46,21 @@ export default function HomePage() {
       setIsPageLoaded(true)
     }, 100)
 
-    loadSocialMedia()
-    loadProducts()
+    // Real-time subscription to products
+    const unsubscribeProducts = subscribeToProducts((productsData) => {
+      setProducts(productsData)
+    })
 
-    return () => clearTimeout(timer)
+    // Real-time subscription to social media
+    const unsubscribeSocial = subscribeToSocialMedia((urls) => {
+      setSocialMedia(urls)
+    })
+
+    return () => {
+      clearTimeout(timer)
+      unsubscribeProducts()
+      unsubscribeSocial()
+    }
   }, [])
 
   // Auto-rotate products every 15 seconds
@@ -67,23 +78,7 @@ export default function HomePage() {
     return () => clearInterval(interval)
   }, [products.length])
 
-  const loadProducts = async () => {
-    try {
-      const productsData = await getProducts()
-      setProducts(productsData)
-    } catch (error) {
-      console.error('Error loading products:', error)
-    }
-  }
 
-  const loadSocialMedia = async () => {
-    try {
-      const urls = await getSocialMediaUrls()
-      setSocialMedia(urls)
-    } catch (error) {
-      console.error('Error loading social media URLs:', error)
-    }
-  }
 
   const handleShopNowClick = () => {
     logEvent('cta_click', {
@@ -143,7 +138,7 @@ export default function HomePage() {
               style={{ transitionDelay: "300ms" }}
             >
               <h1 className="text-7xl md:text-9xl font-bold tracking-widest uppercase mb-6 leading-none">
-                ParagonDXB
+                Paragon
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-mono tracking-wider mb-4 leading-relaxed">
                 PREMIUM PRODUCTS.<br />

@@ -4,7 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { FirebaseAnalytics } from "@/components/firebase-analytics"
 import { Navigation } from "@/components/navigation"
-import { getAboutContent, getCompanyRules } from "@/lib/firebase-utils"
+import { subscribeToAboutContent, subscribeToCompanyRules } from "@/lib/firebase-utils"
 import { Target, Users, Award, Globe, Heart, TrendingUp, Shield, Sparkles } from "lucide-react"
 
 export default function AboutPage() {
@@ -49,48 +49,34 @@ export default function AboutPage() {
   }, [])
 
   useEffect(() => {
-    loadCompanyRules()
-    loadAboutContent()
-  }, [])
-
-  const loadAboutContent = async () => {
-    try {
-      const content = await getAboutContent()
+    // Real-time about content
+    const unsubscribeAbout = subscribeToAboutContent((content) => {
       if (content) {
-        setAboutContent(content)
+        setAboutContent(prev => ({ ...prev, ...content }))
       }
-    } catch (error) {
-      console.error('Error loading about content:', error)
-    }
-  }
+    })
 
-  const loadCompanyRules = async () => {
-    try {
-      const rules = await getCompanyRules()
+    // Real-time company rules
+    const unsubscribeRules = subscribeToCompanyRules((rules) => {
       if (rules && rules.length > 0) {
         setCompanyRules(rules)
       } else {
-        const defaultRules = [
+        // Fallback defaults
+        setCompanyRules([
           "All products must meet our premium quality standards before listing",
           "Customer data privacy and security is our top priority",
           "We maintain sustainable and ethical sourcing practices",
           "Innovation and customer experience drive all our decisions",
           "We provide honest and transparent product descriptions"
-        ]
-        setCompanyRules(defaultRules)
+        ])
       }
-    } catch (error) {
-      console.error('Error loading company rules:', error)
-      const defaultRules = [
-        "All products must meet our premium quality standards before listing",
-        "Customer data privacy and security is our top priority",
-        "We maintain sustainable and ethical sourcing practices",
-        "Innovation and customer experience drive all our decisions",
-        "We provide honest and transparent product descriptions"
-      ]
-      setCompanyRules(defaultRules)
+    })
+
+    return () => {
+      unsubscribeAbout()
+      unsubscribeRules()
     }
-  }
+  }, [])
 
   const getValueIcon = (title: string) => {
     switch (title.toUpperCase()) {

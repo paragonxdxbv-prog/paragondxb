@@ -12,7 +12,10 @@ import {
   where,
   orderBy,
   limit,
-  onSnapshot
+  onSnapshot,
+  QuerySnapshot,
+  DocumentSnapshot,
+  FirestoreError
 } from 'firebase/firestore'
 import {
   ref,
@@ -317,13 +320,13 @@ export const saveSocialMediaUrls = async (socialMediaUrls: { instagram: string, 
 export const subscribeToProducts = (callback: (products: any[]) => void) => {
   const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'))
 
-  return onSnapshot(q, (querySnapshot) => {
+  return onSnapshot(q, (querySnapshot: QuerySnapshot) => {
     const products = querySnapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
     }))
     callback(products)
-  }, (error) => {
+  }, (error: FirestoreError) => {
     console.error('Error in products subscription:', error)
   })
 }
@@ -331,13 +334,13 @@ export const subscribeToProducts = (callback: (products: any[]) => void) => {
 export const subscribeToSocialMedia = (callback: (socialMedia: any) => void) => {
   const docRef = doc(db, 'settings', 'socialMedia')
 
-  return onSnapshot(docRef, (docSnap) => {
+  return onSnapshot(docRef, (docSnap: DocumentSnapshot) => {
     if (docSnap.exists()) {
       const data = docSnap.data()
       callback({
-        instagram: data.instagram || "https://instagram.com/paragondxb",
-        youtube: data.youtube || "https://youtube.com/@paragondxb",
-        tiktok: data.tiktok || "https://tiktok.com/@paragondxb"
+        instagram: data?.instagram || "https://instagram.com/paragondxb",
+        youtube: data?.youtube || "https://youtube.com/@paragondxb",
+        tiktok: data?.tiktok || "https://tiktok.com/@paragondxb"
       })
     } else {
       callback({
@@ -346,7 +349,7 @@ export const subscribeToSocialMedia = (callback: (socialMedia: any) => void) => 
         tiktok: "https://tiktok.com/@paragondxb"
       })
     }
-  }, (error) => {
+  }, (error: FirestoreError) => {
     console.error('Error in social media subscription:', error)
   })
 }
@@ -354,11 +357,11 @@ export const subscribeToSocialMedia = (callback: (socialMedia: any) => void) => 
 export const subscribeToAboutContent = (callback: (aboutContent: any) => void) => {
   const docRef = doc(db, 'content', 'about')
 
-  return onSnapshot(docRef, (docSnap) => {
+  return onSnapshot(docRef, (docSnap: DocumentSnapshot) => {
     if (docSnap.exists()) {
       callback({ id: docSnap.id, ...docSnap.data() })
     }
-  }, (error) => {
+  }, (error: FirestoreError) => {
     console.error('Error in about content subscription:', error)
   })
 }
@@ -366,14 +369,14 @@ export const subscribeToAboutContent = (callback: (aboutContent: any) => void) =
 export const subscribeToCompanyRules = (callback: (rules: string[]) => void) => {
   const docRef = doc(db, 'settings', 'companyRules')
 
-  return onSnapshot(docRef, (docSnap) => {
+  return onSnapshot(docRef, (docSnap: DocumentSnapshot) => {
     if (docSnap.exists()) {
       const data = docSnap.data()
-      callback(data.rules || [])
+      callback(data?.rules || [])
     } else {
       callback([])
     }
-  }, (error) => {
+  }, (error: FirestoreError) => {
     console.error('Error in company rules subscription:', error)
   })
 }
