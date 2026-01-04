@@ -41,7 +41,7 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white flex flex-col">
             {/* Navigation */}
-            <nav className="p-6">
+            <nav className="p-6 relative z-10">
                 <Link
                     href="/home"
                     className="inline-flex items-center gap-2 text-sm font-bold tracking-widest hover:opacity-70 transition-opacity"
