@@ -255,7 +255,7 @@ export default function ProductDetailPage() {
                       <span className="text-gray-500">3000x4242PX</span>
                     </li>
                   </ul>
-                  <p className="text-[10px] text-gray-400 mt-4 text-center tracking-wider">
+                  <p className="text-[10px] text-red-600 mt-4 text-center tracking-wider font-bold animate-pulse">
                     *CUSTOM RESOLUTIONS AVAILABLE UPON REQUEST
                   </p>
                 </div>

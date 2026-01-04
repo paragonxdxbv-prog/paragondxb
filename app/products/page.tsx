@@ -63,7 +63,9 @@ export default function ProductsPage() {
 
     // Real-time categories subscription
     const unsubscribeCategories = subscribeToCategories((cats) => {
-      setCategories(["ALL", ...cats])
+      // Filter out NEW ARRIVALS if it exists in DB
+      const filteredCats = cats.filter(c => c !== "NEW ARRIVALS")
+      setCategories(["ALL", ...filteredCats])
     })
 
     // Cleanup subscription on unmount
