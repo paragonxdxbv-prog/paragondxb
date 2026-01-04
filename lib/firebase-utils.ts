@@ -431,7 +431,7 @@ export const subscribeToCategories = (callback: (categories: string[]) => void) 
       callback(docSnap.data()?.list || [])
     } else {
       // Default initial categories
-      const defaults = ["DIGITAL PRODUCTS", "SHOES", "CLOTHING", "ACCESSORIES", "NEW ARRIVALS"]
+      const defaults = ["DIGITAL PRODUCTS", "NEW ARRIVALS"]
       callback(defaults)
     }
   })

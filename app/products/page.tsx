@@ -36,7 +36,7 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
   const [categories, setCategories] = useState<string[]>(["ALL"])
   const [loading, setLoading] = useState(true)
-  const [selectedCategory, setSelectedCategory] = useState("ALL")
+  const [selectedCategory, setSelectedCategory] = useState("DIGITAL PRODUCTS")
   const [searchQuery, setSearchQuery] = useState("")
   const [sortBy, setSortBy] = useState("newest")
   const [showOnSale, setShowOnSale] = useState(false)
@@ -366,7 +366,7 @@ export default function ProductsPage() {
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                           />
                           {product.discountPercentage && (
-                            <div className="absolute top-4 right-4 bg-black dark:bg-white text-white dark:text-black px-3 py-1 text-xs font-bold tracking-wider">
+                            <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 text-xs font-bold tracking-wider">
                               -{product.discountPercentage}%
                             </div>
                           )}
@@ -389,7 +389,7 @@ export default function ProductsPage() {
                           <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
                             {product.originalPrice && product.discountPercentage ? (
                               <div className="flex items-center gap-3 mb-4">
-                                <span className="text-2xl font-bold text-black dark:text-white">
+                                <span className="text-2xl font-bold text-red-600">
                                   {product.price}
                                 </span>
                                 <span className="text-lg text-gray-400 line-through">

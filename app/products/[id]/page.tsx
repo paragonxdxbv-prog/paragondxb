@@ -158,8 +158,8 @@ export default function ProductDetailPage() {
                       key={index}
                       onClick={() => setSelectedImageIndex(index)}
                       className={`overflow-hidden border-2 transition-all duration-300 hover:scale-105 ${selectedImageIndex === index
-                          ? "border-black dark:border-white"
-                          : "border-gray-300 dark:border-gray-600"
+                        ? "border-black dark:border-white"
+                        : "border-gray-300 dark:border-gray-600"
                         }`}
                     >
                       <ImageWithLoading
@@ -195,7 +195,7 @@ export default function ProductDetailPage() {
                   {product.originalPrice && product.discountPercentage ? (
                     <div className="space-y-3">
                       <div className="flex items-center gap-4">
-                        <span className="text-5xl font-bold text-black dark:text-white">
+                        <span className="text-5xl font-bold text-red-600">
                           {product.price}
                         </span>
                         <span className="text-2xl text-gray-400 line-through">
@@ -203,7 +203,7 @@ export default function ProductDetailPage() {
                         </span>
                       </div>
                       <div className="inline-block">
-                        <span className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 text-sm font-bold tracking-wider">
+                        <span className="bg-red-600 text-white px-4 py-2 text-sm font-bold tracking-wider animate-pulse">
                           SAVE {product.discountPercentage}% - LIMITED TIME OFFER
                         </span>
                       </div>
@@ -276,7 +276,7 @@ export default function ProductDetailPage() {
       >
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-gray-400 dark:text-gray-500 text-xs font-mono tracking-widest uppercase">
-            © 2025 ParagonDXB, INC. ALL RIGHTS RESERVED.
+            © 2026 ParagonDXB, INC. ALL RIGHTS RESERVED.
           </p>
         </div>
       </footer>

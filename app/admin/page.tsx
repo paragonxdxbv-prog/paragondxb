@@ -438,7 +438,7 @@ export default function AdminPage() {
             {/* Product Form Modal */}
             {showForm && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="bg-white p-8 w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+                <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 p-8 w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-xl font-medium tracking-widest uppercase text-black dark:text-white">
                       {editingProduct ? 'EDIT PRODUCT' : 'ADD PRODUCT'}
@@ -447,7 +447,7 @@ export default function AdminPage() {
                       variant="outline"
                       size="sm"
                       onClick={handleCancel}
-                      className="border-gray-300 text-gray-600 hover:bg-gray-100"
+                      className="border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                     >
                       <X className="w-4 h-4" />
                     </Button>
@@ -463,7 +463,7 @@ export default function AdminPage() {
                         value={formData.name}
                         onChange={handleInputChange}
                         placeholder="Enter product name"
-                        className="border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-white text-black dark:text-black"
+                        className="border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-900 text-black dark:text-white placeholder:text-gray-400"
                       />
                     </div>
 
@@ -477,7 +477,7 @@ export default function AdminPage() {
                           value={formData.price}
                           onChange={handleInputChange}
                           placeholder="$180"
-                          className="border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-white text-black dark:text-black"
+                          className="border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-900 text-black dark:text-white placeholder:text-gray-400"
                         />
                       </div>
                       <div>
@@ -489,7 +489,7 @@ export default function AdminPage() {
                           value={formData.originalPrice}
                           onChange={handleInputChange}
                           placeholder="$200"
-                          className="border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-white text-black dark:text-black"
+                          className="border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-900 text-black dark:text-white placeholder:text-gray-400"
                         />
                       </div>
                     </div>
