@@ -5,14 +5,14 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Plus, Edit, Trash2, Save, X, MessageSquare, Search } from "lucide-react"
+import { Plus, Edit, Trash2, Save, X, MessageSquare, Search, XCircle } from "lucide-react"
 import { ImageWithLoading } from "@/components/image-with-loading"
 import { FirebaseAnalytics } from "@/components/firebase-analytics"
 import { AdminAuth } from "@/components/admin-auth"
 import { Navigation } from "@/components/navigation"
 import { ChatInterface } from "@/components/chat-interface"
 import { logEvent } from '@/lib/firebase-utils'
-import { subscribeToProducts, addProduct, updateProduct, deleteProduct, getAboutContent, saveAboutContent, getCompanyRules, saveCompanyRules, getSocialMediaUrls, saveSocialMediaUrls, subscribeToCategories, saveCategories, subscribeToAnnouncement, saveAnnouncement, subscribeToAnalytics, subscribeToUsers, subscribeToAllTickets, type Announcement } from '@/lib/firebase-utils'
+import { subscribeToProducts, addProduct, updateProduct, deleteProduct, getAboutContent, saveAboutContent, getCompanyRules, saveCompanyRules, getSocialMediaUrls, saveSocialMediaUrls, subscribeToCategories, saveCategories, subscribeToAnnouncement, saveAnnouncement, subscribeToAnalytics, subscribeToUsers, subscribeToAllTickets, closeTicket, type Announcement } from '@/lib/firebase-utils'
 
 interface Product {
   id: string
@@ -82,6 +82,9 @@ export default function AdminPage() {
   const [tickets, setTickets] = useState<any[]>([])
   const [selectedTicket, setSelectedTicket] = useState<any | null>(null)
   const [searchTicket, setSearchTicket] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+  const [closingTicket, setClosingTicket] = useState(false)
+  const ticketsPerPage = 5
 
   useEffect(() => {
     const timer = setTimeout(() => {

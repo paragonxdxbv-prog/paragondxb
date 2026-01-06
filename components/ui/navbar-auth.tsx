@@ -73,12 +73,6 @@ export function NavbarAuth() {
                         <span>MY ACCOUNT</span>
                     </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="focus:bg-gray-100 dark:focus:bg-gray-900 cursor-pointer">
-                    <Link href="/account" className="flex w-full items-center text-black dark:text-white">
-                        <Ticket className="mr-2 h-4 w-4" />
-                        <span>SUPPORT TICKETS</span>
-                    </Link>
-                </DropdownMenuItem>
 
                 {/* Only show Admin Panel link if specific email - temporary check until proper role auth */}
                 {user.email === "paragondxb@gmail.com" && (

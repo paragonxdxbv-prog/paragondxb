@@ -2,111 +2,76 @@
 
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { useAuth } from '@/lib/auth-context'
+import { Loader2 } from 'lucide-react'
 
 interface AdminAuthProps {
   children?: React.ReactNode
 }
 
+const ADMIN_EMAIL = 'paragonxdxbv@gmail.com'
+
 export function AdminAuth({ children }: AdminAuthProps) {
-  const [password, setPassword] = useState('')
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const { user, loading } = useAuth()
   const router = useRouter()
+  const [redirecting, setRedirecting] = useState(false)
 
   useEffect(() => {
-    // Check if already authenticated
-    const authStatus = localStorage.getItem('admin_authenticated')
-    if (authStatus === 'true') {
-      setIsAuthenticated(true)
+    if (!loading && !user) {
+      // Not logged in at all
+      setRedirecting(true)
+      router.push('/login')
+    } else if (!loading && user && user.email !== ADMIN_EMAIL) {
+      // Logged in but not admin
+      setRedirecting(true)
+      setTimeout(() => {
+        router.push('/home')
+      }, 15000)
     }
-    setLoading(false)
-  }, [])
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Simple password check - in production, use proper authentication
-    if (password === 'paragon.v.dxb@1!.com') {
-      localStorage.setItem('admin_authenticated', 'true')
-      setIsAuthenticated(true)
-    } else {
-      alert('Invalid password')
-    }
-  }
-
-  const handleLogout = () => {
-    localStorage.removeItem('admin_authenticated')
-    setIsAuthenticated(false)
-    router.push('/')
-  }
+  }, [user, loading, router])
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white text-black font-mono flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-mono flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black mx-auto mb-4"></div>
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
           <p className="text-sm font-mono tracking-widest uppercase">LOADING...</p>
         </div>
       </div>
     )
   }
 
-  if (!isAuthenticated) {
+  // Not logged in - redirect to login
+  if (!user) {
     return (
-      <div className="min-h-screen bg-white text-black font-mono flex items-center justify-center">
-        <div className="max-w-md w-full mx-4">
-          <div className="text-center mb-8">
-            <img src="/paragondxb-logo.jpg" alt="ParagonDXB" className="h-12 w-12 rounded-full object-cover mx-auto mb-4" />
-            <h1 className="text-2xl font-medium tracking-widest uppercase">ADMIN LOGIN</h1>
-            <p className="text-sm text-gray-500 font-mono mt-2">Enter admin password to continue</p>
-          </div>
-
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter admin password"
-                className="border-gray-300 focus:border-black text-center"
-                required
-              />
-            </div>
-            <Button
-              type="submit"
-              className="w-full bg-black text-white hover:bg-gray-800 border-0 text-sm font-medium tracking-widest uppercase py-3"
-            >
-              LOGIN
-            </Button>
-          </form>
-
-          <div className="text-center mt-6">
-            <a
-              href="/"
-              className="text-xs text-gray-500 font-mono tracking-widest uppercase hover:text-black transition-colors"
-            >
-              ← BACK TO WEBSITE
-            </a>
-          </div>
+      <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-mono flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
+          <p className="text-sm font-mono tracking-widest uppercase">Redirecting to login...</p>
         </div>
       </div>
     )
   }
 
-  return (
-    <>
-      <div className="fixed top-4 right-4 z-50">
-        <Button
-          onClick={handleLogout}
-          variant="outline"
-          size="sm"
-          className="border-gray-300 text-gray-600 hover:bg-gray-100 text-xs font-medium tracking-widest uppercase"
-        >
-          LOGOUT
-        </Button>
+  // Logged in but not admin
+  if (user.email !== ADMIN_EMAIL) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-mono flex items-center justify-center">
+        <div className="max-w-md text-center p-8 border-2 border-red-600">
+          <h1 className="text-2xl font-black tracking-tighter uppercase mb-4 text-red-600">
+            HELLO
+          </h1>
+          <p className="text-sm uppercase tracking-wider mb-6">
+            This is the admin page. You do not have permits to access this.
+          </p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+            You will be redirected back to the home page in 15 seconds...
+          </p>
+        </div>
       </div>
-      {children}
-    </>
-  )
+    )
+  }
+
+  // User is admin - show content
+  return <>{children}</>
 }

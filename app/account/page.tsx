@@ -4,9 +4,9 @@ import { useAuth } from "@/lib/auth-context"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Navigation } from "@/components/navigation"
-import { Loader2, LogOut, MessageSquare, Search } from "lucide-react"
+import { Loader2, LogOut, MessageSquare, Search, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { subscribeToUserTickets } from "@/lib/firebase-utils"
+import { subscribeToUserTickets, addTicket } from "@/lib/firebase-utils"
 import { ChatInterface } from "@/components/chat-interface"
 import { Input } from "@/components/ui/input"
 
@@ -17,6 +17,7 @@ export default function AccountPage() {
     const [tickets, setTickets] = useState<any[]>([])
     const [selectedTicket, setSelectedTicket] = useState<any | null>(null)
     const [searchTicket, setSearchTicket] = useState("")
+    const [creatingTicket, setCreatingTicket] = useState(false)
 
     useEffect(() => {
         if (!loading && !user) {
@@ -77,19 +78,72 @@ export default function AccountPage() {
                     </Button>
                 </div>
 
+                {/* User Profile Card */}
+                <div className="bg-gray-50 dark:bg-zinc-950 border border-gray-200 dark:border-gray-800 p-6 mb-6">
+                    <h2 className="text-xl font-bold tracking-wider uppercase mb-4">PROFILE INFORMATION</h2>
+                    <div className="flex items-center gap-4">
+                        {user.photoURL ? (
+                            <img
+                                src={user.photoURL}
+                                alt={user.displayName || "User"}
+                                className="w-16 h-16 rounded-full border-2 border-black dark:border-white object-cover"
+                            />
+                        ) : (
+                            <div className="w-16 h-16 rounded-full bg-black dark:bg-white border-2 border-black dark:border-white flex items-center justify-center">
+                                <span className="text-white dark:text-black font-bold text-2xl">
+                                    {user.displayName?.charAt(0) || "U"}
+                                </span>
+                            </div>
+                        )}
+                        <div>
+                            <p className="font-bold text-lg">{user.displayName || "User"}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Chat / Ticket Layout */}
                 <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 min-h-[600px]">
 
                     {/* Sidebar List */}
                     <div className="md:col-span-1 border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-black p-4 flex flex-col">
-                        <div className="mb-4 relative">
-                            <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
-                            <Input
-                                placeholder="Search orders & tickets..."
-                                value={searchTicket}
-                                onChange={(e) => setSearchTicket(e.target.value)}
-                                className="pl-9 bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700"
-                            />
+                        <div className="mb-4">
+                            <Button
+                                onClick={async () => {
+                                    setCreatingTicket(true)
+                                    try {
+                                        const ticketId = await addTicket({
+                                            userId: user.uid,
+                                            userEmail: user.email,
+                                            userName: user.displayName || user.email,
+                                            subject: 'General Support Inquiry',
+                                            type: 'general_inquiry',
+                                            productName: null,
+                                            productId: null
+                                        })
+                                        alert('New ticket created successfully!')
+                                    } catch (error) {
+                                        console.error('Error creating ticket:', error)
+                                        alert('Failed to create ticket. Please try again.')
+                                    } finally {
+                                        setCreatingTicket(false)
+                                    }
+                                }}
+                                disabled={creatingTicket}
+                                className="w-full bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 mb-3"
+                            >
+                                <Plus className="w-4 h-4 mr-2" />
+                                {creatingTicket ? 'CREATING...' : 'CREATE NEW TICKET'}
+                            </Button>
+                            <div className="relative">
+                                <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+                                <Input
+                                    placeholder="Search orders & tickets..."
+                                    value={searchTicket}
+                                    onChange={(e) => setSearchTicket(e.target.value)}
+                                    className="pl-9 bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700"
+                                />
+                            </div>
                         </div>
 
                         <div className="space-y-2 overflow-y-auto flex-1 max-h-[600px]">

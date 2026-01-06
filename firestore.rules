@@ -6,7 +6,7 @@ service cloud.firestore {
     function isAdmin() {
       // Allow if email matches admin email
       return request.auth != null && (
-        request.auth.token.email == 'paragonxdxbv@gmail.com' ||
+        request.auth.token.email == 'paragondxb@gmail.com' ||
         // Also checks if custom claim is set (for future proofing)
         request.auth.token.admin == true
       );
