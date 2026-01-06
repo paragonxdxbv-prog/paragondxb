@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { useAuth } from "@/lib/auth-context"
-import { subscribeToMessages, sendMessage } from "@/lib/firebase-utils"
+import { subscribeToMessages, sendMessage, getUserProfile } from "@/lib/firebase-utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Send, Loader2, User, Shield } from "lucide-react"
@@ -17,14 +17,39 @@ export function ChatInterface({ ticketId, isAdmin = false }: ChatInterfaceProps)
     const [messages, setMessages] = useState<any[]>([])
     const [newMessage, setNewMessage] = useState("")
     const [loading, setLoading] = useState(false)
+    const [userProfiles, setUserProfiles] = useState<Record<string, { displayName: string, photoURL: string }>>({})
     const messagesEndRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        const unsubscribe = subscribeToMessages(ticketId, (msgs) => {
+        const unsubscribe = subscribeToMessages(ticketId, async (msgs) => {
             setMessages(msgs)
+
+            // Fetch user profiles for senders we don't have yet
+            const newSenderIds = msgs
+                .map(m => m.senderId)
+                .filter((id, index, self) => id && self.indexOf(id) === index && !userProfiles[id])
+
+            if (newSenderIds.length > 0) {
+                const profiles: Record<string, { displayName: string, photoURL: string }> = {}
+                for (const senderId of newSenderIds) {
+                    try {
+                        const userDoc = await getUserProfile(senderId)
+                        if (userDoc) {
+                            profiles[senderId] = {
+                                displayName: userDoc.displayName || userDoc.email || 'User',
+                                photoURL: userDoc.photoURL || ''
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error fetching user profile:', error)
+                        profiles[senderId] = { displayName: 'User', photoURL: '' }
+                    }
+                }
+                setUserProfiles(prev => ({ ...prev, ...profiles }))
+            }
         })
         return () => unsubscribe()
-    }, [ticketId])
+    }, [ticketId, userProfiles])
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -61,17 +86,29 @@ export function ChatInterface({ ticketId, isAdmin = false }: ChatInterfaceProps)
                         // Using 'msg.isAdmin' flag from message data is better if available (we added it to sendMessage).
                         const isMsgFromAdmin = msg.isAdmin
 
+                        const profile = userProfiles[msg.senderId]
+                        const senderName = profile?.displayName || (isMsgFromAdmin ? 'Admin' : 'User')
+                        const senderPhoto = profile?.photoURL || ''
+
                         return (
                             <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
                                 <div className={`flex flex-col ${isMe ? 'items-end' : 'items-start'} max-w-[80%]`}>
                                     <div className={`flex items-center gap-2 mb-1`}>
-                                        {isMsgFromAdmin ? (
-                                            <Shield className="w-3 h-3 text-red-500" />
+                                        {senderPhoto ? (
+                                            <img
+                                                src={senderPhoto}
+                                                alt={senderName}
+                                                className="w-5 h-5 rounded-full object-cover"
+                                            />
                                         ) : (
-                                            <User className="w-3 h-3 text-gray-500" />
+                                            isMsgFromAdmin ? (
+                                                <Shield className="w-4 h-4 text-red-500" />
+                                            ) : (
+                                                <User className="w-4 h-4 text-gray-500" />
+                                            )
                                         )}
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
-                                            {isMsgFromAdmin ? 'ADMIN' : 'USER'}
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
+                                            {senderName}
                                         </span>
                                         <span className="text-[10px] text-gray-400">
                                             {msg.createdAt?.seconds ? new Date(msg.createdAt.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '...'}
@@ -79,8 +116,8 @@ export function ChatInterface({ ticketId, isAdmin = false }: ChatInterfaceProps)
                                     </div>
 
                                     <div className={`p-4 text-sm ${isMe
-                                            ? 'bg-black dark:bg-white text-white dark:text-black'
-                                            : 'bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-200 dark:border-gray-700'
+                                        ? 'bg-black dark:bg-white text-white dark:text-black'
+                                        : 'bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-200 dark:border-gray-700'
                                         }`}>
                                         {msg.text}
                                     </div>

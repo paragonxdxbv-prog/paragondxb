@@ -48,10 +48,10 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white flex flex-col">
             {/* Navigation */}
-            <nav className="p-6 relative z-10">
+            <nav className="p-6 border-b-2 border-black dark:border-white relative z-10">
                 <Link
                     href="/home"
-                    className="inline-flex items-center gap-2 text-sm font-bold tracking-widest hover:opacity-70 transition-opacity"
+                    className="inline-flex items-center gap-2 text-sm font-bold tracking-widest uppercase hover:opacity-70 transition-opacity"
                 >
                     <ArrowLeft className="w-4 h-4" />
                     BACK TO HOME
@@ -64,11 +64,18 @@ export default function LoginPage() {
 
                     {/* Logo / Brand */}
                     <div className="space-y-4">
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter">
-                            PARAGON<span className="text-red-600">DXB</span>
+                        <div className="w-24 h-24 mx-auto border-2 border-black dark:border-white flex items-center justify-center">
+                            <img
+                                src="/discord-logo.jpg"
+                                alt="Logo"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                        <h1 className="text-3xl md:text-4xl font-black tracking-tighter uppercase">
+                            WELCOME BACK
                         </h1>
-                        <p className="text-gray-500 dark:text-gray-400 font-mono text-sm tracking-wide">
-                            JOIN THE EXCLUSIVE CIRCLE
+                        <p className="text-gray-500 dark:text-gray-400 font-mono text-sm tracking-wide uppercase">
+                            Sign in to continue
                         </p>
                     </div>
 
@@ -77,7 +84,7 @@ export default function LoginPage() {
                         <button
                             onClick={handleGoogleSignIn}
                             disabled={isSigningIn || loading}
-                            className="w-full bg-black dark:bg-white text-white dark:text-black py-4 font-bold tracking-widest hover:bg-red-600 dark:hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                            className="w-full bg-black dark:bg-white text-white dark:text-black py-4 px-6 font-bold tracking-widest uppercase border-2 border-black dark:border-white hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                         >
                             {isSigningIn ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -101,28 +108,27 @@ export default function LoginPage() {
                                     />
                                 </svg>
                             )}
-                            {isSigningIn ? "CONNECTING..." : "CONTINUE WITH GOOGLE"}
+                            {isSigningIn ? "SIGNING IN..." : "CONTINUE WITH GOOGLE"}
                         </button>
 
                         <div className="relative">
                             <div className="absolute inset-0 flex items-center">
-                                <span className="w-full border-t border-gray-200 dark:border-gray-800" />
+                                <span className="w-full border-t-2 border-black dark:border-white" />
                             </div>
                             <div className="relative flex justify-center text-xs uppercase">
-                                <span className="bg-white dark:bg-black px-2 text-gray-400">
-                                    Secure Access
+                                <span className="bg-white dark:bg-black px-4 text-gray-500 font-bold tracking-widest">
+                                    Secure Authentication
                                 </span>
                             </div>
                         </div>
 
-                        <p className="text-xs text-gray-400 dark:text-gray-500 max-w-xs mx-auto">
-                            By continuing, you agree to our Terms of Service.
-                            We only use essential data for your account.
+                        <p className="text-xs text-gray-400 dark:text-gray-500 max-w-xs mx-auto uppercase tracking-wider">
+                            By continuing, you agree to our terms of service
                         </p>
 
                         {error && (
-                            <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-center">
-                                <p className="text-xs text-red-600 dark:text-red-400 font-mono">
+                            <div className="p-4 bg-red-50 dark:bg-red-900/20 border-2 border-red-600 dark:border-red-400 text-center">
+                                <p className="text-xs text-red-600 dark:text-red-400 font-mono uppercase tracking-wider">
                                     {error}
                                 </p>
                             </div>
@@ -132,8 +138,8 @@ export default function LoginPage() {
             </main>
 
             {/* Simple Footer */}
-            <footer className="p-6 text-center">
-                <p className="text-[10px] text-gray-300 dark:text-gray-700 font-mono">
+            <footer className="p-6 text-center border-t-2 border-black dark:border-white">
+                <p className="text-[10px] text-gray-400 dark:text-gray-600 font-mono uppercase tracking-widest">
                     SECURED BY FIREBASE AUTHENTICATION
                 </p>
             </footer>

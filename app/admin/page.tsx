@@ -449,15 +449,7 @@ export default function AdminPage() {
               >
                 USERS
               </button>
-              <button
-                onClick={() => setActiveTab("analytics")}
-                className={`px-6 py-3 text-sm font-medium tracking-widest uppercase transition-all duration-300 ${activeTab === "analytics"
-                  ? "border-b-2 border-black dark:border-white text-black dark:text-white"
-                  : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
-                  }`}
-              >
-                ANALYTICS
-              </button>
+
               <button
                 onClick={() => setActiveTab("chats")}
                 className={`px-6 py-3 text-sm font-medium tracking-widest uppercase transition-all duration-300 ${activeTab === "chats"
@@ -1076,88 +1068,7 @@ export default function AdminPage() {
               </div>
             )}
 
-            {/* Analytics Tab */}
-            {activeTab === "analytics" && (
-              <div className="max-w-4xl mx-auto">
-                <div className="bg-white dark:bg-black border-2 border-black dark:border-white p-8">
-                  <h2 className="text-2xl font-bold tracking-widest uppercase mb-6">
-                    WEBSITE ANALYTICS
-                  </h2>
 
-                  <div className="grid md:grid-cols-2 gap-6 mb-8">
-                    <div className="bg-gray-50 dark:bg-black p-6 border border-gray-200 dark:border-white">
-                      <h3 className="text-sm font-bold tracking-widest uppercase mb-2 text-black dark:text-white">TRACKED EVENTS</h3>
-                      <p className="text-2xl font-bold mb-4 text-green-600">LIVE</p>
-                      <ul className="space-y-2 text-sm text-black dark:text-white font-mono">
-                        <li className="flex justify-between">
-                          <span>• PAGE VIEWS</span>
-                          <span className="text-green-500">● Active</span>
-                        </li>
-                        <li className="flex justify-between">
-                          <span>• PRODUCT CLICKS</span>
-                          <span className="text-green-500">● Active</span>
-                        </li>
-                        <li className="flex justify-between">
-                          <span>• SOCIAL CLICKS</span>
-                          <span className="text-green-500">● Active</span>
-                        </li>
-                        <li className="flex justify-between">
-                          <span>• PURCHASES</span>
-                          <span className="text-green-500">● Active</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="bg-blue-50 dark:bg-blue-900/20 p-6 border border-blue-200 dark:border-blue-800 flex flex-col justify-between">
-                      <div>
-                        <h3 className="text-sm font-bold tracking-widest uppercase mb-2 text-blue-900 dark:text-blue-300">
-                          REAL-TIME DASHBOARD
-                        </h3>
-                        <p className="text-sm text-blue-800 dark:text-blue-400 mb-6">
-                          View live visitor count, top locations, and popular pages directly in the Firebase Console.
-                        </p>
-                      </div>
-                      <Button
-                        onClick={() => window.open('https://console.firebase.google.com/u/0/project/paragondxb-v/analytics/app/web%3A1a526b2725fbd1ba347461/overview/reports~2Fdashboard%3Fcreate_report=true', '_blank')}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white border-0 text-sm font-medium tracking-widest uppercase py-4"
-                      >
-                        OPEN ANALYTICS DASHBOARD
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="border-t border-gray-200 dark:border-gray-800 pt-8">
-                    <h3 className="text-sm font-bold tracking-widest uppercase mb-4 text-black dark:text-white">DATA OVERVIEW</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
-                        <div className="text-xs text-black dark:text-white mb-1">PRODUCTS</div>
-                        <div className="text-2xl font-bold text-black dark:text-white">{products.length}</div>
-                      </div>
-                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
-                        <div className="text-xs text-black dark:text-white mb-1">CATEGORIES</div>
-                        <div className="text-2xl font-bold text-black dark:text-white">5</div>
-                      </div>
-                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
-                        <div className="text-xs text-black dark:text-white mb-1">SOCIAL LINKS</div>
-                        <div className="text-2xl font-bold text-black dark:text-white">3</div>
-                      </div>
-                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
-                        <div className="text-xs text-black dark:text-white mb-1">TOTAL SITE VIEWS</div>
-                        <div className="text-3xl font-bold text-black dark:text-white">{analyticsData.totalViews || 0}</div>
-                      </div>
-                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
-                        <div className="text-xs text-black dark:text-white mb-1">HOME PAGE VIEWS</div>
-                        <div className="text-2xl font-bold text-black dark:text-white">{analyticsData.pageViews?.home || 0}</div>
-                      </div>
-                      <div className="p-4 bg-gray-50 dark:bg-black border border-gray-200 dark:border-white">
-                        <div className="text-xs text-black dark:text-white mb-1">PRODUCTS PAGE VIEWS</div>
-                        <div className="text-2xl font-bold text-black dark:text-white">{analyticsData.pageViews?.products || 0}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
 
             {/* Categories Tab */}
             {activeTab === "categories" && (
