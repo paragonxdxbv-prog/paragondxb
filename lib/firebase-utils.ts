@@ -424,6 +424,49 @@ export const subscribeToAllTickets = (callback: (tickets: any[]) => void) => {
   })
 }
 
+// Close Ticket
+export const closeTicket = async (ticketId: string, closedByEmail: string) => {
+  const ticketRef = doc(db, "tickets", ticketId)
+  await updateDoc(ticketRef, {
+    status: 'closed',
+    closedAt: serverTimestamp(),
+    closedBy: closedByEmail
+  })
+}
+
+// Delete Ticket (Admin only)
+export const deleteTicket = async (ticketId: string) => {
+  // Delete all messages first
+  const messagesRef = collection(db, "tickets", ticketId, "messages")
+  const messagesSnapshot = await getDocs(messagesRef)
+
+  const deletePromises = messagesSnapshot.docs.map(messageDoc =>
+    deleteDoc(doc(db, "tickets", ticketId, "messages", messageDoc.id))
+  )
+  await Promise.all(deletePromises)
+
+  // Delete the ticket document
+  await deleteDoc(doc(db, "tickets", ticketId))
+}
+
+// Get User Info for Chat Display
+export const getUserInfo = async (userId: string) => {
+  try {
+    const userDoc = await getUserProfile(userId)
+    if (userDoc) {
+      return {
+        displayName: userDoc.displayName || userDoc.email || 'User',
+        photoURL: userDoc.photoURL || '',
+        email: userDoc.email || ''
+      }
+    }
+    return { displayName: 'User', photoURL: '', email: '' }
+  } catch (error) {
+    console.error('Error getting user info:', error)
+    return { displayName: 'User', photoURL: '', email: '' }
+  }
+}
+
 // Subscribe to Products
 export const subscribeToProducts = (callback: (products: any[]) => void) => {
   const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'))

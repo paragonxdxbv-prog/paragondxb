@@ -2,23 +2,28 @@
 
 import { useState, useEffect, useRef } from "react"
 import { useAuth } from "@/lib/auth-context"
+import { useRouter } from "next/navigation"
 import { subscribeToMessages, sendMessage, getUserProfile } from "@/lib/firebase-utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Send, Loader2, User, Shield } from "lucide-react"
+import { Send, Loader2, User, Crown, XCircle } from "lucide-react"
 
 interface ChatInterfaceProps {
     ticketId: string
     isAdmin?: boolean
+    ticketStatus?: string
 }
 
-export function ChatInterface({ ticketId, isAdmin = false }: ChatInterfaceProps) {
+export function ChatInterface({ ticketId, isAdmin = false, ticketStatus = 'open' }: ChatInterfaceProps) {
     const { user } = useAuth()
+    const router = useRouter()
     const [messages, setMessages] = useState<any[]>([])
     const [newMessage, setNewMessage] = useState("")
     const [loading, setLoading] = useState(false)
     const [userProfiles, setUserProfiles] = useState<Record<string, { displayName: string, photoURL: string }>>({})
     const messagesEndRef = useRef<HTMLDivElement>(null)
+
+    const isClosed = ticketStatus === 'closed'
 
     useEffect(() => {
         const unsubscribe = subscribeToMessages(ticketId, async (msgs) => {
@@ -57,7 +62,7 @@ export function ChatInterface({ ticketId, isAdmin = false }: ChatInterfaceProps)
 
     const handleSend = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!newMessage.trim() || !user) return
+        if (!newMessage.trim() || !user || isClosed) return
 
         setLoading(true)
         try {
@@ -70,8 +75,22 @@ export function ChatInterface({ ticketId, isAdmin = false }: ChatInterfaceProps)
         }
     }
 
+    const handleProfileClick = () => {
+        router.push('/account')
+    }
+
     return (
-        <div className="flex flex-col h-[600px] border border-gray-200 dark:border-gray-800 bg-white dark:bg-black">
+        <div className="flex flex-col h-[600px] border-2 border-black dark:border-white bg-white dark:bg-black">
+            {/* Closed Banner */}
+            {isClosed && (
+                <div className="bg-gray-100 dark:bg-gray-900 border-b-2 border-black dark:border-white p-3 flex items-center justify-center gap-2">
+                    <XCircle className="w-4 h-4 text-red-600" />
+                    <span className="text-xs font-bold uppercase tracking-widest text-gray-700 dark:text-gray-300">
+                        This chat has been closed
+                    </span>
+                </div>
+            )}
+
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gray-50 dark:bg-zinc-950">
                 {messages.length === 0 ? (
@@ -81,43 +100,43 @@ export function ChatInterface({ ticketId, isAdmin = false }: ChatInterfaceProps)
                 ) : (
                     messages.map((msg) => {
                         const isMe = msg.senderId === user?.uid
-                        // If isAdmin is true (viewer is Admin), 'isMe' logic holds (Admin sent it).
-                        // But visually we might want to distinguish User vs Admin more clearly.
-                        // Using 'msg.isAdmin' flag from message data is better if available (we added it to sendMessage).
                         const isMsgFromAdmin = msg.isAdmin
-
                         const profile = userProfiles[msg.senderId]
                         const senderName = profile?.displayName || (isMsgFromAdmin ? 'Admin' : 'User')
                         const senderPhoto = profile?.photoURL || ''
 
+                        // SWAPPED LAYOUT: Admin on LEFT, User on RIGHT
+                        const alignRight = !isMsgFromAdmin
+
                         return (
-                            <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`flex flex-col ${isMe ? 'items-end' : 'items-start'} max-w-[80%]`}>
-                                    <div className={`flex items-center gap-2 mb-1`}>
+                            <div key={msg.id} className={`flex ${alignRight ? 'justify-end' : 'justify-start'}`}>
+                                <div className={`flex flex-col ${alignRight ? 'items-end' : 'items-start'} max-w-[80%]`}>
+                                    <div className={`flex items-center gap-2 mb-1 ${alignRight ? 'flex-row-reverse' : 'flex-row'}`}>
                                         {senderPhoto ? (
                                             <img
                                                 src={senderPhoto}
                                                 alt={senderName}
-                                                className="w-5 h-5 rounded-full object-cover"
+                                                onClick={handleProfileClick}
+                                                className="w-6 h-6 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-black dark:hover:ring-white transition-all"
                                             />
                                         ) : (
                                             isMsgFromAdmin ? (
-                                                <Shield className="w-4 h-4 text-red-500" />
+                                                <Crown className="w-5 h-5 text-yellow-500" />
                                             ) : (
-                                                <User className="w-4 h-4 text-gray-500" />
+                                                <User className="w-5 h-5 text-gray-500 cursor-pointer hover:text-black dark:hover:text-white transition-colors" onClick={handleProfileClick} />
                                             )
                                         )}
                                         <span className="text-[10px] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
-                                            {senderName}
+                                            {isMsgFromAdmin ? '👑 ' : ''}{senderName}
                                         </span>
                                         <span className="text-[10px] text-gray-400">
                                             {msg.createdAt?.seconds ? new Date(msg.createdAt.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '...'}
                                         </span>
                                     </div>
 
-                                    <div className={`p-4 text-sm ${isMe
-                                        ? 'bg-black dark:bg-white text-white dark:text-black'
-                                        : 'bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-200 dark:border-gray-700'
+                                    <div className={`p-4 text-sm border-2 ${isMsgFromAdmin
+                                            ? 'bg-white dark:bg-gray-900 text-black dark:text-white border-yellow-500'
+                                            : 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white'
                                         }`}>
                                         {msg.text}
                                     </div>
@@ -130,18 +149,19 @@ export function ChatInterface({ ticketId, isAdmin = false }: ChatInterfaceProps)
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-white dark:bg-black border-t border-gray-100 dark:border-gray-800">
+            <div className="p-4 bg-white dark:bg-black border-t-2 border-black dark:border-white">
                 <form onSubmit={handleSend} className="flex gap-2">
                     <Input
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
-                        placeholder="Type your message..."
-                        className="bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white rounded-none h-12"
+                        placeholder={isClosed ? "Chat is closed" : "Type your message..."}
+                        disabled={isClosed}
+                        className="bg-gray-50 dark:bg-gray-900 border-2 border-black dark:border-white focus:border-black dark:focus:border-white rounded-none h-12 disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                     <Button
                         type="submit"
-                        disabled={loading}
-                        className="h-12 w-12 bg-black dark:bg-white text-white dark:text-black rounded-none shrink-0"
+                        disabled={loading || isClosed}
+                        className="h-12 w-12 bg-black dark:bg-white text-white dark:text-black border-2 border-black dark:border-white rounded-none shrink-0 hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white transition-all"
                     >
                         {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                     </Button>
