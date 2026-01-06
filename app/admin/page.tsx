@@ -455,12 +455,17 @@ export default function AdminPage() {
 
               <button
                 onClick={() => setActiveTab("chats")}
-                className={`px-6 py-3 text-sm font-medium tracking-widest uppercase transition-all duration-300 ${activeTab === "chats"
+                className={`relative px-6 py-3 text-sm font-medium tracking-widest uppercase transition-all duration-300 ${activeTab === "chats"
                   ? "border-b-2 border-black dark:border-white text-black dark:text-white"
                   : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
                   }`}
               >
                 CHATS
+                {tickets.filter(t => t.status === 'open' && !t.viewedByAdmin).length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {tickets.filter(t => t.status === 'open' && !t.viewedByAdmin).length}
+                  </span>
+                )}
               </button>
             </div>
 
@@ -1181,9 +1186,10 @@ export default function AdminPage() {
                     />
                   </div>
 
-                  <div className="space-y-2 overflow-y-auto flex-1">
+                  <div className="space-y-2 max-h-[500px] overflow-y-auto">
                     {tickets
                       .filter(t => t.userName?.toLowerCase().includes(searchTicket.toLowerCase()) || t.productName?.toLowerCase().includes(searchTicket.toLowerCase()))
+                      .slice((currentPage - 1) * ticketsPerPage, currentPage * ticketsPerPage)
                       .map(ticket => (
                         <div
                           key={ticket.id}
@@ -1210,6 +1216,27 @@ export default function AdminPage() {
                       <p className="text-center text-gray-400 text-xs mt-10">No chats found.</p>
                     )}
                   </div>
+
+                  {/* Pagination Controls */}
+                  {tickets.filter(t => t.userName?.toLowerCase().includes(searchTicket.toLowerCase()) || t.productName?.toLowerCase().includes(searchTicket.toLowerCase())).length > ticketsPerPage && (
+                    <div className="flex justify-between items-center pt-3 border-t border-gray-200 dark:border-gray-800 mt-auto">
+                      <button
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                        className="text-xs px-3 py-1 border border-gray-300 dark:border-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-900"
+                      >
+                        PREV
+                      </button>
+                      <span className="text-xs text-gray-500">Page {currentPage} of {Math.ceil(tickets.filter(t => t.userName?.toLowerCase().includes(searchTicket.toLowerCase()) || t.productName?.toLowerCase().includes(searchTicket.toLowerCase())).length / ticketsPerPage)}</span>
+                      <button
+                        onClick={() => setCurrentPage(p => Math.min(Math.ceil(tickets.filter(t => t.userName?.toLowerCase().includes(searchTicket.toLowerCase()) || t.productName?.toLowerCase().includes(searchTicket.toLowerCase())).length / ticketsPerPage), p + 1))}
+                        disabled={currentPage >= Math.ceil(tickets.filter(t => t.userName?.toLowerCase().includes(searchTicket.toLowerCase()) || t.productName?.toLowerCase().includes(searchTicket.toLowerCase())).length / ticketsPerPage)}
+                        className="text-xs px-3 py-1 border border-gray-300 dark:border-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-900"
+                      >
+                        NEXT
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Chat Area */}
@@ -1221,13 +1248,41 @@ export default function AdminPage() {
                           <h3 className="font-bold tracking-widest uppercase">{selectedTicket.subject}</h3>
                           <p className="text-xs text-gray-500">{selectedTicket.productName ? `Product: ${selectedTicket.productName}` : 'General Inquiry'}</p>
                         </div>
-                        <div className="text-right">
-                          <p className="text-xs font-bold">{selectedTicket.userName}</p>
-                          <p className="text-xs text-gray-400">{selectedTicket.userEmail}</p>
+                        <div className="flex items-center gap-3">
+                          <div className="text-right">
+                            <p className="text-xs font-bold">{selectedTicket.userName}</p>
+                            <p className="text-xs text-gray-400">{selectedTicket.userEmail}</p>
+                          </div>
+                          {selectedTicket.status === 'open' && (
+                            <Button
+                              onClick={async () => {
+                                if (confirm('Are you sure you want to close this ticket?')) {
+                                  setClosingTicket(true)
+                                  try {
+                                    await closeTicket(selectedTicket.id, 'paragondxb@gmail.com')
+                                    alert('Ticket closed successfully')
+                                  } catch (error) {
+                                    console.error('Error closing ticket:', error)
+                                    alert('Failed to close ticket')
+                                  } finally {
+                                    setClosingTicket(false)
+                                  }
+                                }
+                              }}
+                              disabled={closingTicket}
+                              className="bg-red-600 hover:bg-red-700 text-white text-xs"
+                            >
+                              <XCircle className="w-3 h-3 mr-1" />
+                              {closingTicket ? 'CLOSING...' : 'CLOSE TICKET'}
+                            </Button>
+                          )}
+                          {selectedTicket.status === 'closed' && (
+                            <span className="px-3 py-1 bg-gray-200 dark:bg-gray-800 text-xs font-bold uppercase">CLOSED</span>
+                          )}
                         </div>
                       </div>
                       <div className="flex-1 overflow-hidden">
-                        <ChatInterface ticketId={selectedTicket.id} isAdmin={true} />
+                        <ChatInterface ticketId={selectedTicket.id} isAdmin={true} ticketStatus={selectedTicket.status} />
                       </div>
                     </div>
                   ) : (

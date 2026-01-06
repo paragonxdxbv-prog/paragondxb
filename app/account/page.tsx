@@ -216,7 +216,7 @@ export default function AccountPage() {
                                     </Button>
                                 </div>
                                 <div className="flex-1 overflow-hidden">
-                                    <ChatInterface ticketId={selectedTicket.id} isAdmin={false} />
+                                    <ChatInterface ticketId={selectedTicket.id} isAdmin={false} ticketStatus={selectedTicket.status} />
                                 </div>
                             </div>
                         ) : (
