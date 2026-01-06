@@ -131,6 +131,7 @@ export default function AdminPage() {
       unsubscribeAnnouncement()
       unsubscribeAnalytics()
       unsubscribeUsers()
+      unsubscribeTickets()
     }
   }, [])
 
