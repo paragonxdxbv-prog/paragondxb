@@ -31,7 +31,7 @@ export function Navigation({ isPageLoaded, currentPage = "home" }: NavigationPro
 
   return (
     <header
-      className={`sticky top-0 z-50 px-8 py-4 border-b-2 border-black dark:border-white bg-white dark:bg-black backdrop-blur-sm transition-all duration-700 ${isPageLoaded ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
+      className={`sticky top-0 z-50 px-4 sm:px-8 py-3 sm:py-4 border-b-2 border-black dark:border-white bg-white dark:bg-black backdrop-blur-sm transition-all duration-700 ${isPageLoaded ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
         }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -43,7 +43,7 @@ export function Navigation({ isPageLoaded, currentPage = "home" }: NavigationPro
               alt="ParagonDXB"
               className="h-8 w-8 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
             />
-            <span className="text-xl font-bold tracking-widest uppercase text-black dark:text-white transition-all duration-300 group-hover:tracking-[0.3em]">
+            <span className="text-lg sm:text-xl font-bold tracking-widest uppercase text-black dark:text-white transition-all duration-300 group-hover:tracking-[0.3em]">
               ParagonDXB
             </span>
           </a>

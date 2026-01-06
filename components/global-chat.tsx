@@ -105,18 +105,18 @@ export function GlobalChat() {
             {!isOpen && (
                 <Button
                     onClick={() => setIsOpen(true)}
-                    className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-black dark:bg-white text-white dark:text-black shadow-2xl hover:scale-110 transition-transform z-50 flex items-center justify-center border-2 border-white dark:border-black"
+                    className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-black dark:bg-white text-white dark:text-black shadow-2xl hover:scale-110 transition-transform z-50 flex items-center justify-center border-2 border-white dark:border-black"
                 >
-                    <MessageSquare className="w-6 h-6" />
+                    <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />
                 </Button>
             )}
 
             {/* Chat Window */}
             {isOpen && (
-                <div className="fixed bottom-6 right-6 w-96 h-[500px] bg-white dark:bg-black border border-black dark:border-white shadow-2xl z-50 flex flex-col animate-in slide-in-from-bottom-10 fade-in duration-300">
+                <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 h-[500px] sm:h-[550px] max-w-md bg-white dark:bg-black border border-black dark:border-white shadow-2xl z-50 flex flex-col animate-in slide-in-from-bottom-10 fade-in duration-300">
 
                     {/* Header */}
-                    <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800 bg-black dark:bg-white text-white dark:text-black">
+                    <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-100 dark:border-gray-800 bg-black dark:bg-white text-white dark:text-black">
                         <h3 className="font-bold tracking-widest uppercase text-sm">CONCIERGE</h3>
                         <button onClick={() => setIsOpen(false)} className="hover:opacity-70">
                             <X className="w-5 h-5" />
@@ -124,13 +124,13 @@ export function GlobalChat() {
                     </div>
 
                     {/* Messages Area */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-zinc-950">
+                    <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-gray-50 dark:bg-zinc-950">
                         {initializing ? (
                             <div className="flex justify-center py-10">
                                 <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
                             </div>
                         ) : messages.length === 0 ? (
-                            <p className="text-center text-gray-400 text-xs mt-10 font-mono">
+                            <p className="text-center text-gray-400 text-xs mt-6 sm:mt-10 font-mono px-4">
                                 Start a conversation with us. We'll reply as soon as possible.
                             </p>
                         ) : (
@@ -139,8 +139,8 @@ export function GlobalChat() {
                                 return (
                                     <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
                                         <div className={`max-w-[80%] p-3 text-sm ${isMe
-                                                ? 'bg-black dark:bg-white text-white dark:text-black rounded-tl-lg rounded-bl-lg rounded-br-lg'
-                                                : 'bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-200 dark:border-gray-700 rounded-tr-lg rounded-br-lg rounded-bl-lg'
+                                            ? 'bg-black dark:bg-white text-white dark:text-black rounded-tl-lg rounded-bl-lg rounded-br-lg'
+                                            : 'bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-200 dark:border-gray-700 rounded-tr-lg rounded-br-lg rounded-bl-lg'
                                             }`}>
                                             {msg.text}
                                         </div>
@@ -151,7 +151,7 @@ export function GlobalChat() {
                     </div>
 
                     {/* Input Area */}
-                    <div className="p-4 bg-white dark:bg-black border-t border-gray-100 dark:border-gray-800">
+                    <div className="p-3 sm:p-4 bg-white dark:bg-black border-t border-gray-100 dark:border-gray-800">
                         <form
                             onSubmit={(e) => { e.preventDefault(); handleSend(); }}
                             className="flex gap-2"

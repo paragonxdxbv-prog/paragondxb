@@ -15,7 +15,7 @@ service cloud.firestore {
     // Helper to check if user is authenticated
     function isAuth() {
       return request.auth != null;
-    }
+    }}
 
     // Helper to check if user owns the document
     function isOwner(userId) {

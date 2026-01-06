@@ -60,12 +60,12 @@ export default function AccountPage() {
         <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-mono flex flex-col">
             <Navigation isPageLoaded={isPageLoaded} currentPage="account" />
 
-            <main className={`container mx-auto px-6 py-8 flex-1 flex flex-col transition-all duration-700 ${isPageLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+            <main className={`container mx-auto px-4 sm:px-6 py-4 sm:py-8 flex-1 flex flex-col transition-all duration-700 ${isPageLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
 
                 {/* Header */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-gray-200 dark:border-gray-800 pb-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 sm:mb-8 border-b border-gray-200 dark:border-gray-800 pb-4 sm:pb-8">
                     <div>
-                        <h1 className="text-3xl font-black tracking-tighter mb-2">MY ACCOUNT</h1>
+                        <h1 className="text-2xl sm:text-3xl font-black tracking-tighter mb-2">MY ACCOUNT</h1>
                         <p className="text-gray-500 dark:text-gray-400 text-sm">WELCOME BACK, {user.displayName?.toUpperCase()}</p>
                     </div>
                     <Button
@@ -79,8 +79,8 @@ export default function AccountPage() {
                 </div>
 
                 {/* User Profile Card */}
-                <div className="bg-gray-50 dark:bg-zinc-950 border border-gray-200 dark:border-gray-800 p-6 mb-6">
-                    <h2 className="text-xl font-bold tracking-wider uppercase mb-4">PROFILE INFORMATION</h2>
+                <div className="bg-gray-50 dark:bg-zinc-950 border border-gray-200 dark:border-gray-800 p-4 sm:p-6 mb-4 sm:mb-6">
+                    <h2 className="text-lg sm:text-xl font-bold tracking-wider uppercase mb-4">PROFILE INFORMATION</h2>
                     <div className="flex items-center gap-4">
                         {user.photoURL ? (
                             <img
@@ -103,10 +103,10 @@ export default function AccountPage() {
                 </div>
 
                 {/* Chat / Ticket Layout */}
-                <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 min-h-[600px]">
+                <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 min-h-[500px] sm:min-h-[600px]">
 
                     {/* Sidebar List */}
-                    <div className="md:col-span-1 border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-black p-4 flex flex-col">
+                    <div className="md:col-span-1 border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-black p-3 sm:p-4 flex flex-col max-h-[400px] md:max-h-none">
                         <div className="mb-4">
                             <Button
                                 onClick={async () => {
@@ -146,13 +146,13 @@ export default function AccountPage() {
                             </div>
                         </div>
 
-                        <div className="space-y-2 overflow-y-auto flex-1 max-h-[600px]">
+                        <div className="space-y-2 overflow-y-auto flex-1 max-h-[300px] sm:max-h-[500px] md:max-h-[600px]">
                             {filteredTickets.length > 0 ? (
                                 filteredTickets.map(ticket => (
                                     <div
                                         key={ticket.id}
                                         onClick={() => setSelectedTicket(ticket)}
-                                        className={`p-4 border cursor-pointer transition-colors ${selectedTicket?.id === ticket.id
+                                        className={`p-3 sm:p-4 border cursor-pointer transition-colors ${selectedTicket?.id === ticket.id
                                             ? "border-black dark:border-white bg-white dark:bg-gray-900"
                                             : "border-transparent hover:bg-white dark:hover:bg-gray-900 border-b-gray-200 dark:border-b-gray-800"
                                             }`}
@@ -196,12 +196,12 @@ export default function AccountPage() {
                     </div>
 
                     {/* Chat Area */}
-                    <div className="md:col-span-2 border border-gray-200 dark:border-gray-800 bg-white dark:bg-black flex flex-col shadow-sm">
+                    <div className="md:col-span-2 border border-gray-200 dark:border-gray-800 bg-white dark:bg-black flex flex-col shadow-sm min-h-[500px] sm:min-h-[600px]">
                         {selectedTicket ? (
-                            <div className="flex flex-col h-full h-[600px]">
-                                <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-zinc-950">
+                            <div className="flex flex-col h-full min-h-[500px] sm:h-[600px]">
+                                <div className="p-3 sm:p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-zinc-950">
                                     <div>
-                                        <h3 className="font-bold tracking-widest uppercase text-sm">
+                                        <h3 className="font-bold tracking-widest uppercase text-xs sm:text-sm">
                                             {selectedTicket.type === 'order_request' ? `ORDER: ${selectedTicket.productName}` : selectedTicket.subject}
                                         </h3>
                                         <p className="text-xs text-gray-500">ID: {selectedTicket.id.slice(0, 8)}</p>
@@ -220,7 +220,7 @@ export default function AccountPage() {
                                 </div>
                             </div>
                         ) : (
-                            <div className="flex items-center justify-center h-full h-[600px] text-gray-400 bg-gray-50/50 dark:bg-black/50">
+                            <div className="flex items-center justify-center h-full min-h-[500px] sm:h-[600px] text-gray-400 bg-gray-50/50 dark:bg-black/50">
                                 <div className="text-center p-6">
                                     <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-20" />
                                     <p className="text-sm tracking-widest uppercase mb-2">SELECT A TICKET TO VIEW CHAT</p>
