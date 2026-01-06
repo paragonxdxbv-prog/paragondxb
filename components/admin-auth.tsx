@@ -9,7 +9,7 @@ interface AdminAuthProps {
   children?: React.ReactNode
 }
 
-const ADMIN_EMAIL = 'paragondxb@gmail.com'
+const ADMIN_EMAIL = 'paragonxdxbv@gmail.com'
 
 export function AdminAuth({ children }: AdminAuthProps) {
   const { user, loading } = useAuth()

@@ -1260,7 +1260,7 @@ export default function AdminPage() {
                                 if (confirm('Are you sure you want to close this ticket?')) {
                                   setClosingTicket(true)
                                   try {
-                                    await closeTicket(selectedTicket.id, 'paragondxb@gmail.com')
+                                    await closeTicket(selectedTicket.id, 'paragonxdxbv@gmail.com')
                                     alert('Ticket closed successfully')
                                   } catch (error) {
                                     console.error('Error closing ticket:', error)
