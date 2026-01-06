@@ -51,7 +51,8 @@ export default function AdminPage() {
   const [socialMedia, setSocialMedia] = useState({
     instagram: "https://instagram.com/paragondxb",
     youtube: "https://youtube.com/@paragondxb",
-    tiktok: "https://tiktok.com/@paragondxb"
+    tiktok: "https://tiktok.com/@paragondxb",
+    discord: ""
   })
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
@@ -987,6 +988,18 @@ export default function AdminPage() {
                         value={socialMedia.tiktok}
                         onChange={(e) => setSocialMedia(prev => ({ ...prev, tiktok: e.target.value }))}
                         placeholder="https://tiktok.com/@paragondxb"
+                        className="border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-white text-black dark:text-black"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium tracking-widest uppercase mb-2 text-black dark:text-white">
+                        DISCORD URL
+                      </label>
+                      <Input
+                        value={socialMedia.discord}
+                        onChange={(e) => setSocialMedia(prev => ({ ...prev, discord: e.target.value }))}
+                        placeholder="https://discord.gg/your-invite-code"
                         className="border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-white text-black dark:text-black"
                       />
                     </div>

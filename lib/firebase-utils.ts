@@ -276,14 +276,16 @@ export const getSocialMediaUrls = async () => {
       return {
         instagram: data.instagram || "https://instagram.com/paragondxb",
         youtube: data.youtube || "https://youtube.com/@paragondxb",
-        tiktok: data.tiktok || "https://tiktok.com/@paragondxb"
+        tiktok: data.tiktok || "https://tiktok.com/@paragondxb",
+        discord: data.discord || ""
       }
     } else {
       // Return default URLs if document doesn't exist
       return {
         instagram: "https://instagram.com/paragondxb",
         youtube: "https://youtube.com/@paragondxb",
-        tiktok: "https://tiktok.com/@paragondxb"
+        tiktok: "https://tiktok.com/@paragondxb",
+        discord: ""
       }
     }
   } catch (error) {
@@ -297,7 +299,7 @@ export const getSocialMediaUrls = async () => {
   }
 }
 
-export const saveSocialMediaUrls = async (socialMediaUrls: { instagram: string, youtube: string, tiktok: string }) => {
+export const saveSocialMediaUrls = async (socialMediaUrls: { instagram: string, youtube: string, tiktok: string, discord: string }) => {
   try {
     const docRef = doc(db, 'settings', 'socialMedia')
     // Try to update first
@@ -446,7 +448,8 @@ export const subscribeToSocialMedia = (callback: (socialMedia: any) => void) => 
       callback({
         instagram: data?.instagram || "https://instagram.com/paragondxb",
         youtube: data?.youtube || "https://youtube.com/@paragondxb",
-        tiktok: data?.tiktok || "https://tiktok.com/@paragondxb"
+        tiktok: data?.tiktok || "https://tiktok.com/@paragondxb",
+        discord: data?.discord || ""
       })
     } else {
       callback({

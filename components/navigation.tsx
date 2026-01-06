@@ -20,7 +20,7 @@ export function Navigation({ isPageLoaded, currentPage = "home" }: NavigationPro
     setMounted(true)
   }, [])
 
-  const logoSrc = "/paragondxb-logo.jpg"
+  const logoSrc = "/discord-logo.jpg"
 
   const navLinks = [
     { href: "/home", label: "HOME", page: "home", delay: "200ms" },

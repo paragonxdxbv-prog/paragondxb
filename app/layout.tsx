@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   description: "Exclusive automotive content, digital assets, and premium merchandise.",
 }
 
-import { GlobalChat } from "@/components/global-chat"
 
 export default function RootLayout({
   children,
@@ -29,7 +28,6 @@ export default function RootLayout({
             enableSystem
           >
             {children}
-            <GlobalChat />
           </ThemeProvider>
         </AuthProvider>
       </body>
