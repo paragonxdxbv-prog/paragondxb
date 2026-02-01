@@ -4,7 +4,6 @@ import { Youtube, Instagram, ShoppingBag, Check, Mail, User, Globe, MessageSquar
 import { Section } from './ui/Section';
 
 // --- Icons ---
-// (Icons remain unchanged, omitted for brevity but assumed present in context)
 const TikTokIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
@@ -24,12 +23,10 @@ const RealRedditIcon = ({ className }: { className?: string }) => (
 )
 
 const RealDiscordIcon = ({ className }: { className?: string }) => (
-    <svg viewBox="0 0 127.14 96.36" className={className} fill="currentColor">
-        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.29,105.29,0,0,0,19.36,8.07C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.11,77.11,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.89,105.89,0,0,0,126.6,80.22c2.91-23.29-1.55-47.54-18.9-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+        <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.5328-9.7135-3.5686-13.638a.076.076 0 00-.032-.0277zM8.52 14.8406c-1.3563 0-2.4764-1.258-2.4764-2.8015 0-1.5436 1.1027-2.8015 2.4764-2.8015 1.3813 0 2.495 1.258 2.4764 2.8015 0 1.5436-1.1027 2.8015-2.4764 2.8015zm6.96 0c-1.3563 0-2.4764-1.258-2.4764-2.8015 0-1.5436 1.1027-2.8015 2.4764-2.8015 1.3813 0 2.495 1.258 2.4764 2.8015 0 1.5436-1.115 2.8015-2.4764 2.8015z"/>
     </svg>
 )
-
-// --- Components ---
 
 interface InteractiveCardProps {
     icon: any;
@@ -79,23 +76,23 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
                 )}
             </AnimatePresence>
 
-            <div className={`w-10 h-10 mb-3 transition-transform duration-300 group-hover:scale-110 ${baseColor} group-hover:text-white relative z-10`}>
+            <div className={`w-10 h-10 mb-3 transition-transform duration-300 md:group-hover:scale-110 ${baseColor} md:group-hover:text-white relative z-10`}>
                 {copied ? <Check className="w-full h-full" /> : <Icon className="w-full h-full" />}
             </div>
-            <span className={`text-xs font-bold uppercase tracking-widest ${isCopy ? 'text-gray-300' : 'text-white'} group-hover:text-white transition-colors relative z-10 text-center px-2`}>
+            <span className={`text-xs font-bold uppercase tracking-widest ${isCopy ? 'text-gray-300' : 'text-white'} md:group-hover:text-white transition-colors relative z-10 text-center px-2`}>
                 {copied ? "Copied" : label}
             </span>
-            <span className="text-[10px] text-gray-500 group-hover:text-white/70 mt-1 font-mono relative z-10 max-w-[90%] truncate">
+            <span className="text-[10px] text-gray-500 md:group-hover:text-white/70 mt-1 font-mono relative z-10 max-w-[90%] truncate">
                 {subLabel}
             </span>
             
             {/* Hover Glow Effect */}
-            <div className={`absolute inset-0 ${glowColor} opacity-0 group-hover:opacity-10 blur-2xl transition-opacity duration-500`} />
+            <div className={`absolute inset-0 ${glowColor} opacity-0 md:group-hover:opacity-10 blur-2xl transition-opacity duration-500`} />
             <div className={`absolute inset-0 bg-gradient-to-br from-transparent to-black/50 opacity-100 z-0`} />
         </>
     );
 
-    const cardClasses = "flex flex-col items-center justify-center w-full h-36 md:h-40 bg-surface border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.02)] rounded-2xl backdrop-blur-md transition-all duration-300 group hover:border-white/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] relative overflow-hidden";
+    const cardClasses = "flex flex-col items-center justify-center w-full h-36 md:h-40 bg-surface border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.02)] rounded-2xl backdrop-blur-md transition-all duration-300 group md:hover:border-white/30 md:hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] relative overflow-hidden";
 
     if (href) {
         return (
@@ -143,7 +140,7 @@ export const Socials: React.FC = () => {
              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
+                viewport={{ once: true, margin: "0px 0px 200px 0px" }}
                 transition={{ delay: 0.1, duration: 0.6 }}
                 className="mb-16"
             >
@@ -213,7 +210,7 @@ export const Socials: React.FC = () => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
+                viewport={{ once: true, margin: "0px 0px 200px 0px" }}
                 transition={{ duration: 0.6 }}
             >
                  <div className="flex items-center justify-center gap-3 mb-8">

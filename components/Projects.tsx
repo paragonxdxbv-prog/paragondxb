@@ -40,21 +40,20 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
-      // Performance Fix: Only animate opacity. Moving Y axis during scroll causes flickering on weak GPUs.
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.1 }} // Removed easeOut for linear, predictable fade
-      className="group relative block w-full bg-surface border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] rounded-xl overflow-hidden hover:border-white/30 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
+      // Pre-load content 200px before it enters viewport to eliminate "pop-in" flicker
+      viewport={{ once: true, margin: "0px 0px 200px 0px" }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="group relative block w-full bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-xl overflow-hidden md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
     >
       {/* 16:9 Aspect Ratio Container for Image */}
-      {/* Added bg-[#080808] to prevent white flash if image loads late */}
       <div className="relative w-full aspect-video overflow-hidden bg-[#080808]">
          <img 
             src={project.image} 
             alt={project.title} 
             loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-105"
          />
          
          <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
@@ -62,7 +61,6 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
 
       {/* Content Below Image */}
       <div className="relative p-6 border-t border-white/5 bg-[#080808]">
-          {/* Removed heavy radial gradient for performance */}
           <div className="flex justify-between items-start mb-2 relative z-10">
              <div className="flex items-center gap-2">
                  <Cpu className="w-4 h-4 text-accent" />
@@ -70,10 +68,10 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                      {project.category}
                  </span>
              </div>
-             <ArrowUpRight className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors" />
+             <ArrowUpRight className="w-5 h-5 text-gray-500 md:group-hover:text-white transition-colors" />
           </div>
 
-          <h3 className="text-3xl font-display font-bold text-white mb-2 group-hover:text-accent transition-colors duration-300">
+          <h3 className="text-3xl font-display font-bold text-white mb-2 md:group-hover:text-accent transition-colors duration-300">
              {project.title}
           </h3>
           <p className="text-gray-400 text-sm leading-relaxed">
@@ -91,7 +89,7 @@ export const Projects: React.FC = () => {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "0px 0px 200px 0px" }}
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-4 mb-4">
@@ -105,7 +103,7 @@ export const Projects: React.FC = () => {
           <motion.p 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "0px 0px 200px 0px" }}
             transition={{ duration: 0.6 }}
             className="text-gray-400 max-w-md text-right md:text-left"
           >
@@ -124,16 +122,16 @@ export const Projects: React.FC = () => {
       <motion.div
          initial={{ opacity: 0 }}
          whileInView={{ opacity: 1 }}
-         viewport={{ once: true, margin: "-50px" }}
+         viewport={{ once: true, margin: "0px 0px 200px 0px" }}
          transition={{ duration: 0.5, delay: 0.2 }}
-         className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black/50 p-12 text-center group hover:border-white/30 transition-all duration-500 shadow-[0_0_20px_-5px_rgba(255,255,255,0.05)]"
+         className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black/50 p-12 text-center group md:hover:border-white/30 transition-all duration-500 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)]"
       >
         {/* CSS-only Animation for Background - lighter on JS thread */}
         <div className="absolute inset-0 opacity-10 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.05)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%] animate-[gradient_15s_ease_infinite]" />
         
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-center space-y-4">
-             <div className="p-4 rounded-full bg-white/5 border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:scale-110 transition-transform duration-500">
+             <div className="p-4 rounded-full bg-white/5 border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)] md:group-hover:scale-110 transition-transform duration-500">
                 <Loader2 className="w-8 h-8 text-white animate-spin-slow" />
             </div>
             <h3 className="text-2xl md:text-3xl font-display font-bold text-white tracking-tight">

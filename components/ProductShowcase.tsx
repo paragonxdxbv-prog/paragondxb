@@ -9,9 +9,9 @@ export const ProductShowcase: React.FC = () => {
       <motion.div 
          initial={{ opacity: 0 }}
          whileInView={{ opacity: 1 }}
-         viewport={{ once: true, margin: "-50px" }}
+         viewport={{ once: true, margin: "0px 0px 200px 0px" }}
          transition={{ duration: 0.6 }}
-         className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] bg-surface group hover:border-white/30 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
+         className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] bg-surface group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
       >
         <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Side */}
@@ -32,7 +32,7 @@ export const ProductShowcase: React.FC = () => {
                  <motion.div
                     initial={{ opacity: 0, x: 10 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: "0px 0px 200px 0px" }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                  >
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-xs font-medium text-accent mb-6 shadow-[0_0_10px_rgba(255,255,255,0.1)]">
