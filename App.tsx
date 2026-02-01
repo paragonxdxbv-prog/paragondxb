@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
 import { About } from './components/About';
@@ -25,6 +26,7 @@ const App: React.FC = () => {
         <ProductShowcase />
         <Socials />
       </div>
+      <Analytics />
     </main>
   );
 };
