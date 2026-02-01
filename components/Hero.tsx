@@ -12,7 +12,7 @@ export const Hero: React.FC = () => {
       {/* Dynamic Background Image with Parallax */}
       <motion.div 
         style={{ y, scale: 1.1, transformOrigin: 'top center' }}
-        className="absolute inset-0 z-0 bg-black will-change-transform"
+        className="absolute inset-0 z-0 bg-black"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-[#000000] z-10" />
         <div className="absolute inset-0 bg-black/40 z-10" /> 
@@ -33,7 +33,7 @@ export const Hero: React.FC = () => {
           alt="Hero Background" 
           fetchPriority="high"
           onLoad={() => setIsLoaded(true)}
-          className="w-full h-full object-cover object-top grayscale-[0.2] will-change-[opacity,filter]"
+          className="w-full h-full object-cover object-top grayscale-[0.2]"
         />
       </motion.div>
 

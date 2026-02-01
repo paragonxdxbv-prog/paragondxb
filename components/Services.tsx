@@ -38,7 +38,6 @@ const TechItem = ({ icon: Icon, title, desc }: { icon: any, title: string, desc:
 
 export const Services: React.FC = () => {
   const cardTransition = { duration: 0.5, ease: "easeOut" as const };
-  // Adjusted viewport to trigger slightly later (0.1) but not rely on margin, for better stability
   const viewportConfig = { once: true, amount: 0.1 };
 
   return (
