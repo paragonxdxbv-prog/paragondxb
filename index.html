@@ -56,13 +56,6 @@
         -webkit-tap-highlight-color: transparent;
       }
       
-      /* Hardware acceleration for common animating elements to prevent painting issues */
-      .gpu-accelerated {
-        transform: translateZ(0);
-        backface-visibility: hidden;
-        perspective: 1000px;
-      }
-
       /* Global Scale Down (Zoom) to 70% */
       html {
         zoom: 0.7; /* Webkit (Chrome, Edge, Safari) */
@@ -89,6 +82,12 @@
       
       .text-glow {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+      
+      /* Optimize image rendering */
+      img {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
       }
     </style>
   <script type="importmap">

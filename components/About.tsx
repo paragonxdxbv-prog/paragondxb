@@ -6,7 +6,7 @@ import { Target, Zap, Shield } from 'lucide-react';
 export const About: React.FC = () => {
   // Standardized elite easing with TypeScript fix
   const transition = { duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] as const };
-  const viewportConfig = { once: true, margin: "-50px" };
+  const viewportConfig = { once: true, amount: 0.1 };
 
   return (
     <Section id="about" className="min-h-[80vh] flex flex-col justify-center py-24">
@@ -59,7 +59,7 @@ export const About: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
                 transition={{ ...transition, delay: 0.15 }}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:bg-white/10 transition-colors will-change-transform"
+                className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:bg-white/10 transition-colors"
             >
                 <div className="flex items-center gap-4 mb-3">
                     <Target className="w-6 h-6 text-white" />
@@ -75,7 +75,7 @@ export const About: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
                 transition={{ ...transition, delay: 0.25 }}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:bg-white/10 transition-colors will-change-transform"
+                className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:bg-white/10 transition-colors"
             >
                 <div className="flex items-center gap-4 mb-3">
                     <Zap className="w-6 h-6 text-white" />
@@ -91,7 +91,7 @@ export const About: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
                 transition={{ ...transition, delay: 0.35 }}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:bg-white/10 transition-colors will-change-transform"
+                className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:bg-white/10 transition-colors"
             >
                 <div className="flex items-center gap-4 mb-3">
                     <Shield className="w-6 h-6 text-white" />

@@ -7,11 +7,11 @@ export const ProductShowcase: React.FC = () => {
   return (
     <Section className="py-12">
       <motion.div 
-         initial={{ opacity: 0, y: 10 }}
+         initial={{ opacity: 0, y: 20 }}
          whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, margin: "-50px" }}
+         viewport={{ once: true, amount: 0.1 }}
          transition={{ duration: 0.6, ease: "easeOut" }}
-         className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] bg-surface group hover:border-white/30 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500 will-change-transform"
+         className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] bg-surface group hover:border-white/30 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
       >
         <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Side */}
