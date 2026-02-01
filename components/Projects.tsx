@@ -36,50 +36,56 @@ const projects: Project[] = [
 
 const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
   return (
-    <motion.a
-      href={project.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      // Standard stable viewport settings
-      initial={{ opacity: 0, y: 20 }}
+    // 1. Motion Wrapper: Handles ONLY the entrance animation
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-      className="group relative block w-full bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-xl overflow-hidden md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
+      className="w-full"
+      style={{ willChange: 'transform, opacity' }} // Hint browser to promote layer
     >
-      {/* 16:9 Aspect Ratio Container for Image */}
-      <div className="relative w-full aspect-video overflow-hidden bg-[#080808]">
-         <img 
-            src={project.image} 
-            alt={project.title} 
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-105"
-         />
-         
-         <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
-      </div>
+      {/* 2. Content Container: Handles hover effects and styling. NO motion props here. */}
+      <a
+        href={project.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative block w-full bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-xl overflow-hidden md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-colors transition-shadow duration-300"
+      >
+        {/* 16:9 Aspect Ratio Container for Image */}
+        <div className="relative w-full aspect-video overflow-hidden bg-[#080808]">
+           <img 
+              src={project.image} 
+              alt={project.title} 
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-105"
+           />
+           
+           <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
+        </div>
 
-      {/* Content Below Image */}
-      <div className="relative p-6 border-t border-white/5 bg-[#080808]">
-          <div className="flex justify-between items-start mb-2 relative z-10">
-             <div className="flex items-center gap-2">
-                 <Cpu className="w-4 h-4 text-accent" />
-                 <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">
-                     {project.category}
-                 </span>
-             </div>
-             <ArrowUpRight className="w-5 h-5 text-gray-500 md:group-hover:text-white transition-colors" />
-          </div>
+        {/* Content Below Image */}
+        <div className="relative p-6 border-t border-white/5 bg-[#080808]">
+            <div className="flex justify-between items-start mb-2 relative z-10">
+               <div className="flex items-center gap-2">
+                   <Cpu className="w-4 h-4 text-accent" />
+                   <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">
+                       {project.category}
+                   </span>
+               </div>
+               <ArrowUpRight className="w-5 h-5 text-gray-500 md:group-hover:text-white transition-colors duration-300" />
+            </div>
 
-          <h3 className="text-3xl font-display font-bold text-white mb-2 md:group-hover:text-accent transition-colors duration-300">
-             {project.title}
-          </h3>
-          <p className="text-gray-400 text-sm leading-relaxed">
-             {project.description}
-          </p>
-      </div>
-    </motion.a>
+            <h3 className="text-3xl font-display font-bold text-white mb-2 md:group-hover:text-accent transition-colors duration-300">
+               {project.title}
+            </h3>
+            <p className="text-gray-400 text-sm leading-relaxed">
+               {project.description}
+            </p>
+        </div>
+      </a>
+    </motion.div>
   );
 };
 
@@ -125,7 +131,8 @@ export const Projects: React.FC = () => {
          whileInView={{ opacity: 1, y: 0 }}
          viewport={{ once: true, amount: 0.1 }}
          transition={{ duration: 0.5, delay: 0.2 }}
-         className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black/50 p-12 text-center group md:hover:border-white/30 transition-all duration-500 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)]"
+         style={{ willChange: 'transform, opacity' }}
+         className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black/50 p-12 text-center group md:hover:border-white/30 transition-colors transition-shadow duration-500 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)]"
       >
         {/* CSS-only Animation for Background */}
         <div className="absolute inset-0 opacity-10 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.05)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%] animate-[gradient_15s_ease_infinite]" />

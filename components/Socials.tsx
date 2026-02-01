@@ -79,7 +79,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
             <div className={`w-10 h-10 mb-3 transition-transform duration-300 md:group-hover:scale-110 ${baseColor} md:group-hover:text-white relative z-10`}>
                 {copied ? <Check className="w-full h-full" /> : <Icon className="w-full h-full" />}
             </div>
-            <span className={`text-xs font-bold uppercase tracking-widest ${isCopy ? 'text-gray-300' : 'text-white'} md:group-hover:text-white transition-colors relative z-10 text-center px-2`}>
+            <span className={`text-xs font-bold uppercase tracking-widest ${isCopy ? 'text-gray-300' : 'text-white'} md:group-hover:text-white transition-colors duration-300 relative z-10 text-center px-2`}>
                 {copied ? "Copied" : label}
             </span>
             <span className="text-[10px] text-gray-500 md:group-hover:text-white/70 mt-1 font-mono relative z-10 max-w-[90%] truncate">
@@ -92,7 +92,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
         </>
     );
 
-    const cardClasses = "flex flex-col items-center justify-center w-full h-36 md:h-40 bg-surface border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.02)] rounded-2xl backdrop-blur-md transition-all duration-300 group md:hover:border-white/30 md:hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] relative overflow-hidden";
+    const cardClasses = "flex flex-col items-center justify-center w-full h-36 md:h-40 bg-surface border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.02)] rounded-2xl backdrop-blur-md transition-colors transition-shadow duration-300 group md:hover:border-white/30 md:hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] relative overflow-hidden";
 
     if (href) {
         return (
@@ -102,6 +102,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
                 rel="noopener noreferrer"
                 whileHover={{ y: -5 }}
                 className={cardClasses}
+                // REMOVED transition-all to stop fighting motion's y transform
             >
                 <Content />
             </motion.a>

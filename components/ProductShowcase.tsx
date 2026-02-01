@@ -11,7 +11,8 @@ export const ProductShowcase: React.FC = () => {
          whileInView={{ opacity: 1, y: 0 }}
          viewport={{ once: true, amount: 0.1 }}
          transition={{ duration: 0.6 }}
-         className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] bg-surface group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
+         style={{ willChange: 'transform, opacity' }}
+         className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] bg-surface group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-colors transition-shadow duration-500"
       >
         <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Side */}
