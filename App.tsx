@@ -7,10 +7,16 @@ import { Socials } from './components/Socials';
 import { Services } from './components/Services';
 import { ProductShowcase } from './components/ProductShowcase';
 import { CustomCursor } from './components/ui/CustomCursor';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const App: React.FC = () => {
   return (
     <main className="bg-[#030303] text-white min-h-screen relative selection:bg-accent selection:text-white">
+      {/* Vercel Analytics */}
+      <Analytics />
+      <SpeedInsights />
+
       {/* Global Elements */}
       <CustomCursor />
       <Navbar />

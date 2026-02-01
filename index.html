@@ -49,6 +49,21 @@
         overflow-x: hidden;
       }
       
+      /* Global Scale Down (Zoom) */
+      html {
+        zoom: 75%; /* Scales entire UI down to 75% for Chrome/Edge/Safari */
+      }
+      
+      /* Firefox Fallback for Scale */
+      @supports (-moz-appearance:none) {
+        body {
+          transform: scale(0.75);
+          transform-origin: top center;
+          width: 133.33%;
+          height: 133.33%;
+        }
+      }
+
       /* Completely hide scrollbar */
       ::-webkit-scrollbar {
         display: none;
@@ -69,7 +84,11 @@
     "react/": "https://esm.sh/react@^19.2.4/",
     "react": "https://esm.sh/react@^19.2.4",
     "framer-motion": "https://esm.sh/framer-motion@^12.29.2",
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "@vercel/analytics/react": "https://esm.sh/@vercel/analytics@1.1.3/react",
+    "@vercel/speed-insights/react": "https://esm.sh/@vercel/speed-insights@1.0.9/react",
+    "@vercel/analytics/": "https://esm.sh/@vercel/analytics@^1.6.1/",
+    "@vercel/speed-insights/": "https://esm.sh/@vercel/speed-insights@^1.3.1/"
   }
 }
 </script>
