@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
           alt="Hero Background" 
           fetchPriority="high"
           onLoad={() => setIsLoaded(true)}
-          className="w-full h-full object-cover object-center grayscale-[0.2]"
+          className="w-full h-full object-cover object-top grayscale-[0.2]"
         />
       </motion.div>
 
