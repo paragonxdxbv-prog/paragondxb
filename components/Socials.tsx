@@ -95,7 +95,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
         </>
     );
 
-    const cardClasses = "flex flex-col items-center justify-center w-full h-36 md:h-40 bg-surface border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.02)] rounded-2xl backdrop-blur-md transition-all duration-300 group hover:border-white/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] relative overflow-hidden";
+    const cardClasses = "flex flex-col items-center justify-center w-full h-36 md:h-40 bg-surface border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.02)] rounded-2xl backdrop-blur-md transition-all duration-300 group hover:border-white/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] relative overflow-hidden will-change-transform";
 
     if (href) {
         return (
@@ -141,7 +141,7 @@ export const Socials: React.FC = () => {
 
             {/* Direct Contact Lines */}
              <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: 0.1, duration: 0.6 }}
@@ -211,7 +211,7 @@ export const Socials: React.FC = () => {
 
             {/* Media Content - Now styled consistently with large cards */}
             <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6 }}

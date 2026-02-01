@@ -40,11 +40,11 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-      className="group relative block w-full bg-surface border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] rounded-xl overflow-hidden hover:border-white/30 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
+      className="group relative block w-full bg-surface border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] rounded-xl overflow-hidden hover:border-white/30 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500 will-change-transform"
     >
       {/* 16:9 Aspect Ratio Container for Image */}
       <div className="relative w-full aspect-video overflow-hidden bg-white/5">
@@ -89,7 +89,7 @@ export const Projects: React.FC = () => {
     <Section id="projects" className="py-24">
       <div className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <motion.div
-            initial={{ opacity: 0, x: -15 }}
+            initial={{ opacity: 0, x: -10 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -103,7 +103,7 @@ export const Projects: React.FC = () => {
             </h2>
           </motion.div>
           <motion.p 
-            initial={{ opacity: 0, x: 15 }}
+            initial={{ opacity: 0, x: 10 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -126,7 +126,7 @@ export const Projects: React.FC = () => {
          whileInView={{ opacity: 1, y: 0 }}
          viewport={{ once: true, margin: "-50px" }}
          transition={{ duration: 0.5, delay: 0.2 }}
-         className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black/50 p-12 text-center group hover:border-white/30 transition-all duration-500 shadow-[0_0_20px_-5px_rgba(255,255,255,0.05)]"
+         className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black/50 p-12 text-center group hover:border-white/30 transition-all duration-500 shadow-[0_0_20px_-5px_rgba(255,255,255,0.05)] will-change-transform"
       >
         {/* CSS-only Animation for Background - lighter on JS thread */}
         <div className="absolute inset-0 opacity-10 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.05)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%] animate-[gradient_15s_ease_infinite]" />

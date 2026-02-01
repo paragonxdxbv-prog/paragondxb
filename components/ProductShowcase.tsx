@@ -7,11 +7,11 @@ export const ProductShowcase: React.FC = () => {
   return (
     <Section className="py-12">
       <motion.div 
-         initial={{ opacity: 0, y: 15 }}
+         initial={{ opacity: 0, y: 10 }}
          whileInView={{ opacity: 1, y: 0 }}
          viewport={{ once: true, margin: "-50px" }}
          transition={{ duration: 0.6, ease: "easeOut" }}
-         className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] bg-surface group hover:border-white/30 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
+         className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] bg-surface group hover:border-white/30 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500 will-change-transform"
       >
         <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Side */}
@@ -22,6 +22,7 @@ export const ProductShowcase: React.FC = () => {
                     src="https://i.ibb.co/0jt0Dkx7/Untitled-design-1.jpg" 
                     alt="Digital Motivation Poster Bundle" 
                     className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 md:bg-gradient-to-r md:from-transparent md:to-surface" />
             </div>
@@ -29,7 +30,7 @@ export const ProductShowcase: React.FC = () => {
             {/* Content Side */}
             <div className="p-8 md:p-16 flex flex-col justify-center relative z-10">
                  <motion.div
-                    initial={{ opacity: 0, x: 15 }}
+                    initial={{ opacity: 0, x: 10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.1 }}
