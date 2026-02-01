@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paragon | High-Impact Portfolio</title>
+    <link rel="icon" href="https://i.ibb.co/tP3YJ0Hr/lol.jpg" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,20 +48,22 @@
         background-color: #000000;
         color: #ffffff;
         overflow-x: hidden;
+        margin: 0;
       }
       
-      /* Global Scale Down (Zoom) */
+      /* Global Scale Down (Zoom) to 70% */
       html {
-        zoom: 75%; /* Scales entire UI down to 75% for Chrome/Edge/Safari */
+        zoom: 0.7; /* Webkit (Chrome, Edge, Safari) */
       }
       
       /* Firefox Fallback for Scale */
       @supports (-moz-appearance:none) {
         body {
-          transform: scale(0.75);
+          transform: scale(0.7);
           transform-origin: top center;
-          width: 133.33%;
-          height: 133.33%;
+          /* Recalculate width/height to compensate for scale */
+          width: 142.857%; 
+          height: 142.857%;
         }
       }
 
@@ -77,7 +80,7 @@
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
       }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@^19.2.4",

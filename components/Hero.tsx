@@ -7,7 +7,7 @@ export const Hero: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+    <div className="relative min-h-screen w-full overflow-hidden flex items-center justify-center bg-black pt-32 md:pt-0">
       {/* Dynamic Background Image with Parallax */}
       <motion.div 
         style={{ y, scale: 1.1 }}
@@ -19,7 +19,7 @@ export const Hero: React.FC = () => {
         {/* Subtle Scanline Overlay */}
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 z-20 mix-blend-overlay pointer-events-none"></div>
 
-        {/* Optimized Image with Load Handler - No Spinner, Just Smooth Fade */}
+        {/* Optimized Image with Load Handler */}
         <motion.img 
           initial={{ opacity: 0, filter: 'blur(20px)' }}
           animate={{ 
@@ -36,12 +36,12 @@ export const Hero: React.FC = () => {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-30 text-center px-4 max-w-5xl mx-auto">
+      <div className="relative z-30 text-center px-4 max-w-5xl mx-auto flex flex-col items-center justify-center pb-20 md:pb-0">
         <motion.h1
           initial={{ opacity: 0, scale: 0.9, letterSpacing: "-0.05em" }}
           animate={{ opacity: 1, scale: 1, letterSpacing: "-0.02em" }}
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-          className="text-6xl md:text-8xl lg:text-[10rem] font-display font-bold text-white mb-6 drop-shadow-2xl leading-[0.9]"
+          className="text-6xl md:text-8xl lg:text-[10rem] font-display font-bold text-white mb-6 drop-shadow-2xl leading-[1.0] md:leading-[0.9] pt-10"
         >
           PARA<span className="text-gray-500">GON</span>
         </motion.h1>
