@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <title>Paragon | High-Impact Portfolio</title>
     <link rel="icon" href="https://i.ibb.co/tP3YJ0Hr/lol.jpg" type="image/jpeg" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -54,22 +54,12 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         -webkit-tap-highlight-color: transparent;
+        /* Ensure touch scrolling is immediate */
+        touch-action: pan-y; 
       }
       
-      /* Global Scale Down (Zoom) to 70% */
-      html {
-        zoom: 0.7; /* Webkit (Chrome, Edge, Safari) */
-      }
-      
-      /* Firefox Fallback for Scale */
-      @supports (-moz-appearance:none) {
-        body {
-          transform: scale(0.7);
-          transform-origin: top center;
-          width: 142.857%; 
-          height: 142.857%;
-        }
-      }
+      /* REMOVED: html { zoom: 0.7 } - This causes mobile scroll lag */
+      /* REMOVED: Firefox transform scale hack - This causes render jitter */
 
       /* Completely hide scrollbar */
       ::-webkit-scrollbar {
@@ -107,7 +97,6 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
