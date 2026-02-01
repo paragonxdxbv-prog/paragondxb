@@ -7,10 +7,10 @@ export const ProductShowcase: React.FC = () => {
   return (
     <Section className="py-12">
       <motion.div 
-         initial={{ opacity: 0, y: 30 }}
+         initial={{ opacity: 0, y: 15 }}
          whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, amount: 0.2 }}
-         transition={{ duration: 0.8 }}
+         viewport={{ once: true, margin: "-50px" }}
+         transition={{ duration: 0.6, ease: "easeOut" }}
          className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] bg-surface group hover:border-white/30 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
       >
         <div className="grid grid-cols-1 md:grid-cols-2">
@@ -29,9 +29,10 @@ export const ProductShowcase: React.FC = () => {
             {/* Content Side */}
             <div className="p-8 md:p-16 flex flex-col justify-center relative z-10">
                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: 15 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
                  >
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-xs font-medium text-accent mb-6 shadow-[0_0_10px_rgba(255,255,255,0.1)]">
                         <ShoppingBag className="w-3 h-3" />

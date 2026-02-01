@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowUpRight, Cpu, Clock, Loader2 } from 'lucide-react';
 import { Section } from './ui/Section';
 import { Project } from '../types';
@@ -35,25 +35,15 @@ const projects: Project[] = [
 ];
 
 const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
   return (
     <motion.a
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-      onMouseMove={handleMouseMove}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
       className="group relative block w-full bg-surface border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] rounded-xl overflow-hidden hover:border-white/30 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
     >
       {/* 16:9 Aspect Ratio Container for Image */}
@@ -70,18 +60,8 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
 
       {/* Content Below Image */}
       <div className="relative p-6 border-t border-white/5 bg-[#080808]">
-          <motion.div
-            className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
-            style={{
-              background: useMotionTemplate`
-                radial-gradient(
-                  300px circle at ${mouseX}px ${mouseY}px,
-                  rgba(255, 255, 255, 0.05),
-                  transparent 80%
-                )
-              `,
-            }}
-          />
+          {/* Subtle static radial gradient instead of JS-heavy tracking for performance */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_70%)] pointer-events-none" />
 
           <div className="flex justify-between items-start mb-2 relative z-10">
              <div className="flex items-center gap-2">
@@ -109,10 +89,10 @@ export const Projects: React.FC = () => {
     <Section id="projects" className="py-24">
       <div className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -15 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <div className="flex items-center gap-4 mb-4">
                 <div className="h-px w-12 bg-accent" />
@@ -123,10 +103,10 @@ export const Projects: React.FC = () => {
             </h2>
           </motion.div>
           <motion.p 
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 15 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-gray-400 max-w-md text-right md:text-left"
           >
             Full-scale previews of high-performance digital environments.
@@ -142,13 +122,13 @@ export const Projects: React.FC = () => {
 
       {/* Large Full-Width "Coming Soon" Box */}
       <motion.div
-         initial={{ opacity: 0, y: 20 }}
+         initial={{ opacity: 0, y: 15 }}
          whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, amount: 0.2 }}
-         transition={{ duration: 0.7, delay: 0.2 }}
+         viewport={{ once: true, margin: "-50px" }}
+         transition={{ duration: 0.5, delay: 0.2 }}
          className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black/50 p-12 text-center group hover:border-white/30 transition-all duration-500 shadow-[0_0_20px_-5px_rgba(255,255,255,0.05)]"
       >
-        {/* Animated Background Pattern */}
+        {/* CSS-only Animation for Background - lighter on JS thread */}
         <div className="absolute inset-0 opacity-10 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.05)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%] animate-[gradient_15s_ease_infinite]" />
         
         {/* Content */}
