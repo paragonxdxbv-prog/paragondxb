@@ -17,9 +17,8 @@ export const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-[#000000] z-10" />
         <div className="absolute inset-0 bg-black/40 z-10" /> 
         
-        {/* Subtle Scanline Overlay - Optimized for Performance */}
-        {/* mix-blend-overlay is expensive on mobile, using standard opacity instead */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.15] z-20 pointer-events-none"></div>
+        {/* Subtle Scanline Overlay - Optimized for Performance (Hidden on Mobile) */}
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.15] z-20 pointer-events-none hidden md:block"></div>
 
         {/* Optimized Image with Load Handler */}
         <motion.img 

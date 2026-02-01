@@ -58,8 +58,10 @@
         touch-action: pan-y; 
       }
       
-      /* REMOVED: html { zoom: 0.7 } - This causes mobile scroll lag */
-      /* REMOVED: Firefox transform scale hack - This causes render jitter */
+      /* Restored Zoom: Creates the 'scaled out' premium desktop feel on mobile */
+      html { 
+        zoom: 0.65; 
+      }
 
       /* Completely hide scrollbar */
       ::-webkit-scrollbar {
@@ -97,6 +99,7 @@
   }
 }
 </script>
+<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>

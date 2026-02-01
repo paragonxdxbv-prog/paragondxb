@@ -21,8 +21,8 @@ const App: React.FC = () => {
 
       <Hero />
       <div className="relative z-10 bg-[#030303]">
-        {/* Subtle background grid pattern */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none"></div>
+        {/* Subtle background grid pattern - HIDDEN ON MOBILE FOR PERFORMANCE */}
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none hidden md:block"></div>
         <About />
         <Services />
         <Projects />
