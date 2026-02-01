@@ -40,14 +40,16 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+      // Performance Fix: Only animate opacity. Moving Y axis during scroll causes flickering on weak GPUs.
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.1 }} // Removed easeOut for linear, predictable fade
       className="group relative block w-full bg-surface border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] rounded-xl overflow-hidden hover:border-white/30 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-all duration-500"
     >
       {/* 16:9 Aspect Ratio Container for Image */}
-      <div className="relative w-full aspect-video overflow-hidden bg-white/5">
+      {/* Added bg-[#080808] to prevent white flash if image loads late */}
+      <div className="relative w-full aspect-video overflow-hidden bg-[#080808]">
          <img 
             src={project.image} 
             alt={project.title} 
@@ -60,9 +62,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
 
       {/* Content Below Image */}
       <div className="relative p-6 border-t border-white/5 bg-[#080808]">
-          {/* Subtle static radial gradient instead of JS-heavy tracking for performance */}
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_70%)] pointer-events-none" />
-
+          {/* Removed heavy radial gradient for performance */}
           <div className="flex justify-between items-start mb-2 relative z-10">
              <div className="flex items-center gap-2">
                  <Cpu className="w-4 h-4 text-accent" />
@@ -89,10 +89,10 @@ export const Projects: React.FC = () => {
     <Section id="projects" className="py-24">
       <div className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-4 mb-4">
                 <div className="h-px w-12 bg-accent" />
@@ -103,10 +103,10 @@ export const Projects: React.FC = () => {
             </h2>
           </motion.div>
           <motion.p 
-            initial={{ opacity: 0, x: 10 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.6 }}
             className="text-gray-400 max-w-md text-right md:text-left"
           >
             Full-scale previews of high-performance digital environments.
@@ -122,9 +122,9 @@ export const Projects: React.FC = () => {
 
       {/* Large Full-Width "Coming Soon" Box */}
       <motion.div
-         initial={{ opacity: 0, y: 15 }}
-         whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, amount: 0.2 }}
+         initial={{ opacity: 0 }}
+         whileInView={{ opacity: 1 }}
+         viewport={{ once: true, margin: "-50px" }}
          transition={{ duration: 0.5, delay: 0.2 }}
          className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black/50 p-12 text-center group hover:border-white/30 transition-all duration-500 shadow-[0_0_20px_-5px_rgba(255,255,255,0.05)]"
       >

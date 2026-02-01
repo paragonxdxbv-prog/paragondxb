@@ -28,7 +28,7 @@ export const Navbar: React.FC = () => {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
-        className="pointer-events-auto bg-black/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-2 ring-1 ring-white/5 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-shadow duration-500"
+        className="pointer-events-auto bg-black/90 md:bg-black/80 md:backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-2 ring-1 ring-white/5 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-shadow duration-500"
       >
         {navItems.map((item) => (
           <button
