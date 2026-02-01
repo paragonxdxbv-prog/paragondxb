@@ -1,0 +1,32 @@
+import React, { useEffect } from 'react';
+import { Hero } from './components/Hero';
+import { Navbar } from './components/Navbar';
+import { About } from './components/About';
+import { Projects } from './components/Projects';
+import { Socials } from './components/Socials';
+import { Services } from './components/Services';
+import { ProductShowcase } from './components/ProductShowcase';
+import { CustomCursor } from './components/ui/CustomCursor';
+
+const App: React.FC = () => {
+  return (
+    <main className="bg-[#030303] text-white min-h-screen relative selection:bg-accent selection:text-white">
+      {/* Global Elements */}
+      <CustomCursor />
+      <Navbar />
+
+      <Hero />
+      <div className="relative z-10 bg-[#030303]">
+        {/* Subtle background grid pattern */}
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay"></div>
+        <About />
+        <Services />
+        <Projects />
+        <ProductShowcase />
+        <Socials />
+      </div>
+    </main>
+  );
+};
+
+export default App;
