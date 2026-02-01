@@ -6,7 +6,7 @@ import { Target, Zap, Shield } from 'lucide-react';
 export const About: React.FC = () => {
   // Standardized elite easing with TypeScript fix
   const transition = { duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] as const };
-  const viewportConfig = { once: true, margin: "0px 0px 200px 0px" };
+  const viewportConfig = { once: true, amount: 0.1 };
 
   return (
     <Section id="about" className="min-h-[80vh] flex flex-col justify-center py-24">

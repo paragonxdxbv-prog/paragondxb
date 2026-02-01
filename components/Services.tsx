@@ -37,15 +37,14 @@ const TechItem = ({ icon: Icon, title, desc }: { icon: any, title: string, desc:
 );
 
 export const Services: React.FC = () => {
-  const cardTransition = { duration: 0.5 };
-  // Pre-load content 200px before it enters viewport to eliminate "pop-in" flicker
-  const viewportConfig = { once: true, margin: "0px 0px 200px 0px" };
+  const cardTransition = { duration: 0.5, ease: "easeOut" as const };
+  const viewportConfig = { once: true, amount: 0.1 };
 
   return (
     <Section id="services" className="py-24">
        <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={viewportConfig}
         transition={{ duration: 0.6 }}
         className="mb-16 text-center"
@@ -60,8 +59,8 @@ export const Services: React.FC = () => {
         
         {/* 1. Web Architecture ($300) */}
         <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}
             transition={cardTransition}
             className="col-span-1 md:col-span-2 lg:col-span-2 bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-all duration-500 flex flex-col justify-between"
@@ -107,8 +106,8 @@ export const Services: React.FC = () => {
 
         {/* 2. Discord Setup */}
         <motion.div
-             initial={{ opacity: 0 }}
-             whileInView={{ opacity: 1 }}
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
              viewport={viewportConfig}
              transition={{ ...cardTransition, delay: 0.1 }}
              className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-all duration-500 flex flex-col justify-between"
@@ -131,8 +130,8 @@ export const Services: React.FC = () => {
 
         {/* 3. UI Components */}
         <motion.div
-             initial={{ opacity: 0 }}
-             whileInView={{ opacity: 1 }}
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
              viewport={viewportConfig}
              transition={{ ...cardTransition, delay: 0.15 }}
              className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-all duration-500 flex flex-col justify-between"
@@ -155,8 +154,8 @@ export const Services: React.FC = () => {
 
         {/* 4. Adv. Coding */}
         <motion.div
-             initial={{ opacity: 0 }}
-             whileInView={{ opacity: 1 }}
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
              viewport={viewportConfig}
              transition={{ ...cardTransition, delay: 0.2 }}
              className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-all duration-500 flex flex-col justify-between"
@@ -179,8 +178,8 @@ export const Services: React.FC = () => {
 
         {/* 5. Video Editing */}
         <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}
             transition={{ ...cardTransition, delay: 0.25 }}
             className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-all duration-500 flex flex-col justify-between"
@@ -203,8 +202,8 @@ export const Services: React.FC = () => {
 
         {/* 6. Visual Design */}
         <motion.div
-             initial={{ opacity: 0 }}
-             whileInView={{ opacity: 1 }}
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
              viewport={viewportConfig}
              transition={{ ...cardTransition, delay: 0.3 }}
              className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-all duration-500 flex flex-col justify-between"
@@ -227,8 +226,8 @@ export const Services: React.FC = () => {
 
         {/* 7. Custom Request */}
         <motion.div
-             initial={{ opacity: 0 }}
-             whileInView={{ opacity: 1 }}
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
              viewport={viewportConfig}
              transition={{ ...cardTransition, delay: 0.35 }}
              className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-all duration-500 flex flex-col justify-between"
@@ -251,8 +250,8 @@ export const Services: React.FC = () => {
 
         {/* 8. Everything Else */}
         <motion.div
-             initial={{ opacity: 0 }}
-             whileInView={{ opacity: 1 }}
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
              viewport={viewportConfig}
              transition={{ ...cardTransition, delay: 0.4 }}
              className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-all duration-500 flex flex-col justify-between"
@@ -275,8 +274,8 @@ export const Services: React.FC = () => {
 
         {/* 9. Terms */}
         <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportConfig}
             transition={{ ...cardTransition, delay: 0.45 }}
             className="col-span-1 md:col-span-2 lg:col-span-3 bg-black border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 flex flex-col justify-center"

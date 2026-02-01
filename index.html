@@ -84,21 +84,12 @@
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
       }
       
-      /* Optimize image rendering and hardware acceleration */
+      /* Basic image reset */
       img {
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        /* Prevent layout shift during load */
+        display: block;
+        max-width: 100%;
+        /* Prevent layout shift background */
         background-color: #080808; 
-      }
-
-      /* Stabilize cards during animations */
-      .transform-gpu {
-        transform: translateZ(0);
-        -webkit-transform: translateZ(0);
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        perspective: 1000px;
       }
     </style>
 <script type="importmap">
