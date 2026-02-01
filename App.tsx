@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
 import { About } from './components/About';
@@ -25,6 +26,7 @@ const App: React.FC = () => {
         <ProductShowcase />
         <Socials />
       </div>
+      <SpeedInsights />
     </main>
   );
 };
