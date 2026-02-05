@@ -57,23 +57,24 @@ const videoProjects = [
 ];
 
 // --- ANIMATION VARIANTS (Parent-Child Strategy) ---
+// The parent controls the flow. Children just execute the animation.
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.15,
       delayChildren: 0.1
     }
   }
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30 },
   show: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" }
   }
 };
 
@@ -138,7 +139,7 @@ const VideoCard = ({ video }: { video: typeof videoProjects[0] }) => {
           {/* 
              Video Container 
              - Flexbox used to perfectly center the iframe content.
-             - Aspect ratio maintained via padding hack.
+             - Aspect ratio maintained via padding hack for 9:16 vertical videos.
           */}
           <div className="relative w-full pb-[177.78%] bg-black flex items-center justify-center overflow-hidden">
             <iframe 
@@ -201,7 +202,11 @@ export const Projects: React.FC = () => {
          <h3 className="text-xl font-display font-bold text-white uppercase tracking-wider">Preview Work</h3>
       </div>
       
-      {/* STAGGERED GRID FOR WEBSITES */}
+      {/* 
+          CRITICAL FIX: 
+          Using parent variants (containerVariants) to control children.
+          Viewport detection happens ONCE on this container.
+      */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
@@ -223,7 +228,10 @@ export const Projects: React.FC = () => {
          <span className="text-xs font-mono text-gray-500 hidden md:block">STREAMING FROM SECURE DRIVE</span>
       </div>
       
-      {/* STAGGERED GRID FOR VIDEOS */}
+      {/* 
+          CRITICAL FIX: 
+          Same parent-child strategy for videos.
+      */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"

@@ -16,17 +16,19 @@ const TikTokIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// UPDATED: Standard Reddit Circle Logo with Snoo Face
+// CORRECT REDDIT LOGO: The Snoo face inside a Circle
 const RealRedditIcon = ({ className }: { className?: string }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-       <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 1.249.688 0 1.249-.561 1.249-1.249 0-.687-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.094z"/>
+       <circle cx="12" cy="12" r="10"/>
+       <path fill="black" d="M16.67,13.13C16.67,13.13,16.67,13.13,16.67,13.13l-0.03-0.16 c-0.54-2.6-2.91-4.52-5.69-4.32c-2.31,0.17-4.2,1.86-4.6,4.14c-0.17,0.96,0.02,1.93,0.51,2.77c-1.34-0.34-2.34-1.55-2.34-3 c0-1.71,1.39-3.1,3.1-3.1c1.47,0,2.71,1.02,3.03,2.41c0.12-0.03,0.25-0.05,0.38-0.05c0.55,0,1,0.45,1,1c0,0.13-0.03,0.26-0.07,0.37 c0.87-0.96,2.11-1.57,3.5-1.57c2.59,0,4.7,2.11,4.7,4.7c0,0.93-0.27,1.8-0.74,2.54C18.66,16.59,17.2,14.65,16.67,13.13z M12,22 c5.52,0,10-4.48,10-10S17.52,2,12,2S2,6.48,2,12S6.48,22,12,22z M17,12c0-0.55-0.45-1-1-1s-1,0.45-1,1s0.45,1,1,1S17,12.55,17,12z M12.92,16.5c0-1.1-0.9-2-2-2s-2,0.9-2,2s0.9,2,2,2S12.92,17.6,12.92,16.5z M8,12c0-0.55-0.45-1-1-1s-1,0.45-1,1s0.45,1,1,1 S8,12.55,8,12z" fillRule="evenodd" clipRule="evenodd" fillOpacity="0" stroke="none" />
+       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.2c-2.4 0-4.3-1.2-4.3-2.7s1.9-2.7 4.3-2.7 4.3 1.2 4.3 2.7-1.9 2.7-4.3 2.7zm4.7-5.5c0 .7-.5 1.2-1.2 1.2s-1.2-.5-1.2-1.2.5-1.2 1.2-1.2 1.2.5 1.2 1.2zm-2.9-2c-2.8 0-5 1.9-5.5 4.5 1.1-.9 2.6-1.5 4.1-1.5s3.1.5 4.1 1.5c-.5-2.6-2.7-4.5-5.5-4.5-.4 0-.9 0-1.3.1.2-.5.5-1.3 2.8-1.9.3-.1.5-.4.4-.7-.1-.3-.4-.5-.7-.4-2.8.6-3.4 1.8-3.6 2.4-.4-.1-.8-.1-1.2-.1zm-4.7 2c0 .7-.5 1.2-1.2 1.2s-1.2-.5-1.2-1.2.5-1.2 1.2-1.2 1.2.5 1.2 1.2z" fill="#FFFFFF"/>
     </svg>
 )
 
-// UPDATED: Simple "P" with a very clear, transparent hole in the middle.
+// CORRECT PAYPAL ICON: The "P" Monogram (Italic, Sharp, with Counter)
 const SimplePayPalIcon = ({ className }: { className?: string }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-        <path fillRule="evenodd" clipRule="evenodd" d="M3 4C3 2.89543 3.89543 2 5 2H13C16.866 2 20 5.13401 20 9C20 12.866 16.866 16 13 16H8V21C8 21.5523 7.55228 22 7 22C6.44772 22 6 21.5523 6 21V4H3ZM8 5V13H13C15.2091 13 17 11.2091 17 9C17 6.79086 15.2091 5 13 5H8Z" />
+        <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.969 5.09-4.077 7.94-9.669 7.94h-1.204l-.765 4.842-.276 1.775a.576.576 0 0 1-.57.487h-.523z" />
     </svg>
 )
 
@@ -94,7 +96,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
         </>
     );
 
-    // Variants for stagger effect
+    // Child Variants
     const itemVariants: Variants = {
         hidden: { opacity: 0, y: 20 },
         show: { 
@@ -104,7 +106,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
         }
     };
 
-    // Shared styling
+    // Shared styling - REMOVED whileInView from here
     const cardClasses = "flex flex-col items-center justify-center w-full h-36 md:h-40 bg-surface border border-white/15 shadow-[0_0_20px_rgba(255,255,255,0.08)] rounded-2xl backdrop-blur-md transition-all duration-300 group md:hover:border-white/30 md:hover:shadow-[0_0_35px_rgba(255,255,255,0.2)] relative overflow-hidden transform-gpu will-change-transform";
 
     if (href) {
@@ -140,7 +142,7 @@ const containerVariants: Variants = {
     show: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.1,
+            staggerChildren: 0.15,
             delayChildren: 0.1
         }
     }
@@ -163,6 +165,11 @@ export const Socials: React.FC = () => {
             </p>
 
             {/* Direct Contact Lines */}
+            {/* 
+                CRITICAL FIX: 
+                Using parent variants (containerVariants) to control children.
+                Viewport detection happens ONCE on this container.
+            */}
              <motion.div
                 variants={containerVariants}
                 initial="hidden"
