@@ -3,23 +3,22 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 export const Hero: React.FC = () => {
   const { scrollY } = useScroll();
-  // Reduced parallax effect for better performance
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
+  // Optimized parallax: Smoother factor
+  const y = useTransform(scrollY, [0, 500], [0, 200]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
     <div id="hero" className="relative h-screen w-full overflow-hidden flex flex-col justify-end pb-32 md:pb-24 bg-black transform-gpu">
       
-      {/* Dynamic Background Image with Parallax */}
+      {/* Dynamic Background Image with Parallax & Hardware Acceleration */}
       <motion.div 
-        style={{ y, scale: 1.1, transformOrigin: 'top center' }}
-        className="absolute inset-0 z-0 bg-black"
+        style={{ y, scale: 1.1 }}
+        className="absolute inset-0 z-0 bg-black will-change-transform" // Crucial for performance
       >
-        {/* Gradient Overlay - Stronger at bottom to make text readable */}
+        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
         <div className="absolute inset-0 bg-black/20 z-10" /> 
         
-        {/* Optimized Image with Load Handler */}
         <motion.img 
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
@@ -32,7 +31,7 @@ export const Hero: React.FC = () => {
         />
       </motion.div>
 
-      {/* Content - Positioned at Bottom (justify-end in parent) */}
+      {/* Content */}
       <div className="relative z-30 px-6 max-w-7xl mx-auto w-full text-center md:text-left">
         <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -54,7 +53,7 @@ export const Hero: React.FC = () => {
         </motion.div>
       </div>
       
-      {/* Bottom fade to merge with content */}
+      {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#030303] to-transparent z-20 pointer-events-none" />
     </div>
   );

@@ -27,15 +27,14 @@ const App: React.FC = () => {
       history.scrollRestoration = 'manual';
     }
 
-    // Initialize Lenis with RESPONSIVE settings
-    // We disable custom touch smoothing to let mobile devices use their native, highly optimized momentum scrolling.
+    // Initialize Lenis with SNAPPY settings (High Performance)
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 0.75, // Reduced from 1.2 to 0.75 for less "float", more control
+      easing: (t) => 1 - Math.pow(1 - t, 4), // Quartic ease-out: Starts fast, stops precise
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1, 
+      wheelMultiplier: 0.9, // Slightly reduced for precision
       touchMultiplier: 2,
     });
 
