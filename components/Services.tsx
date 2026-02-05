@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Section } from './ui/Section';
-import { Check, Zap, MessageCircle, Clock, Scale, DollarSign, Server, CreditCard, LayoutDashboard, Globe, Lock, Video, Play, Wrench, HelpCircle, Palette, Terminal, Layers, Infinity } from 'lucide-react';
+import ElectricBorder from './ui/ElectricBorder';
+import { Check, Zap, MessageCircle, Clock, Scale, DollarSign, Server, CreditCard, LayoutDashboard, Globe, Lock, Video, Wrench, HelpCircle, Palette, Terminal, Layers, Infinity, ArrowRight, Sparkles } from 'lucide-react';
 
 const TermsList = () => (
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-gray-400 font-light">
@@ -36,267 +37,168 @@ const TechItem = ({ icon: Icon, title, desc }: { icon: any, title: string, desc:
     </div>
 );
 
-export const Services: React.FC = () => {
-  const cardTransition = { duration: 0.5, ease: "easeOut" as const };
-  const viewportConfig = { once: true, amount: 0.1 };
+const ServiceCard = ({ 
+    icon: Icon, 
+    title, 
+    desc,
+    delay 
+}: { 
+    icon: any, 
+    title: string, 
+    desc: string,
+    delay: number
+}) => (
+    <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5, delay: delay }}
+        style={{ willChange: 'transform, opacity' }}
+        className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-2xl p-6 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-colors transition-shadow duration-300 h-full flex flex-col"
+    >
+         <div className="absolute -right-4 -bottom-4 opacity-5 md:group-hover:opacity-10 transition-opacity">
+            <Icon className="w-32 h-32 text-white" />
+        </div>
+        
+        <div className="relative z-10 mb-4 p-3 bg-white/5 w-fit rounded-xl border border-white/5">
+            <Icon className="w-6 h-6 text-white" />
+        </div>
+        
+        <div className="relative z-10 flex-grow">
+            <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
+            <p className="text-gray-400 text-sm leading-relaxed">
+                {desc}
+            </p>
+        </div>
 
+        <div className="relative z-10 mt-6 pt-6 border-t border-white/5 flex items-center justify-between opacity-50 md:group-hover:opacity-100 transition-opacity">
+            <span className="text-xs font-mono uppercase tracking-widest text-white">Custom Scope</span>
+            <ArrowRight className="w-4 h-4 text-white -translate-x-2 md:group-hover:translate-x-0 transition-transform" />
+        </div>
+    </motion.div>
+);
+
+export const Services: React.FC = () => {
   return (
     <Section id="services" className="py-24">
        <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={viewportConfig}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.6 }}
         className="mb-16 text-center"
       >
-        <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">Services & <span className="text-white border-b-2 border-white">Pricing</span></h2>
+        <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">Capabilities & <span className="text-white border-b-2 border-white">Pricing</span></h2>
         <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-          Transparent rates. Elite execution. No compromise.
+          Elite execution tailored to your specific objectives.
         </p>
       </motion.div>
 
+      {/* Electric Border - Custom Pricing Highlight */}
+      <div className="mb-20 max-w-4xl mx-auto">
+        <ElectricBorder color="#FFFFFF" speed={0.5} borderRadius={24}>
+            <div className="bg-black/80 backdrop-blur-xl p-8 md:p-12 rounded-[24px] text-center relative overflow-hidden">
+                <div className="relative z-10 flex flex-col items-center">
+                    <div className="p-4 rounded-full bg-white/10 mb-6 animate-pulse-slow">
+                        <Sparkles className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+                        Custom Scope. Custom Price.
+                    </h3>
+                    <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+                        I do not sell off-the-shelf templates. I engineer bespoke solutions. 
+                        Your project's cost is calculated based on <span className="text-white font-bold">complexity</span>, <span className="text-white font-bold">timeline</span>, and <span className="text-white font-bold">value</span>.
+                    </p>
+                    <a 
+                        href="https://discord.gg/4qh2cxzeZm"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                    >
+                        Get a Precision Quote <ArrowRight className="w-5 h-5" />
+                    </a>
+                </div>
+                
+                {/* Background effect inside card */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
+            </div>
+        </ElectricBorder>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         
-        {/* 1. Web Architecture ($300) */}
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportConfig}
-            transition={cardTransition}
-            style={{ willChange: 'transform, opacity' }}
-            className="col-span-1 md:col-span-2 lg:col-span-2 bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-colors transition-shadow duration-300 flex flex-col justify-between"
-        >
-            <div className="absolute top-0 right-0 p-8 opacity-5 md:group-hover:opacity-10 transition-opacity">
-                <Globe className="w-40 h-40 text-white" />
-            </div>
-            
-            <div className="flex justify-between items-start mb-6">
-                <div>
-                    <h3 className="text-3xl font-bold mb-2 text-white">Web Architecture</h3>
-                    <div className="text-white text-lg font-medium font-mono">$30/hr Rate</div>
-                </div>
-                <Zap className="w-8 h-8 text-white" />
-            </div>
+        <ServiceCard 
+            icon={Globe}
+            title="Web Architecture"
+            desc="High-performance websites using Vercel, Firebase & React. Speed, security, and SEO optimized by default."
+            delay={0}
+        />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
-                <div>
-                    <div className="flex items-baseline gap-2 mb-4">
-                        <span className="text-5xl font-display font-bold text-white">$300</span>
-                        <span className="text-gray-500">/ Est. Total</span>
-                    </div>
-                    <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                        High-performance websites using Vercel, Firebase & React. Speed, security, and SEO optimized by default.
-                    </p>
-                </div>
-                <div className="space-y-3 pt-2">
-                    <div className="flex items-center gap-3 text-gray-300 text-sm">
-                        <Clock className="w-4 h-4 text-white" />
-                        <span>~10 Hours Build Time</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-300 text-sm">
-                        <Zap className="w-4 h-4 text-white" />
-                        <span>48–72 Hour Delivery</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-300 text-sm">
-                        <DollarSign className="w-4 h-4 text-white" />
-                        <span>$150 Start / $150 Finish</span>
-                    </div>
-                </div>
-            </div>
-        </motion.div>
+        <ServiceCard 
+            icon={Server}
+            title="Discord Setup"
+            desc="Advanced community infrastructure. Channels, roles, bots & permission hierarchies ready for launch."
+            delay={0.1}
+        />
 
-        {/* 2. Discord Setup */}
-        <motion.div
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={viewportConfig}
-             transition={{ ...cardTransition, delay: 0.1 }}
-             style={{ willChange: 'transform, opacity' }}
-             className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-colors transition-shadow duration-300 flex flex-col justify-between"
-        >
-            <div className="absolute -right-4 -bottom-4 opacity-5 md:group-hover:opacity-10 transition-opacity">
-                <MessageCircle className="w-32 h-32 text-white" />
-            </div>
-            <div className="relative z-10">
-                <Server className="w-8 h-8 text-white mb-4" />
-                <h3 className="text-2xl font-bold text-white mb-2">Discord Setup</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                     Channels, roles, bots & permissions. Full community infrastructure ready for launch.
-                </p>
-            </div>
-            <div className="relative z-10">
-                <span className="text-3xl font-display font-bold text-white block mb-1">$100</span>
-                <span className="text-xs text-gray-500 uppercase tracking-wider">Flat Fee</span>
-            </div>
-        </motion.div>
+        <ServiceCard 
+            icon={Layers}
+            title="UI Components"
+            desc="Bespoke React components, fluid animations, and interactive elements tailored to your brand's physics."
+            delay={0.15}
+        />
 
-        {/* 3. UI Components */}
-        <motion.div
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={viewportConfig}
-             transition={{ ...cardTransition, delay: 0.15 }}
-             style={{ willChange: 'transform, opacity' }}
-             className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-colors transition-shadow duration-300 flex flex-col justify-between"
-        >
-             <div className="absolute -right-4 -bottom-4 opacity-5 md:group-hover:opacity-10 transition-opacity">
-                <Layers className="w-32 h-32 text-white" />
-            </div>
-            <div className="relative z-10">
-                <Layers className="w-8 h-8 text-white mb-4" />
-                <h3 className="text-2xl font-bold text-white mb-2">UI Components</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                    Bespoke React components, smooth animations, and interactive elements tailored to your specific needs.
-                </p>
-            </div>
-            <div className="relative z-10">
-                 <span className="text-3xl font-display font-bold text-white block mb-1">$10–$100</span>
-                 <span className="text-xs text-gray-500 uppercase tracking-wider">Based on Complexity</span>
-            </div>
-        </motion.div>
+        <ServiceCard 
+            icon={Terminal}
+            title="Advanced Coding"
+            desc="Custom scripts, backend logic, and system integrations. Python, Java, C++, and more."
+            delay={0.2}
+        />
 
-        {/* 4. Adv. Coding */}
-        <motion.div
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={viewportConfig}
-             transition={{ ...cardTransition, delay: 0.2 }}
-             style={{ willChange: 'transform, opacity' }}
-             className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-colors transition-shadow duration-300 flex flex-col justify-between"
-        >
-             <div className="absolute -right-4 -bottom-4 opacity-5 md:group-hover:opacity-10 transition-opacity">
-                <Terminal className="w-32 h-32 text-white" />
-            </div>
-            <div className="relative z-10">
-                <Terminal className="w-8 h-8 text-white mb-4" />
-                <h3 className="text-2xl font-bold text-white mb-2">Adv. Coding</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                    Python scripting, Java modules, C++, and other backend logic solutions.
-                </p>
-            </div>
-            <div className="relative z-10">
-                 <span className="text-3xl font-display font-bold text-white block mb-1">$40</span>
-                 <span className="text-xs text-gray-500 uppercase tracking-wider">Hourly Rate</span>
-            </div>
-        </motion.div>
+        <ServiceCard 
+            icon={Video}
+            title="Video Production"
+            desc="Cinematic editing, sound design, and motion graphics optimized for high-retention platforms."
+            delay={0.25}
+        />
 
-        {/* 5. Video Editing */}
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportConfig}
-            transition={{ ...cardTransition, delay: 0.25 }}
-            style={{ willChange: 'transform, opacity' }}
-            className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-colors transition-shadow duration-300 flex flex-col justify-between"
-        >
-             <div className="absolute -right-4 -bottom-4 opacity-5 md:group-hover:opacity-10 transition-opacity">
-                <Video className="w-32 h-32 text-white" />
-            </div>
-            <div className="relative z-10">
-                <Video className="w-8 h-8 text-white mb-4" />
-                <h3 className="text-2xl font-bold text-white mb-2">Video Editing</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                    Cinematic cuts, sound design, and motion graphics. Perfect for Reels, TikToks, and high-impact content.
-                </p>
-            </div>
-            <div className="relative z-10">
-                 <span className="text-3xl font-display font-bold text-white block mb-1">$15</span>
-                 <span className="text-xs text-gray-500 uppercase tracking-wider">Per Video</span>
-            </div>
-        </motion.div>
+        <ServiceCard 
+            icon={Palette}
+            title="Visual Identity"
+            desc="High-resolution branding assets, logos, and digital environments designed to command attention."
+            delay={0.3}
+        />
 
-        {/* 6. Visual Design */}
-        <motion.div
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={viewportConfig}
-             transition={{ ...cardTransition, delay: 0.3 }}
-             style={{ willChange: 'transform, opacity' }}
-             className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-colors transition-shadow duration-300 flex flex-col justify-between"
-        >
-             <div className="absolute -right-4 -bottom-4 opacity-5 md:group-hover:opacity-10 transition-opacity">
-                <Palette className="w-32 h-32 text-white" />
-            </div>
-            <div className="relative z-10">
-                <Palette className="w-8 h-8 text-white mb-4" />
-                <h3 className="text-2xl font-bold text-white mb-2">Visual Design</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                    Custom logos, high-resolution backgrounds, and complete brand identity assets.
-                </p>
-            </div>
-            <div className="relative z-10">
-                 <span className="text-3xl font-display font-bold text-white block mb-1">$10</span>
-                 <span className="text-xs text-gray-500 uppercase tracking-wider">Starting Price</span>
-            </div>
-        </motion.div>
+        <ServiceCard 
+            icon={Wrench}
+            title="Custom Request"
+            desc="Need something specific? If it's digital, I can likely build, fix, or optimize it. Just ask."
+            delay={0.35}
+        />
 
-        {/* 7. Custom Request */}
-        <motion.div
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={viewportConfig}
-             transition={{ ...cardTransition, delay: 0.35 }}
-             style={{ willChange: 'transform, opacity' }}
-             className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-colors transition-shadow duration-300 flex flex-col justify-between"
-        >
-             <div className="absolute -right-4 -bottom-4 opacity-5 md:group-hover:opacity-10 transition-opacity">
-                <Wrench className="w-32 h-32 text-white" />
-            </div>
-            <div className="relative z-10">
-                <HelpCircle className="w-8 h-8 text-white mb-4" />
-                <h3 className="text-2xl font-bold text-white mb-2">Custom Request</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                    Need something else? If it's digital, I can likely build or fix it. Contact for a quote.
-                </p>
-            </div>
-            <div className="relative z-10">
-                 <span className="text-2xl md:text-3xl font-display font-bold text-white block mb-1">Custom</span>
-                 <span className="text-xs text-gray-500 uppercase tracking-wider">Price Varies</span>
-            </div>
-        </motion.div>
-
-        {/* 8. Everything Else */}
-        <motion.div
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={viewportConfig}
-             transition={{ ...cardTransition, delay: 0.4 }}
-             style={{ willChange: 'transform, opacity' }}
-             className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-colors transition-shadow duration-300 flex flex-col justify-between"
-        >
-             <div className="absolute -right-4 -bottom-4 opacity-5 md:group-hover:opacity-10 transition-opacity">
-                <Infinity className="w-32 h-32 text-white" />
-            </div>
-            <div className="relative z-10">
-                <Infinity className="w-8 h-8 text-white mb-4" />
-                <h3 className="text-2xl font-bold text-white mb-2">Everything Else</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                    Basically and mostly everything that's on the internet and much more. If it's digital, it's possible.
-                </p>
-            </div>
-            <div className="relative z-10">
-                 <span className="text-2xl md:text-3xl font-display font-bold text-white block mb-1">Unlimited</span>
-                 <span className="text-xs text-gray-500 uppercase tracking-wider">Scope Based</span>
-            </div>
-        </motion.div>
-
-        {/* 9. Terms */}
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportConfig}
-            transition={{ ...cardTransition, delay: 0.45 }}
-            style={{ willChange: 'transform, opacity' }}
-            className="col-span-1 md:col-span-2 lg:col-span-3 bg-black border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 flex flex-col justify-center"
-        >
-            <div className="flex items-center gap-2 mb-4 text-white">
-                <Scale className="w-5 h-5" />
-                <h4 className="font-bold text-sm uppercase tracking-wider">Terms of Engagement</h4>
-            </div>
-            <TermsList />
-        </motion.div>
+        <ServiceCard 
+            icon={Infinity}
+            title="Full Stack Ops"
+            desc="End-to-end development for complex projects requiring multiple disciplines and rapid execution."
+            delay={0.4}
+        />
 
       </div>
+
+      {/* Terms Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+        className="mb-16 bg-black border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 flex flex-col justify-center"
+      >
+        <div className="flex items-center gap-2 mb-6 text-white justify-center md:justify-start">
+            <Scale className="w-5 h-5" />
+            <h4 className="font-bold text-sm uppercase tracking-wider">Terms of Engagement</h4>
+        </div>
+        <TermsList />
+      </motion.div>
 
       {/* Bottom Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -330,16 +232,14 @@ export const Services: React.FC = () => {
             </div>
 
             <div className="bg-white text-black rounded-3xl p-8 flex flex-col justify-center items-center text-center shadow-[0_0_30px_rgba(255,255,255,0.3)] md:hover:shadow-[0_0_50px_rgba(255,255,255,0.5)] transition-all duration-300">
-                <h4 className="font-bold text-2xl mb-2">Ready to Start?</h4>
-                <p className="text-gray-600 mb-6 text-sm">Secure your slot now.</p>
+                <h4 className="font-bold text-2xl mb-2">Ready to Deploy?</h4>
+                <p className="text-gray-600 mb-6 text-sm">Initiate the protocol.</p>
                 <a 
-                    href="https://www.paypal.com/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
+                    href="mailto:paragonxdxbv@gmail.com" 
                     className="w-full flex justify-center items-center gap-2 bg-black text-white px-6 py-4 rounded-xl font-bold md:hover:scale-[1.02] transition-transform shadow-lg"
                 >
                      <CreditCard className="w-5 h-5" />
-                     Pay via PayPal
+                     Initialize Project
                 </a>
             </div>
       </div>
