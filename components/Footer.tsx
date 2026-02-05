@@ -1,41 +1,25 @@
 import React from 'react';
 import { Section } from './ui/Section';
-import { Github, Twitter, Circle } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-black border-t border-white/10 pt-16 pb-32 md:pb-12 text-sm">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
             
             {/* Column 1: Identity */}
-            <div className="col-span-2 md:col-span-1">
+            <div className="col-span-1">
                 <h4 className="font-display font-bold text-white text-2xl mb-4 tracking-tight">
                     PARA<span className="text-gray-600">GON</span>
                 </h4>
                 <p className="text-gray-500 mb-6 max-w-xs">
                     Elite digital architecture for the modern web. Precision engineered. Battle tested.
                 </p>
-                <div className="flex gap-4">
-                    <a href="#" className="text-gray-500 hover:text-white transition-colors"><Github className="w-5 h-5"/></a>
-                    <a href="#" className="text-gray-500 hover:text-white transition-colors"><Twitter className="w-5 h-5"/></a>
-                </div>
             </div>
 
-            {/* Column 2: Sitemap */}
+            {/* Column 2: Legal */}
             <div>
-                <h5 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">Sitemap</h5>
-                <ul className="space-y-3 text-gray-500 font-mono">
-                    <li><a href="#hero" className="hover:text-accent transition-colors">/home</a></li>
-                    <li><a href="#about" className="hover:text-accent transition-colors">/identity</a></li>
-                    <li><a href="#services" className="hover:text-accent transition-colors">/capabilities</a></li>
-                    <li><a href="#projects" className="hover:text-accent transition-colors">/work</a></li>
-                </ul>
-            </div>
-
-            {/* Column 3: Legal */}
-            <div>
-                <h5 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">Legal</h5>
+                <h5 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">Legal Protocols</h5>
                 <ul className="space-y-3 text-gray-500 font-mono">
                     <li><span className="cursor-not-allowed opacity-50">Privacy Policy</span></li>
                     <li><span className="cursor-not-allowed opacity-50">Terms of Service</span></li>
@@ -43,7 +27,7 @@ export const Footer: React.FC = () => {
                 </ul>
             </div>
 
-             {/* Column 4: Status */}
+             {/* Column 3: Status */}
              <div>
                 <h5 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">System Status</h5>
                 <div className="space-y-3 font-mono text-xs">

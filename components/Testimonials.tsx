@@ -58,8 +58,8 @@ export const Testimonials: React.FC = () => {
                 key={t.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.5, delay: Math.min(i * 0.15, 0.3) }}
                 className="bg-[#080808] border border-white/10 p-8 rounded-2xl relative group hover:border-white/30 transition-colors duration-500"
              >
                 <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">

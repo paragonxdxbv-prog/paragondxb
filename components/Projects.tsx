@@ -40,8 +40,8 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, delay: Math.min(index * 0.1, 0.2), ease: "easeOut" }}
       className="w-full"
       style={{ willChange: 'transform, opacity' }} // Hint browser to promote layer
     >

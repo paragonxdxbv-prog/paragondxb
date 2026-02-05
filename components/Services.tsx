@@ -51,10 +51,11 @@ const ServiceCard = ({
     delay: number
 }) => (
     <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-10%" }}
-        transition={{ duration: 0.4, delay: delay, ease: "easeOut" }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.4, delay: Math.min(delay, 0.2), ease: "easeOut" }}
+        style={{ willChange: 'opacity, transform' }}
         className="relative bg-gradient-to-br from-[#0A0A0A] to-black border border-white/20 shadow-[0_0_25px_-5px_rgba(255,255,255,0.15)] rounded-2xl p-6 overflow-hidden group hover:border-white/40 hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.3)] transition-all duration-500 h-full flex flex-col backdrop-blur-sm"
     >
          {/* Noise Texture */}
@@ -103,7 +104,6 @@ export const Services: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         
-        {/* Reduced delays to prevent "disappearing" feel on rapid scroll */}
         <ServiceCard 
             icon={Globe}
             title="Web Architecture"
