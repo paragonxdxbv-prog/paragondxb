@@ -57,9 +57,9 @@ const App: React.FC = () => {
       </AnimatePresence>
 
       <motion.main 
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: loading ? 0 : 1, y: loading ? 50 : 0 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+        initial={{ opacity: 0, filter: 'blur(15px)', scale: 1.02 }}
+        animate={{ opacity: loading ? 0 : 1, filter: loading ? 'blur(15px)' : 'blur(0px)', scale: loading ? 1.02 : 1 }}
+        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
         className={`bg-[#030303] text-white min-h-screen relative selection:bg-white selection:text-black overflow-x-hidden ${loading ? 'h-screen overflow-hidden' : ''}`}
       >
           

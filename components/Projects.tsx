@@ -37,7 +37,6 @@ const websiteProjects = [
 ];
 
 // 2. Motion Projects (Google Drive Videos)
-// Using Embed/Preview IDs to prevent infinite loading
 const videoProjects = [
   {
     id: 'vid1',
@@ -67,7 +66,7 @@ const WebsiteCard = ({ project, index }: { project: typeof websiteProjects[0], i
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.1 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="group relative w-full bg-[#080808] border border-white/10 rounded-xl overflow-hidden hover:border-white/30 transition-all duration-300 shadow-lg flex flex-col h-full"
+    className="transform-gpu will-change-transform group relative w-full bg-[#080808] border border-white/10 rounded-xl overflow-hidden hover:border-white/30 transition-all duration-300 shadow-lg flex flex-col h-full"
   >
     {/* Gradient Glow Effect on Hover */}
     <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none`} />
@@ -118,30 +117,37 @@ const VideoCard = ({ video, index }: { video: typeof videoProjects[0], index: nu
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="w-full relative group"
+      // Added transform-gpu to fix flicker on scroll
+      className="transform-gpu will-change-transform w-full relative group"
     >
-      <div className="relative w-full bg-[#080808] rounded-xl overflow-hidden border border-white/10 shadow-lg md:hover:border-white/30 transition-all duration-300">
+      <div className="relative w-full bg-[#080808] rounded-xl overflow-hidden border border-white/10 shadow-lg md:hover:border-white/30 transition-all duration-300 flex flex-col">
           
-          {/* 9:16 Aspect Ratio Container */}
+          {/* 9:16 Aspect Ratio Container - Video Only */}
           <div className="relative w-full pb-[177.78%] bg-black">
-            {/* Google Drive Iframe - Uses Preview Mode for reliable streaming */}
+            {/* Google Drive Iframe with Autoplay & Mute */}
             <iframe 
-                src={`https://drive.google.com/file/d/${video.driveId}/preview`}
-                className="absolute inset-0 w-full h-full border-0"
-                allow="autoplay"
+                src={`https://drive.google.com/file/d/${video.driveId}/preview?autoplay=1&muted=1`}
+                className="absolute inset-0 w-full h-full border-0 z-10"
+                allow="autoplay; fullscreen"
                 title={video.title}
                 loading="lazy"
             />
-            {/* Pointer events overlay to allow scrolling on mobile without getting stuck in iframe.
-                It disappears on hover (desktop) or touch (mobile logic needed usually) to allow interaction if strictly necessary, 
-                but for background loops, blocking pointer events is often better for UX. */}
-            <div className="absolute inset-0 pointer-events-auto md:pointer-events-none bg-transparent" />
+            {/* 
+                MASKING LAYER: 
+                This black div covers the top-right corner where the Drive "Pop-out" button usually sits.
+                It forces the user to stay on the page.
+            */}
+            <div className="absolute top-0 right-0 w-16 h-16 bg-transparent z-20 pointer-events-none" /> 
+            {/* 
+                We cannot block pointer events completely if you want to use the play button at the bottom.
+                Drive controls are usually at the bottom.
+            */}
           </div>
 
-          {/* Title Overlay */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none">
-                <h3 className="text-white font-bold tracking-wider text-sm">{video.title}</h3>
-                <span className="text-[10px] text-gray-400 font-mono uppercase">{video.category}</span>
+          {/* Footer Info - Moved OUTSIDE the video area so it doesn't block controls */}
+          <div className="p-4 bg-[#0A0A0A] border-t border-white/5 relative z-30">
+                <h3 className="text-white font-bold tracking-wider text-sm mb-1">{video.title}</h3>
+                <span className="text-[10px] text-gray-500 font-mono uppercase tracking-widest">{video.category}</span>
           </div>
       </div>
     </motion.div>
@@ -191,16 +197,17 @@ export const Projects: React.FC = () => {
          ))}
       </div>
 
-      {/* SECTION 2: MOTION PROJECTS (VIDEOS) */}
+      {/* SECTION 2: MOTION PROJECTS (VIDEO PREVIEW EDITOR) */}
       <div className="mb-8 flex items-center justify-between">
          <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-            <h3 className="text-xl font-display font-bold text-white uppercase tracking-wider">Kinetic Ops</h3>
+            <h3 className="text-xl font-display font-bold text-white uppercase tracking-wider">Video Preview Editor</h3>
          </div>
          <span className="text-xs font-mono text-gray-500 hidden md:block">STREAMING FROM SECURE DRIVE</span>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      {/* Changed Grid to md:grid-cols-4 for smaller video cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
         {videoProjects.map((vid, index) => (
              <VideoCard key={vid.id} video={vid} index={index} />
         ))}
