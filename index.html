@@ -28,7 +28,7 @@
               'glow': 'glow 2s ease-in-out infinite alternate',
               'scan': 'scan 4s linear infinite',
               'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'noise': 'noise 0.5s steps(5) infinite', // Ultra-fast noise animation
+              'spin-slow': 'spin 8s linear infinite',
             },
             keyframes: {
               glow: {
@@ -39,18 +39,6 @@
                 '0%': { transform: 'translateY(-100%)' },
                 '100%': { transform: 'translateY(100%)' },
               },
-              noise: {
-                '0%, 100%': { transform: 'translate(0, 0)' },
-                '10%': { transform: 'translate(-5%, -5%)' },
-                '20%': { transform: 'translate(-10%, 5%)' },
-                '30%': { transform: 'translate(5%, -10%)' },
-                '40%': { transform: 'translate(-5%, 15%)' },
-                '50%': { transform: 'translate(-10%, 5%)' },
-                '60%': { transform: 'translate(15%, 0)' },
-                '70%': { transform: 'translate(0, 10%)' },
-                '80%': { transform: 'translate(-15%, 0)' },
-                '90%': { transform: 'translate(10%, 5%)' },
-              }
             }
           },
         },
@@ -62,6 +50,7 @@
         color: #ffffff;
         overflow-x: hidden;
         margin: 0;
+        /* Improved Text Rendering */
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;

@@ -10,7 +10,8 @@ const tools = [
 ];
 
 const MarqueeRow = ({ items, direction = "left", speed = 20 }: { items: string[], direction?: "left" | "right", speed?: number }) => (
-  <div className="flex overflow-hidden relative z-20">
+  <div className="flex overflow-hidden relative z-20 group">
+      {/* Container for pause on hover */}
       <motion.div
         initial={{ x: direction === "left" ? 0 : "-100%" }}
         animate={{ x: direction === "left" ? "-100%" : 0 }}
@@ -19,14 +20,15 @@ const MarqueeRow = ({ items, direction = "left", speed = 20 }: { items: string[]
           ease: "linear", 
           duration: speed 
         }}
-        className="flex flex-shrink-0"
+        className="flex flex-shrink-0 group-hover:[animation-play-state:paused]"
+        style={{ willChange: "transform" }} // Performance hint
       >
         {[...Array(4)].map((_, i) => (
            <div key={i} className="flex items-center gap-8 md:gap-16 px-4 md:px-8">
              {items.map((item, index) => (
-                <div key={index} className="flex items-center gap-2 group cursor-default whitespace-nowrap">
-                  <span className="w-1.5 h-1.5 bg-white/20 rounded-full group-hover:bg-accent group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300" />
-                  <span className="text-base md:text-lg font-display font-bold text-gray-600 group-hover:text-white transition-colors duration-300 tracking-wider">
+                <div key={index} className="flex items-center gap-2 cursor-default whitespace-nowrap transition-opacity duration-300 hover:opacity-100 opacity-50">
+                  <span className="w-1.5 h-1.5 bg-accent/50 rounded-full shadow-[0_0_8px_currentColor]" />
+                  <span className="text-base md:text-lg font-display font-bold text-white tracking-wider">
                     {item}
                   </span>
                 </div>
@@ -43,14 +45,15 @@ const MarqueeRow = ({ items, direction = "left", speed = 20 }: { items: string[]
           ease: "linear", 
           duration: speed 
         }}
-        className="flex flex-shrink-0"
+        className="flex flex-shrink-0 group-hover:[animation-play-state:paused]"
+        style={{ willChange: "transform" }}
       >
         {[...Array(4)].map((_, i) => (
            <div key={i} className="flex items-center gap-8 md:gap-16 px-4 md:px-8">
              {items.map((item, index) => (
-                <div key={index} className="flex items-center gap-2 group cursor-default whitespace-nowrap">
-                  <span className="w-1.5 h-1.5 bg-white/20 rounded-full group-hover:bg-accent group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300" />
-                  <span className="text-base md:text-lg font-display font-bold text-gray-600 group-hover:text-white transition-colors duration-300 tracking-wider">
+                <div key={index} className="flex items-center gap-2 cursor-default whitespace-nowrap transition-opacity duration-300 hover:opacity-100 opacity-50">
+                  <span className="w-1.5 h-1.5 bg-accent/50 rounded-full shadow-[0_0_8px_currentColor]" />
+                  <span className="text-base md:text-lg font-display font-bold text-white tracking-wider">
                     {item}
                   </span>
                 </div>
@@ -63,16 +66,16 @@ const MarqueeRow = ({ items, direction = "left", speed = 20 }: { items: string[]
 
 export const TechStack: React.FC = () => {
   return (
-    <div className="w-full bg-black border-y border-white/10 py-8 relative z-20 flex flex-col gap-4">
-      {/* Gradient Masks */}
-      <div className="absolute top-0 left-0 w-24 md:w-48 h-full bg-gradient-to-r from-black to-transparent z-30 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-24 md:w-48 h-full bg-gradient-to-l from-black to-transparent z-30 pointer-events-none" />
+    <div className="w-full bg-black border-y border-white/10 py-12 relative z-20 flex flex-col gap-8">
+      {/* Enhanced Gradient Masks for Smooth Fade Out */}
+      <div className="absolute top-0 left-0 w-32 md:w-64 h-full bg-gradient-to-r from-black via-black/80 to-transparent z-30 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-32 md:w-64 h-full bg-gradient-to-l from-black via-black/80 to-transparent z-30 pointer-events-none" />
 
       {/* Row 1: Languages (Left) */}
-      <MarqueeRow items={languages} direction="left" speed={25} />
+      <MarqueeRow items={languages} direction="left" speed={40} />
 
       {/* Row 2: Infrastructure (Right) */}
-      <MarqueeRow items={tools} direction="right" speed={30} />
+      <MarqueeRow items={tools} direction="right" speed={40} />
       
     </div>
   );

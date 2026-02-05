@@ -1,124 +1,135 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const words = ["INITIALIZING", "LOADING ASSETS", "DECRYPTING", "OPTIMIZING", "RENDERING", "ACCESS GRANTED"];
+const HERO_IMAGE = "https://i.ibb.co/TxDGgNY7/Make-dis-picture-2k-202601182124.jpg";
+const TARGET_TEXT = "PARAGON";
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+[]{}|;:,.<>?";
 
 export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
-  const [count, setCount] = useState(0);
-  const [wordIndex, setWordIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isExit, setIsExit] = useState(false);
 
+  // 1. Image Preloading Logic
   useEffect(() => {
-    // 1. Counter Animation (Faster, 0-100 in ~2s)
-    const duration = 2200; 
-    const steps = 60;
-    const intervalTime = duration / steps;
-    
-    const timer = setInterval(() => {
-      setCount((prev) => {
-        const next = prev + Math.floor(Math.random() * 5) + 3;
+    const img = new Image();
+    img.src = HERO_IMAGE;
+    img.onload = () => setIsImageLoaded(true);
+    // Fallback if image fails or takes too long (5s max)
+    const timeout = setTimeout(() => setIsImageLoaded(true), 5000);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  // 2. Progress Bar Simulation (tied to image load)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        // If image isn't loaded, stall at 85%
+        if (!isImageLoaded && prev >= 85) return 85;
+        // If image IS loaded, race to 100%
+        const increment = isImageLoaded ? 4 : 1; 
+        const next = prev + increment;
         if (next >= 100) {
-          clearInterval(timer);
+          clearInterval(interval);
           return 100;
         }
         return next;
       });
-    }, intervalTime);
+    }, 40);
+    return () => clearInterval(interval);
+  }, [isImageLoaded]);
 
-    // 2. Word Cycle
-    const wordTimer = setInterval(() => {
-        setWordIndex(prev => (prev + 1) % words.length);
-    }, 350);
+  // 3. Text Decryption Effect
+  useEffect(() => {
+    let iteration = 0;
+    const interval = setInterval(() => {
+      setDisplayText(prev => 
+        TARGET_TEXT
+          .split("")
+          .map((letter, index) => {
+            if (index < iteration) return TARGET_TEXT[index];
+            return CHARS[Math.floor(Math.random() * CHARS.length)];
+          })
+          .join("")
+      );
+      
+      if (iteration >= TARGET_TEXT.length) {
+        clearInterval(interval);
+      }
+      
+      iteration += 1 / 3; // Speed of decryption
+    }, 30);
+    
+    return () => clearInterval(interval);
+  }, []);
 
-    // 3. Trigger Completion
-    const completeTimeout = setTimeout(() => {
-        onComplete();
-    }, 2500); // Tighter timing
-
-    return () => {
-      clearInterval(timer);
-      clearInterval(wordTimer);
-      clearTimeout(completeTimeout);
-    };
-  }, [onComplete]);
+  // 4. Trigger Exit
+  useEffect(() => {
+    if (progress === 100) {
+      setIsExit(true);
+      // Wait for exit animation to finish before unmounting
+      setTimeout(onComplete, 1200); 
+    }
+  }, [progress, onComplete]);
 
   return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      exit={{ y: "-100%", transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] } }} // Sharper exit
-      className="fixed inset-0 z-[99999] bg-black flex flex-col justify-between p-6 md:p-12 text-white overflow-hidden cursor-wait"
-    >
-        {/* Top Bar */}
-        <div className="flex justify-between items-start">
-             <div className="flex flex-col gap-1 overflow-hidden">
-                <motion.span 
-                    initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-                    className="text-xs font-mono tracking-widest text-gray-500"
-                >
-                    EST. 2024 // V2.0
-                </motion.span>
-                <motion.span 
-                    initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}
-                    className="text-xs font-mono tracking-widest text-white font-bold"
-                >
-                    PARAGON DIGITAL
-                </motion.span>
-             </div>
-             <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-gray-500 hidden md:inline-block w-24 text-right">
-                    {words[wordIndex]}
-                </span>
-                <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-             </div>
-        </div>
-
-        {/* Center Typography - Masked Reveal */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-             <div className="relative overflow-hidden flex flex-col items-center">
-                {/* Title */}
+    <div className="fixed inset-0 z-[99999] flex flex-col pointer-events-none">
+        {/* TOP SHUTTER */}
+        <motion.div 
+            initial={{ y: 0 }}
+            animate={isExit ? { y: "-100%" } : { y: 0 }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+            className="relative flex-1 bg-[#050505] w-full flex items-end justify-center border-b border-white/10 z-20"
+        >
+             {/* Content stays centered via absolute positioning relative to full screen, masked by shutters */}
+             <div className="absolute bottom-0 w-full p-6 md:p-12 flex justify-between items-end pb-4 md:pb-8">
                 <div className="overflow-hidden">
-                    <motion.h1 
-                        initial={{ y: "100%" }}
-                        animate={{ y: 0 }}
-                        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                        className="text-[14vw] md:text-[12vw] font-display font-bold leading-none tracking-tighter text-white mix-blend-difference"
-                    >
-                        PARAGON
-                    </motion.h1>
-                </div>
-                {/* Subtitle Line */}
-                <motion.div 
-                     initial={{ width: 0, opacity: 0 }}
-                     animate={{ width: "100px", opacity: 1 }}
-                     transition={{ duration: 1, delay: 0.8 }}
-                     className="h-[1px] bg-white mt-4"
-                />
-             </div>
-        </div>
-
-        {/* Bottom Bar / Counter */}
-        <div className="flex justify-between items-end overflow-hidden">
-             <div className="w-full md:w-1/3 flex flex-col gap-2">
-                <span className="text-xs font-mono text-gray-500">SYSTEM CHECK</span>
-                <div className="h-[2px] bg-white/10 w-full overflow-hidden">
                     <motion.div 
-                        initial={{ x: "-100%" }}
-                        animate={{ x: "0%" }}
-                        transition={{ duration: 2.2, ease: "linear" }}
-                        className="h-full bg-white" 
-                    />
+                        initial={{ opacity: 1 }}
+                        animate={isExit ? { opacity: 0 } : { opacity: 1 }}
+                        transition={{ duration: 0.4 }}
+                    >
+                         <h1 className="text-[12vw] md:text-[10vw] font-display font-bold leading-none tracking-tighter text-white">
+                            {displayText}
+                         </h1>
+                    </motion.div>
                 </div>
              </div>
-             
-             <div className="relative">
-                <span className="text-[10vw] md:text-[6vw] font-display font-bold leading-none tracking-tighter tabular-nums text-white">
-                    {count}
-                </span>
-                <span className="absolute top-2 -right-4 text-sm font-mono text-gray-500">%</span>
+        </motion.div>
+
+        {/* BOTTOM SHUTTER */}
+        <motion.div 
+            initial={{ y: 0 }}
+            animate={isExit ? { y: "100%" } : { y: 0 }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+            className="relative flex-1 bg-[#050505] w-full flex items-start justify-center border-t border-white/10 z-20"
+        >
+             <div className="absolute top-0 w-full p-6 md:p-12 flex justify-between items-start pt-4 md:pt-8">
+                 <motion.div 
+                    initial={{ opacity: 1 }}
+                    animate={isExit ? { opacity: 0 } : { opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                    className="w-full flex justify-between items-start"
+                 >
+                     <div className="flex flex-col gap-2">
+                        <span className="text-xs font-mono text-gray-500">SYSTEM STATUS</span>
+                        <div className="flex items-center gap-2">
+                             <div className={`w-2 h-2 rounded-full ${isImageLoaded ? 'bg-green-500' : 'bg-yellow-500 animate-pulse'}`} />
+                             <span className="text-xs font-bold text-white tracking-widest uppercase">
+                                {isImageLoaded ? "ASSETS READY" : "LOADING..."}
+                             </span>
+                        </div>
+                     </div>
+
+                     <div className="text-right">
+                        <span className="text-[4rem] md:text-[6rem] font-display font-bold leading-none text-white/10">
+                            {progress}%
+                        </span>
+                     </div>
+                 </motion.div>
              </div>
-        </div>
-        
-        {/* Subtle Background Glow for Depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent pointer-events-none" />
-    </motion.div>
+        </motion.div>
+    </div>
   );
 };
