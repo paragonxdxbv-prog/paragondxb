@@ -228,29 +228,6 @@ export const Services: React.FC = () => {
                <TermsSection />
             </div>
       </div>
-      
-      {/* "READY TO DEPLOY" LAUNCH BUTTON */}
-      <div className="mt-6 w-full relative group cursor-pointer overflow-hidden rounded-3xl">
-            <a href="mailto:paragonxdxbv@gmail.com" className="block relative w-full bg-white text-black py-8 md:py-12 px-8 flex flex-col md:flex-row justify-between items-center transition-transform duration-300 md:group-hover:scale-[1.01]">
-                {/* Glowing Background Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-white to-gray-100 opacity-0 md:group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <div className="relative z-10 text-center md:text-left mb-6 md:mb-0">
-                    <div className="flex items-center gap-3 justify-center md:justify-start mb-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full animate-ping" />
-                        <h4 className="font-bold text-3xl tracking-tight">System Ready</h4>
-                    </div>
-                    <p className="text-gray-600 text-sm font-mono uppercase tracking-wider">Awaiting User Input...</p>
-                </div>
-
-                <div className="relative z-10 flex items-center gap-4">
-                    <span className="text-xl font-bold tracking-tight border-b-2 border-black pb-1">INITIALIZE PROJECT</span>
-                    <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center group-hover:rotate-[-45deg] transition-transform duration-300">
-                        <ArrowRight className="w-5 h-5" />
-                    </div>
-                </div>
-            </a>
-       </div>
     </Section>
   );
 };

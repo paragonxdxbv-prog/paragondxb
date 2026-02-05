@@ -28,6 +28,12 @@ const RealDiscordIcon = ({ className }: { className?: string }) => (
     </svg>
 )
 
+const RealPayPalIcon = ({ className }: { className?: string }) => (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+        <path d="M20.875 7.828c.366-1.42.033-2.67-1.137-3.666C18.667 3.235 17.066 3 14.896 3H7.08L4.3 21h4.286l.635-4.22h3.337c3.162 0 5.672-1.282 6.556-5.32l.065-.3c.427-2.027.247-3.05-.233-3.702l.93-1.63zM15.11 11.238c-.52 2.37-2.146 3.12-4.908 3.12h-1.92L9.366 7.23h3.29c2.31 0 3.39.775 3.616 2.404l-.162.754-.162.754-.84-2.84z"/>
+    </svg>
+)
+
 interface InteractiveCardProps {
     icon: any;
     label: string;
@@ -185,14 +191,14 @@ export const Socials: React.FC = () => {
                         glowColor="bg-gray-300"
                      />
                      
-                     {/* 4. Reddit (Link) */}
+                     {/* 4. PayPal (Link) */}
                      <InteractiveCard 
-                        icon={RealRedditIcon}
-                        label="Reddit"
-                        subLabel="DM Me"
-                        href="https://www.reddit.com/user/AndresRiosXYZ/"
-                        baseColor="text-[#FF4500]"
-                        glowColor="bg-[#FF4500]"
+                        icon={RealPayPalIcon}
+                        label="PayPal"
+                        subLabel="Direct Pay"
+                        href="https://www.paypal.com/paypalme/AndresRiosXYZ"
+                        baseColor="text-[#00457C]"
+                        glowColor="bg-[#0070BA]"
                      />
 
                      {/* 5. Etsy (Link) */}
@@ -249,12 +255,12 @@ export const Socials: React.FC = () => {
                      />
 
                      <InteractiveCard 
-                        icon={RealPinterestIcon}
-                        label="Pinterest"
-                        subLabel="@paragonxdxbv"
-                        href="https://ro.pinterest.com/paragonxdxbv/"
-                        baseColor="text-[#E60023]"
-                        glowColor="bg-[#E60023]"
+                        icon={RealRedditIcon}
+                        label="Reddit"
+                        subLabel="@AndresRiosXYZ"
+                        href="https://www.reddit.com/user/AndresRiosXYZ/"
+                        baseColor="text-[#FF4500]"
+                        glowColor="bg-[#FF4500]"
                      />
                 </div>
             </motion.div>

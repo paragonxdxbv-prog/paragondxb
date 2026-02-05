@@ -3,19 +3,17 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 export const Hero: React.FC = () => {
   const { scrollY } = useScroll();
-  // Optimized parallax: Smoother factor
   const y = useTransform(scrollY, [0, 500], [0, 200]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
     <div id="hero" className="relative h-screen w-full overflow-hidden flex flex-col justify-end pb-32 md:pb-24 bg-black transform-gpu">
       
-      {/* Dynamic Background Image with Parallax & Hardware Acceleration */}
+      {/* Background */}
       <motion.div 
         style={{ y, scale: 1.1 }}
-        className="absolute inset-0 z-0 bg-black will-change-transform" // Crucial for performance
+        className="absolute inset-0 z-0 bg-black will-change-transform" 
       >
-        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
         <div className="absolute inset-0 bg-black/20 z-10" /> 
         
@@ -38,9 +36,22 @@ export const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
-            <h1 className="text-[13vw] md:text-9xl font-display font-bold text-white mb-2 drop-shadow-2xl leading-[0.9] tracking-tighter">
-            PARA<span className="text-gray-500">GON</span>
-            </h1>
+            {/* Glitch Title Container */}
+            <div className="relative inline-block group">
+                <h1 className="relative z-10 text-[13vw] md:text-9xl font-display font-bold text-white mb-2 drop-shadow-2xl leading-[0.9] tracking-tighter mix-blend-difference">
+                    PARA<span className="text-gray-500">GON</span>
+                </h1>
+                
+                {/* Glitch Layer 1 (Red Shift) */}
+                <h1 className="absolute top-0 left-0 z-0 text-[13vw] md:text-9xl font-display font-bold text-red-500/50 mb-2 leading-[0.9] tracking-tighter opacity-0 group-hover:opacity-100 group-hover:animate-glitch-1 hidden md:block">
+                    PARA<span className="text-gray-500">GON</span>
+                </h1>
+
+                 {/* Glitch Layer 2 (Blue Shift) */}
+                 <h1 className="absolute top-0 left-0 z-0 text-[13vw] md:text-9xl font-display font-bold text-blue-500/50 mb-2 leading-[0.9] tracking-tighter opacity-0 group-hover:opacity-100 group-hover:animate-glitch-2 hidden md:block">
+                    PARA<span className="text-gray-500">GON</span>
+                </h1>
+            </div>
             
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8 mt-4">
                 <div className="h-[2px] w-24 bg-white shadow-[0_0_20px_rgba(255,255,255,0.8)] hidden md:block mt-4" />

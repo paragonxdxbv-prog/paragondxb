@@ -1,40 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { AnimatePresence } from 'framer-motion';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
-import { About } from './components/About';
 import { TechStack } from './components/TechStack';
-import { Process } from './components/Process';
-import { Projects } from './components/Projects';
-import { Socials } from './components/Socials';
-import { Services } from './components/Services';
-import { ProductShowcase } from './components/ProductShowcase';
-import { Testimonials } from './components/Testimonials';
-import { FAQ } from './components/FAQ';
-import { Footer } from './components/Footer';
 import { Noise } from './components/ui/Noise';
 import { Preloader } from './components/ui/Preloader';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
+// Lazy Load Heavy Components for Better TTI (Time To Interactive)
+const About = React.lazy(() => import('./components/About').then(module => ({ default: module.About })));
+const Process = React.lazy(() => import('./components/Process').then(module => ({ default: module.Process })));
+const Projects = React.lazy(() => import('./components/Projects').then(module => ({ default: module.Projects })));
+const Socials = React.lazy(() => import('./components/Socials').then(module => ({ default: module.Socials })));
+const Services = React.lazy(() => import('./components/Services').then(module => ({ default: module.Services })));
+const ProductShowcase = React.lazy(() => import('./components/ProductShowcase').then(module => ({ default: module.ProductShowcase })));
+const Testimonials = React.lazy(() => import('./components/Testimonials').then(module => ({ default: module.Testimonials })));
+const FAQ = React.lazy(() => import('./components/FAQ').then(module => ({ default: module.FAQ })));
+const Footer = React.lazy(() => import('./components/Footer').then(module => ({ default: module.Footer })));
+
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Optimization: Disable scroll restoration to force top on reload
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
 
-    // Initialize Lenis with SNAPPY settings (High Performance)
     const lenis = new Lenis({
-      duration: 0.75, // Reduced from 1.2 to 0.75 for less "float", more control
-      easing: (t) => 1 - Math.pow(1 - t, 4), // Quartic ease-out: Starts fast, stops precise
+      duration: 0.75,
+      easing: (t) => 1 - Math.pow(1 - t, 4),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.9, // Slightly reduced for precision
+      wheelMultiplier: 0.9,
       touchMultiplier: 2,
     });
 
@@ -56,32 +56,32 @@ const App: React.FC = () => {
         {loading && <Preloader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
 
-      <main className={`bg-[#030303] text-white min-h-screen relative selection:bg-accent selection:text-white overflow-x-hidden ${loading ? 'h-screen overflow-hidden' : ''}`}>
+      <main className={`bg-[#030303] text-white min-h-screen relative selection:bg-white selection:text-black overflow-x-hidden ${loading ? 'h-screen overflow-hidden' : ''}`}>
           
-          {/* Global Film Grain Overlay - Static Optimized */}
           <Noise />
-          
-          {/* Vercel Analytics */}
           <Analytics />
           <SpeedInsights />
 
-          {/* Global Elements */}
           {!loading && <Navbar />}
 
+          {/* Hero Loads Instantly */}
           <Hero />
+          
           <div className="relative z-10 bg-[#030303]">
-            {/* Tech Stack Marquee - High Visibility Context */}
             <TechStack />
             
-            <About />
-            <Process /> {/* Workflow Section */}
-            <Services />
-            <Projects />
-            <Testimonials /> {/* Social Proof Section */}
-            <ProductShowcase />
-            <FAQ /> {/* Context/Intel Section */}
-            <Socials />
-            <Footer /> {/* Command Center Footer */}
+            {/* Suspense Wrapper for Lazy Loaded Sections */}
+            <Suspense fallback={<div className="h-screen w-full bg-black" />}>
+                <About />
+                <Process />
+                <Services />
+                <Projects />
+                <Testimonials />
+                <ProductShowcase />
+                <FAQ />
+                <Socials />
+                <Footer />
+            </Suspense>
           </div>
       </main>
     </>

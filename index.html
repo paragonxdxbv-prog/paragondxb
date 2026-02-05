@@ -29,6 +29,8 @@
               'scan': 'scan 4s linear infinite',
               'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'spin-slow': 'spin 8s linear infinite',
+              'glitch-1': 'glitch-1 2.5s infinite linear alternate-reverse',
+              'glitch-2': 'glitch-2 3s infinite linear alternate-reverse',
             },
             keyframes: {
               glow: {
@@ -39,6 +41,22 @@
                 '0%': { transform: 'translateY(-100%)' },
                 '100%': { transform: 'translateY(100%)' },
               },
+              'glitch-1': {
+                 '0%': { clipPath: 'inset(20% 0 80% 0)' },
+                 '20%': { clipPath: 'inset(60% 0 1% 0)' },
+                 '40%': { clipPath: 'inset(40% 0 50% 0)' },
+                 '60%': { clipPath: 'inset(80% 0 5% 0)' },
+                 '80%': { clipPath: 'inset(10% 0 70% 0)' },
+                 '100%': { clipPath: 'inset(30% 0 20% 0)' },
+              },
+              'glitch-2': {
+                 '0%': { clipPath: 'inset(10% 0 60% 0)' },
+                 '20%': { clipPath: 'inset(80% 0 5% 0)' },
+                 '40%': { clipPath: 'inset(30% 0 20% 0)' },
+                 '60%': { clipPath: 'inset(15% 0 80% 0)' },
+                 '80%': { clipPath: 'inset(55% 0 10% 0)' },
+                 '100%': { clipPath: 'inset(40% 0 30% 0)' },
+              }
             }
           },
         },
@@ -56,6 +74,7 @@
         -moz-osx-font-smoothing: grayscale;
         -webkit-tap-highlight-color: transparent;
         touch-action: pan-y; 
+        /* cursor: none;  <-- REMOVED TO RESTORE POINTER */
       }
       
       /* Restored Zoom: Creates the 'scaled out' premium desktop feel on mobile */
