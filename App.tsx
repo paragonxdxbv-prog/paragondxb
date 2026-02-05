@@ -8,6 +8,8 @@ import { Projects } from './components/Projects';
 import { Socials } from './components/Socials';
 import { Services } from './components/Services';
 import { ProductShowcase } from './components/ProductShowcase';
+import { Testimonials } from './components/Testimonials';
+import { FAQ } from './components/FAQ';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
@@ -33,7 +35,9 @@ const App: React.FC = () => {
         <Process /> {/* Workflow Section */}
         <Services />
         <Projects />
+        <Testimonials /> {/* New Social Proof Section */}
         <ProductShowcase />
+        <FAQ /> {/* New Context/Intel Section */}
         <Socials />
       </div>
     </main>

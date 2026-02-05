@@ -1,7 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Section } from './ui/Section';
-import { Target, Zap, Shield } from 'lucide-react';
+import { Target, Zap, Shield, Trophy, Activity, Code } from 'lucide-react';
+
+const Stat = ({ label, value, icon: Icon, delay }: { label: string, value: string, icon: any, delay: number }) => (
+    <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: delay }}
+        className="flex flex-col items-center justify-center p-6 bg-white/5 border border-white/10 rounded-2xl relative overflow-hidden group hover:border-white/20 transition-colors"
+    >
+        <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <Icon className="w-5 h-5 text-gray-500 mb-2 group-hover:text-white transition-colors" />
+        <span className="text-3xl md:text-4xl font-display font-bold text-white mb-1 drop-shadow-md">{value}</span>
+        <span className="text-xs uppercase tracking-widest text-gray-400">{label}</span>
+    </motion.div>
+);
 
 export const About: React.FC = () => {
   // Standardized elite easing with TypeScript fix
@@ -10,7 +25,7 @@ export const About: React.FC = () => {
 
   return (
     <Section id="about" className="min-h-[80vh] flex flex-col justify-center py-24">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-20">
         {/* Left: Headline & Core Identity */}
         <div>
           <motion.div
@@ -52,7 +67,7 @@ export const About: React.FC = () => {
            </motion.div>
         </div>
 
-        {/* Right: Operational Philosophy - Upgraded with Passive Glow */}
+        {/* Right: Operational Philosophy */}
         <div className="space-y-8">
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -103,6 +118,15 @@ export const About: React.FC = () => {
             </motion.div>
         </div>
       </div>
+
+      {/* System Metrics Bar */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+           <Stat label="Years Active" value="05+" icon={Trophy} delay={0.4} />
+           <Stat label="Projects Shipped" value="40+" icon={Code} delay={0.5} />
+           <Stat label="Client Retention" value="95%" icon={Activity} delay={0.6} />
+           <Stat label="Avg. Efficiency" value="10x" icon={Zap} delay={0.7} />
+      </div>
+
     </Section>
   );
 };
