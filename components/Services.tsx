@@ -1,37 +1,74 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Section } from './ui/Section';
-import { Check, Scale, Server, CreditCard, LayoutDashboard, Globe, Lock, Video, Wrench, Palette, Terminal, Layers, Infinity, ArrowRight, Sparkles, ArrowDown } from 'lucide-react';
+import { Check, Scale, Server, CreditCard, LayoutDashboard, Globe, Lock, Video, Wrench, Palette, Terminal, Layers, Infinity, ArrowRight, Sparkles, ArrowDown, ShieldAlert, Cpu, Database, Zap } from 'lucide-react';
 
-const TermsList = () => (
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-gray-400 font-light">
-    <div className="flex items-start gap-3">
-        <div className="mt-1 min-w-[16px]"><Check className="w-4 h-4 text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]" /></div>
-        <p><strong className="text-white font-medium">50% Upfront:</strong> Work commences immediately after the initial deposit is secured.</p>
-    </div>
-    <div className="flex items-start gap-3">
-        <div className="mt-1 min-w-[16px]"><Check className="w-4 h-4 text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]" /></div>
-        <p><strong className="text-white font-medium">Assets Ready:</strong> Logos, branding, and copy must be provided before development begins.</p>
-    </div>
-    <div className="flex items-start gap-3">
-        <div className="mt-1 min-w-[16px]"><Check className="w-4 h-4 text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]" /></div>
-        <p><strong className="text-white font-medium">Scope Protection:</strong> The initial brief defines Phase 1; new features become Phase 2.</p>
-    </div>
-    <div className="flex items-start gap-3">
-        <div className="mt-1 min-w-[16px]"><Check className="w-4 h-4 text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]" /></div>
-        <p><strong className="text-white font-medium">Single Point of Contact:</strong> One decision-maker for fast execution and zero confusion.</p>
-    </div>
+// --- Terms of Engagement Upgrade ---
+const TermItem = ({ title, text, index }: { title: string, text: string, index: number }) => (
+  <div className="relative pl-8 border-l border-white/10 py-2 group">
+      <div className="absolute left-[-5px] top-3 w-2.5 h-2.5 bg-black border border-white/30 rounded-full group-hover:bg-accent group-hover:border-accent transition-colors duration-300" />
+      <h5 className="text-white font-bold text-sm mb-1 font-display tracking-wide flex items-center gap-2">
+          <span className="text-gray-500 font-mono text-xs">0{index + 1} //</span> {title}
+      </h5>
+      <p className="text-gray-400 text-sm leading-relaxed font-light">{text}</p>
   </div>
 );
 
-const TechItem = ({ icon: Icon, title, desc }: { icon: any, title: string, desc: string }) => (
-    <div className="flex items-start gap-4 p-4 rounded-xl bg-black/50 border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)] md:hover:border-white/40 md:hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all duration-300 group backdrop-blur-sm relative overflow-hidden">
-        <div className="p-2 rounded-lg bg-white/5 text-gray-400 md:group-hover:text-white transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05)] relative z-10">
-            <Icon className="w-5 h-5" />
-        </div>
+const TermsSection = () => (
+    <div className="bg-[#050505] border border-white/10 rounded-3xl p-8 relative overflow-hidden h-full">
+         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay"></div>
+         <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-8 pb-4 border-b border-white/10">
+                <div className="p-2 bg-white/5 rounded-lg">
+                    <Scale className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="font-bold text-lg uppercase tracking-wider text-white">Engagement Protocols</h4>
+            </div>
+            
+            <div className="space-y-6">
+                <TermItem index={0} title="50% Deployment Fee" text="Work commences immediately after the initial secure deposit is verified." />
+                <TermItem index={1} title="Asset Readiness" text="Logos, copy, and brand keys must be provided before the build phase begins." />
+                <TermItem index={2} title="Scope Containment" text="The initial brief defines Phase 1. New features are logged as Phase 2 upgrades." />
+                <TermItem index={3} title="Unified Command" text="One decision-maker. One channel. Zero communication latency." />
+            </div>
+         </div>
+    </div>
+);
+
+// --- Technical Arsenal Upgrade ---
+const TechArsenal = () => (
+    <div className="bg-surface border border-white/10 rounded-3xl p-8 relative overflow-hidden h-full">
+        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
         <div className="relative z-10">
-            <h4 className="text-white font-bold text-sm mb-1 md:group-hover:text-white transition-colors">{title}</h4>
-            <p className="text-gray-500 text-xs leading-relaxed">{desc}</p>
+            <div className="flex items-center gap-3 mb-8 pb-4 border-b border-white/10">
+                 <div className="p-2 bg-white/5 rounded-lg">
+                    <Cpu className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-white uppercase tracking-wider">Technical Arsenal</h3>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+                 <div className="p-4 bg-black/40 border border-white/5 rounded-xl hover:border-white/20 transition-colors">
+                    <Globe className="w-6 h-6 text-blue-400 mb-3" />
+                    <h5 className="text-white font-bold text-sm">Vercel Edge</h5>
+                    <p className="text-xs text-gray-500 mt-1">Global CDN deployment.</p>
+                 </div>
+                 <div className="p-4 bg-black/40 border border-white/5 rounded-xl hover:border-white/20 transition-colors">
+                    <Database className="w-6 h-6 text-yellow-400 mb-3" />
+                    <h5 className="text-white font-bold text-sm">Firebase</h5>
+                    <p className="text-xs text-gray-500 mt-1">Real-time DB & Auth.</p>
+                 </div>
+                 <div className="p-4 bg-black/40 border border-white/5 rounded-xl hover:border-white/20 transition-colors">
+                    <LayoutDashboard className="w-6 h-6 text-purple-400 mb-3" />
+                    <h5 className="text-white font-bold text-sm">CMS Control</h5>
+                    <p className="text-xs text-gray-500 mt-1">Headless management.</p>
+                 </div>
+                 <div className="p-4 bg-black/40 border border-white/5 rounded-xl hover:border-white/20 transition-colors">
+                    <Lock className="w-6 h-6 text-green-400 mb-3" />
+                    <h5 className="text-white font-bold text-sm">Ironclad</h5>
+                    <p className="text-xs text-gray-500 mt-1">SSL & DDoS Armor.</p>
+                 </div>
+            </div>
         </div>
     </div>
 );
@@ -40,22 +77,24 @@ const ServiceCard = ({
     icon: Icon, 
     title, 
     desc,
-    delay 
+    delay,
+    isLocked = false
 }: { 
     icon: any, 
     title: string, 
     desc: string,
-    delay: number
+    delay: number,
+    isLocked?: boolean
 }) => (
     <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }} // Trigger slightly before element is fully in view
-        transition={{ duration: 0.5, delay: Math.min(delay, 0.15), ease: "easeOut" }}
-        className="relative bg-gradient-to-br from-[#0A0A0A] to-black border border-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] rounded-2xl p-6 overflow-hidden group hover:border-white/30 hover:shadow-[0_0_30px_-10px_rgba(255,255,255,0.3)] transition-all duration-500 h-full flex flex-col backdrop-blur-sm"
+        viewport={{ once: true, amount: 0 }} // Trigger instantly
+        transition={{ duration: 0.4, delay: Math.min(delay, 0.1), ease: "easeOut" }}
+        className={`relative bg-gradient-to-br from-[#0A0A0A] to-black border ${isLocked ? 'border-white/5 border-dashed' : 'border-white/10'} shadow-[0_0_0_1px_rgba(255,255,255,0.02)] rounded-2xl p-6 overflow-hidden group hover:border-white/30 hover:shadow-[0_0_30px_-10px_rgba(255,255,255,0.3)] transition-all duration-500 h-full flex flex-col backdrop-blur-sm`}
     >
          {/* Holographic Sheen on Hover */}
-         <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none transform translate-y-full group-hover:-translate-y-full" />
+         {!isLocked && <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none transform translate-y-full group-hover:-translate-y-full" />}
          
          {/* Background Icon Watermark */}
          <div className="absolute -right-4 -bottom-4 opacity-[0.05] group-hover:opacity-[0.1] transition-opacity duration-500 rotate-12 pointer-events-none">
@@ -63,28 +102,38 @@ const ServiceCard = ({
         </div>
         
         <div className="relative z-10 flex justify-between items-start mb-5">
-            <div className="p-3 bg-white/5 w-fit rounded-xl border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)] backdrop-blur-md group-hover:bg-white/10 transition-colors">
-                <Icon className="w-6 h-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
+            <div className={`p-3 w-fit rounded-xl border backdrop-blur-md transition-colors ${isLocked ? 'bg-white/5 border-white/5' : 'bg-white/5 border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:bg-white/10'}`}>
+                <Icon className={`w-6 h-6 ${isLocked ? 'text-gray-600' : 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]'}`} />
             </div>
+            
             {/* Status Dot */}
-            <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-500/10 border border-green-500/20">
-                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-[10px] font-mono text-green-500 uppercase tracking-wider">Available</span>
-            </div>
+            {!isLocked ? (
+                <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-500/10 border border-green-500/20">
+                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-[10px] font-mono text-green-500 uppercase tracking-wider">Available</span>
+                </div>
+            ) : (
+                <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-gray-500/10 border border-gray-500/20">
+                     <Lock className="w-3 h-3 text-gray-500" />
+                     <span className="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Locked</span>
+                </div>
+            )}
         </div>
         
         <div className="relative z-10 flex-grow">
-            <h3 className="text-xl font-bold text-white mb-3 tracking-tight drop-shadow-md group-hover:text-accent transition-colors">{title}</h3>
-            <p className="text-gray-400 text-sm leading-relaxed font-light">
+            <h3 className={`text-xl font-bold mb-3 tracking-tight ${isLocked ? 'text-gray-600' : 'text-white drop-shadow-md group-hover:text-accent'} transition-colors`}>{title}</h3>
+            <p className={`text-sm leading-relaxed font-light ${isLocked ? 'text-gray-700' : 'text-gray-400'}`}>
                 {desc}
             </p>
         </div>
 
-        <div className="relative z-10 mt-6 pt-6 border-t border-white/10 flex items-center justify-between opacity-50 group-hover:opacity-100 transition-opacity">
-            <span className="text-xs font-mono uppercase tracking-widest text-white font-bold">Configure</span>
-            <div className="p-1 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
-                 <ArrowRight className="w-3 h-3 text-white -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
-            </div>
+        <div className={`relative z-10 mt-6 pt-6 border-t flex items-center justify-between transition-opacity ${isLocked ? 'border-white/5 opacity-30' : 'border-white/10 opacity-50 group-hover:opacity-100'}`}>
+            <span className="text-xs font-mono uppercase tracking-widest text-white font-bold">{isLocked ? 'Classified' : 'Configure'}</span>
+            {!isLocked && (
+                <div className="p-1 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
+                    <ArrowRight className="w-3 h-3 text-white -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+                </div>
+            )}
         </div>
     </motion.div>
 );
@@ -114,6 +163,15 @@ export const Services: React.FC = () => {
         <ServiceCard icon={Palette} title="Visual Identity" desc="High-resolution branding assets, logos, and digital environments designed to command attention." delay={0.25} />
         <ServiceCard icon={Wrench} title="Custom Request" desc="Need something specific? If it's digital, I can likely build, fix, or optimize it. Just ask." delay={0.3} />
         <ServiceCard icon={Infinity} title="Full Stack Ops" desc="End-to-end development for complex projects requiring multiple disciplines and rapid execution." delay={0.35} />
+        
+        {/* The New "Coming Soon" Card to fill the gap */}
+        <ServiceCard 
+            icon={ShieldAlert} 
+            title="System Upgrade" 
+            desc="New operational capabilities are currently in development. Check back for patch notes." 
+            delay={0.4} 
+            isLocked={true}
+        />
       </div>
 
       <div className="mb-20 max-w-4xl mx-auto">
@@ -140,55 +198,31 @@ export const Services: React.FC = () => {
         </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="mb-16 bg-black border border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.1)] rounded-3xl p-8 flex flex-col justify-center relative overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-white/5 pointer-events-none" />
-        <div className="relative z-10">
-            <div className="flex items-center gap-2 mb-6 text-white justify-center md:justify-start">
-                <Scale className="w-5 h-5 drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]" />
-                <h4 className="font-bold text-sm uppercase tracking-wider text-glow">Terms of Engagement</h4>
-            </div>
-            <TermsList />
-        </div>
-      </motion.div>
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-           <div className="lg:col-span-2 bg-surface border border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.1)] rounded-3xl p-8 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
-                <div className="relative z-10">
-                    <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2 drop-shadow-md">
-                        <Server className="w-5 h-5 text-white" />
-                        Technical Arsenal
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <TechItem icon={Globe} title="Vercel Hosting" desc="$0 Monthly fees. Global CDN. Instant scalability." />
-                        <TechItem icon={Server} title="Firebase DB" desc="Real-time data. Secure. Zero maintenance cost." />
-                         <TechItem icon={LayoutDashboard} title="Admin Dashboard" desc="Full control. Manage your content without code." />
-                         <TechItem icon={Lock} title="Elite Security" desc="DDoS Protection. SSL. Custom Domain setup included." />
-                    </div>
-                </div>
-            </div>
+           <div className="lg:col-span-2">
+                <TechArsenal />
+           </div>
 
-            <div className="bg-white text-black rounded-3xl p-8 flex flex-col justify-center items-center text-center shadow-[0_0_50px_rgba(255,255,255,0.3)] md:hover:shadow-[0_0_70px_rgba(255,255,255,0.5)] transition-all duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-100 to-white z-0" />
-                <div className="relative z-10">
-                    <h4 className="font-bold text-2xl mb-2">Ready to Deploy?</h4>
-                    <p className="text-gray-600 mb-6 text-sm">Initiate the protocol.</p>
-                    <a 
-                        href="mailto:paragonxdxbv@gmail.com" 
-                        className="w-full flex justify-center items-center gap-2 bg-black text-white px-6 py-4 rounded-xl font-bold md:hover:scale-[1.02] transition-transform shadow-lg"
-                    >
-                         <CreditCard className="w-5 h-5" />
-                         Initialize Project
-                    </a>
-                </div>
+            <div className="h-full">
+               <TermsSection />
             </div>
       </div>
+      
+      {/* Ready to Deploy CTA - Full Width Bottom */}
+      <div className="mt-6 bg-white text-black rounded-3xl p-8 flex flex-col md:flex-row justify-between items-center shadow-[0_0_50px_rgba(255,255,255,0.3)] md:hover:shadow-[0_0_70px_rgba(255,255,255,0.5)] transition-all duration-300 relative overflow-hidden group cursor-pointer">
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-100 to-white z-0" />
+            <div className="relative z-10 text-center md:text-left mb-6 md:mb-0">
+                <h4 className="font-bold text-2xl mb-1">Ready to Deploy?</h4>
+                <p className="text-gray-600 text-sm">Initiate the protocol and start your build.</p>
+            </div>
+            <a 
+                href="mailto:paragonxdxbv@gmail.com" 
+                className="relative z-10 flex justify-center items-center gap-2 bg-black text-white px-8 py-4 rounded-xl font-bold md:group-hover:scale-[1.05] transition-transform shadow-lg whitespace-nowrap"
+            >
+                    <CreditCard className="w-5 h-5" />
+                    Initialize Project
+            </a>
+       </div>
     </Section>
   );
 };
