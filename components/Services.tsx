@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Section } from './ui/Section';
-import ElectricBorder from './ui/ElectricBorder';
-import { Check, Zap, MessageCircle, Clock, Scale, DollarSign, Server, CreditCard, LayoutDashboard, Globe, Lock, Video, Wrench, HelpCircle, Palette, Terminal, Layers, Infinity, ArrowRight, Sparkles } from 'lucide-react';
+import { Check, Scale, Server, CreditCard, LayoutDashboard, Globe, Lock, Video, Wrench, Palette, Terminal, Layers, Infinity, ArrowRight, Sparkles } from 'lucide-react';
 
 const TermsList = () => (
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-gray-400 font-light">
@@ -26,7 +25,7 @@ const TermsList = () => (
 );
 
 const TechItem = ({ icon: Icon, title, desc }: { icon: any, title: string, desc: string }) => (
-    <div className="flex items-start gap-4 p-4 rounded-xl bg-black border border-white/10 shadow-[0_0_10px_rgba(255,255,255,0.05)] md:hover:border-white/30 md:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-colors transition-shadow duration-300 group">
+    <div className="flex items-start gap-4 p-4 rounded-xl bg-black border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.07)] md:hover:border-white/50 md:hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all duration-300 group">
         <div className="p-2 rounded-lg bg-white/5 text-gray-400 md:group-hover:text-white transition-colors">
             <Icon className="w-5 h-5" />
         </div>
@@ -54,25 +53,25 @@ const ServiceCard = ({
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.5, delay: delay }}
         style={{ willChange: 'transform, opacity' }}
-        className="bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-2xl p-6 relative overflow-hidden group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] transition-colors transition-shadow duration-300 h-full flex flex-col"
+        className="bg-surface border border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.1)] rounded-2xl p-6 relative overflow-hidden group md:hover:border-white/50 md:hover:shadow-[0_0_40px_rgba(255,255,255,0.25)] transition-all duration-300 h-full flex flex-col"
     >
          <div className="absolute -right-4 -bottom-4 opacity-5 md:group-hover:opacity-10 transition-opacity">
             <Icon className="w-32 h-32 text-white" />
         </div>
         
-        <div className="relative z-10 mb-4 p-3 bg-white/5 w-fit rounded-xl border border-white/5">
+        <div className="relative z-10 mb-4 p-3 bg-white/5 w-fit rounded-xl border border-white/10 shadow-[0_0_10px_rgba(255,255,255,0.05)]">
             <Icon className="w-6 h-6 text-white" />
         </div>
         
         <div className="relative z-10 flex-grow">
-            <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
+            <h3 className="text-xl font-bold text-white mb-3 text-glow">{title}</h3>
             <p className="text-gray-400 text-sm leading-relaxed">
                 {desc}
             </p>
         </div>
 
-        <div className="relative z-10 mt-6 pt-6 border-t border-white/5 flex items-center justify-between opacity-50 md:group-hover:opacity-100 transition-opacity">
-            <span className="text-xs font-mono uppercase tracking-widest text-white">Custom Scope</span>
+        <div className="relative z-10 mt-6 pt-6 border-t border-white/10 flex items-center justify-between opacity-70 md:group-hover:opacity-100 transition-opacity">
+            <span className="text-xs font-mono uppercase tracking-widest text-white font-bold">Custom Scope</span>
             <ArrowRight className="w-4 h-4 text-white -translate-x-2 md:group-hover:translate-x-0 transition-transform" />
         </div>
     </motion.div>
@@ -88,42 +87,11 @@ export const Services: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="mb-16 text-center"
       >
-        <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">Capabilities & <span className="text-white border-b-2 border-white">Pricing</span></h2>
+        <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">Capabilities</h2>
         <p className="text-gray-400 max-w-2xl mx-auto text-lg">
           Elite execution tailored to your specific objectives.
         </p>
       </motion.div>
-
-      {/* Electric Border - Custom Pricing Highlight */}
-      <div className="mb-20 max-w-4xl mx-auto">
-        <ElectricBorder color="#FFFFFF" speed={0.5} borderRadius={24}>
-            <div className="bg-black/80 backdrop-blur-xl p-8 md:p-12 rounded-[24px] text-center relative overflow-hidden">
-                <div className="relative z-10 flex flex-col items-center">
-                    <div className="p-4 rounded-full bg-white/10 mb-6 animate-pulse-slow">
-                        <Sparkles className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
-                        Custom Scope. Custom Price.
-                    </h3>
-                    <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
-                        I do not sell off-the-shelf templates. I engineer bespoke solutions. 
-                        Your project's cost is calculated based on <span className="text-white font-bold">complexity</span>, <span className="text-white font-bold">timeline</span>, and <span className="text-white font-bold">value</span>.
-                    </p>
-                    <a 
-                        href="https://discord.gg/4qh2cxzeZm"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]"
-                    >
-                        Get a Precision Quote <ArrowRight className="w-5 h-5" />
-                    </a>
-                </div>
-                
-                {/* Background effect inside card */}
-                <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
-            </div>
-        </ElectricBorder>
-      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         
@@ -185,25 +153,54 @@ export const Services: React.FC = () => {
 
       </div>
 
+      {/* Pricing Disclaimer - Moved to Bottom with White Glow */}
+      <div className="mb-20 max-w-4xl mx-auto">
+        <div className="bg-black/80 backdrop-blur-xl border border-white/30 shadow-[0_0_40px_rgba(255,255,255,0.15)] p-8 md:p-12 rounded-[24px] text-center relative overflow-hidden group hover:shadow-[0_0_60px_rgba(255,255,255,0.25)] hover:border-white/50 transition-all duration-500">
+            <div className="relative z-10 flex flex-col items-center">
+                <div className="p-4 rounded-full bg-white/10 mb-6 animate-pulse-slow shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                    <Sparkles className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-3xl md:text-4xl font-display font-bold text-white mb-4 text-glow">
+                    Custom Scope. Custom Price.
+                </h3>
+                <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+                    I do not sell off-the-shelf templates. I engineer bespoke solutions. 
+                    Your project's cost is calculated based on <span className="text-white font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">complexity</span>, <span className="text-white font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">timeline</span>, and <span className="text-white font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">value</span>.
+                </p>
+                <a 
+                    href="https://discord.gg/4qh2cxzeZm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+                >
+                    Get a Precision Quote <ArrowRight className="w-5 h-5" />
+                </a>
+            </div>
+            
+            {/* Background effect inside card */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
+        </div>
+      </div>
+
       {/* Terms Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.6 }}
-        className="mb-16 bg-black border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8 flex flex-col justify-center"
+        className="mb-16 bg-black border border-white/20 shadow-[0_0_25px_rgba(255,255,255,0.1)] rounded-3xl p-8 flex flex-col justify-center"
       >
         <div className="flex items-center gap-2 mb-6 text-white justify-center md:justify-start">
             <Scale className="w-5 h-5" />
-            <h4 className="font-bold text-sm uppercase tracking-wider">Terms of Engagement</h4>
+            <h4 className="font-bold text-sm uppercase tracking-wider text-glow">Terms of Engagement</h4>
         </div>
         <TermsList />
       </motion.div>
 
       {/* Bottom Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-           <div className="lg:col-span-2 bg-surface border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] rounded-3xl p-8">
-                <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+           <div className="lg:col-span-2 bg-surface border border-white/20 shadow-[0_0_25px_rgba(255,255,255,0.1)] rounded-3xl p-8">
+                <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2 text-glow">
                     <Server className="w-5 h-5 text-white" />
                     Technical Arsenal
                 </h3>
@@ -231,7 +228,7 @@ export const Services: React.FC = () => {
                 </div>
             </div>
 
-            <div className="bg-white text-black rounded-3xl p-8 flex flex-col justify-center items-center text-center shadow-[0_0_30px_rgba(255,255,255,0.3)] md:hover:shadow-[0_0_50px_rgba(255,255,255,0.5)] transition-all duration-300">
+            <div className="bg-white text-black rounded-3xl p-8 flex flex-col justify-center items-center text-center shadow-[0_0_40px_rgba(255,255,255,0.4)] md:hover:shadow-[0_0_60px_rgba(255,255,255,0.6)] transition-all duration-300">
                 <h4 className="font-bold text-2xl mb-2">Ready to Deploy?</h4>
                 <p className="text-gray-600 mb-6 text-sm">Initiate the protocol.</p>
                 <a 
