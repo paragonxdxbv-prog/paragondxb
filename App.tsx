@@ -27,14 +27,15 @@ const App: React.FC = () => {
       history.scrollRestoration = 'manual';
     }
 
-    // Initialize Lenis with OPTIMIZED settings for performance
+    // Initialize Lenis with RESPONSIVE settings
+    // We disable custom touch smoothing to let mobile devices use their native, highly optimized momentum scrolling.
     const lenis = new Lenis({
-      duration: 0.8, // Faster response, less "laggy" feel
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.8, // Reduced multiplier for more control
+      wheelMultiplier: 1, 
       touchMultiplier: 2,
     });
 
@@ -58,7 +59,7 @@ const App: React.FC = () => {
 
       <main className={`bg-[#030303] text-white min-h-screen relative selection:bg-accent selection:text-white overflow-x-hidden ${loading ? 'h-screen overflow-hidden' : ''}`}>
           
-          {/* Global Film Grain Overlay */}
+          {/* Global Film Grain Overlay - Static Optimized */}
           <Noise />
           
           {/* Vercel Analytics */}

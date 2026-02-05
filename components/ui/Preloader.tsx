@@ -1,103 +1,86 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, Cpu, Wifi, ShieldCheck, Zap } from 'lucide-react';
-
-const bootText = [
-  "INITIALIZING KERNEL...",
-  "LOADING ASSETS...",
-  "ESTABLISHING SECURE CONNECTION...",
-  "OPTIMIZING NEURAL NET...",
-  "ACCESS GRANTED."
-];
 
 export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
-  const [textIndex, setTextIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    // Text Cycle Timer
-    const textTimer = setInterval(() => {
-      setTextIndex(prev => (prev < bootText.length - 1 ? prev + 1 : prev));
-    }, 600);
-
-    // Progress Bar Timer (Runs for approx 3.5 seconds)
-    const progressTimer = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(progressTimer);
-          clearInterval(textTimer);
-          setTimeout(onComplete, 800); // Wait a bit after 100%
+    // 1. Counter Animation (0 to 100 in ~2.5s)
+    const duration = 2000; 
+    const steps = 60;
+    const intervalTime = duration / steps;
+    
+    const timer = setInterval(() => {
+      setCount((prev) => {
+        const next = prev + Math.floor(Math.random() * 5) + 2;
+        if (next >= 100) {
+          clearInterval(timer);
           return 100;
         }
-        return prev + Math.random() * 5; // Random jumpy loading
+        return next;
       });
-    }, 100);
+    }, intervalTime);
+
+    // 2. Trigger Completion
+    const completeTimeout = setTimeout(() => {
+        onComplete();
+    }, 2800); // Slight delay after 100% to show final state
 
     return () => {
-      clearInterval(textTimer);
-      clearInterval(progressTimer);
+      clearInterval(timer);
+      clearTimeout(completeTimeout);
     };
   }, [onComplete]);
 
   return (
     <motion.div
-      initial={{ y: 0 }}
-      exit={{ y: "-100%" }} // Shutter effect upwards
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-      className="fixed inset-0 z-[99999] bg-[#050505] flex flex-col items-center justify-center text-white overflow-hidden"
+      initial={{ opacity: 1 }}
+      exit={{ y: "-100%", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
+      className="fixed inset-0 z-[99999] bg-black flex flex-col justify-between p-6 md:p-12 text-white overflow-hidden cursor-wait"
     >
-      {/* Background Matrix Effect */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,0,0.03)_1px,transparent_1px)] bg-[size:30px_30px] opacity-20" />
-
-      <div className="relative z-10 w-full max-w-md px-6">
-        {/* Central Logo / Icon */}
-        <div className="flex justify-center mb-8">
-            <div className="relative">
-                <div className="absolute inset-0 bg-green-500 blur-2xl opacity-20 animate-pulse"></div>
-                <Cpu className="w-16 h-16 text-white relative z-10" />
-            </div>
+        {/* Top Bar */}
+        <div className="flex justify-between items-start opacity-0 animate-in fade-in duration-1000 delay-100 fill-mode-forwards">
+             <div className="flex flex-col">
+                <span className="text-xs font-mono tracking-widest text-gray-400">EST. 2024</span>
+                <span className="text-xs font-mono tracking-widest text-white">PARAGON DIGITAL</span>
+             </div>
+             <div className="animate-pulse">
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+             </div>
         </div>
 
-        {/* Percentage */}
-        <div className="text-right mb-2">
-            <span className="text-6xl font-display font-bold tabular-nums tracking-tighter">
-                {Math.min(100, Math.floor(progress))}
-            </span>
-            <span className="text-xl text-green-500 ml-1">%</span>
+        {/* Center Typography */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+             <div className="relative overflow-hidden">
+                <motion.h1 
+                    initial={{ y: 100 }}
+                    animate={{ y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="text-[15vw] md:text-[12vw] font-display font-bold leading-none tracking-tighter text-white mix-blend-difference"
+                >
+                    PARAGON
+                </motion.h1>
+             </div>
         </div>
 
-        {/* Progress Bar */}
-        <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden mb-4">
-            <motion.div 
-                className="h-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]"
-                style={{ width: `${progress}%` }}
-            />
+        {/* Bottom Bar / Counter */}
+        <div className="flex justify-between items-end">
+             <div className="hidden md:block w-1/3 h-[1px] bg-white/20">
+                <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 2.5, ease: "linear" }}
+                    className="h-full bg-white" 
+                />
+             </div>
+             
+             <div className="text-[12vw] md:text-[8vw] font-display font-bold leading-none tracking-tighter tabular-nums">
+                {count}
+             </div>
         </div>
-
-        {/* Boot Text */}
-        <div className="h-6 flex items-center gap-2 text-xs font-mono text-green-500">
-            <Terminal className="w-3 h-3" />
-            <span className="uppercase tracking-widest animate-pulse">
-                {bootText[textIndex]}
-            </span>
-        </div>
-
-        {/* System Icons Row */}
-        <div className="mt-12 flex justify-between border-t border-white/10 pt-4 opacity-50">
-            <div className="flex flex-col items-center gap-1">
-                <Wifi className={`w-4 h-4 ${progress > 30 ? 'text-white' : 'text-gray-600'}`} />
-                <span className="text-[9px] uppercase tracking-widest">Net</span>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-                <ShieldCheck className={`w-4 h-4 ${progress > 60 ? 'text-white' : 'text-gray-600'}`} />
-                <span className="text-[9px] uppercase tracking-widest">Sec</span>
-            </div>
-             <div className="flex flex-col items-center gap-1">
-                <Zap className={`w-4 h-4 ${progress > 90 ? 'text-white' : 'text-gray-600'}`} />
-                <span className="text-[9px] uppercase tracking-widest">Pwr</span>
-            </div>
-        </div>
-      </div>
+        
+        {/* Subtle Background Glow for Depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent pointer-events-none" />
     </motion.div>
   );
 };
