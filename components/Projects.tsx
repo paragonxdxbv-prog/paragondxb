@@ -1,11 +1,10 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { Section } from './ui/Section';
 import { ExternalLink, Loader2, ArrowUpRight } from 'lucide-react';
 
 // --- DATA ---
 
-// 1. Static Visual Projects (Websites)
 const websiteProjects = [
   {
     id: 'onyx',
@@ -36,7 +35,6 @@ const websiteProjects = [
   }
 ];
 
-// 2. Motion Projects (Google Drive Videos)
 const videoProjects = [
   {
     id: 'vid1',
@@ -58,26 +56,44 @@ const videoProjects = [
   }
 ];
 
+// --- ANIMATION VARIANTS (Parent-Child Strategy) ---
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
+
 // --- COMPONENTS ---
 
-const WebsiteCard = ({ project, index }: { project: typeof websiteProjects[0], index: number }) => (
+const WebsiteCard = ({ project }: { project: typeof websiteProjects[0] }) => (
   <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.1 }}
-    transition={{ duration: 0.5, delay: index * 0.1 }}
-    // Added transform-gpu and will-change-transform to fix flicker on scroll
-    className="transform-gpu will-change-transform group relative w-full bg-[#080808] border border-white/10 rounded-xl overflow-hidden hover:border-white/30 transition-all duration-300 shadow-lg flex flex-col h-full"
+    variants={itemVariants}
+    className="group relative w-full bg-[#080808] border border-white/10 rounded-xl overflow-hidden hover:border-white/30 transition-all duration-300 shadow-lg flex flex-col h-full transform-gpu will-change-transform"
   >
     {/* Gradient Glow Effect on Hover */}
     <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none`} />
 
     {/* 16:9 Aspect Ratio Container for Websites */}
     <div className="relative w-full aspect-video overflow-hidden bg-black border-b border-white/5">
-        <motion.img 
+        <img 
             src={project.image} 
             alt={project.title}
             className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
         />
         <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300" />
         
@@ -111,41 +127,34 @@ const WebsiteCard = ({ project, index }: { project: typeof websiteProjects[0], i
   </motion.div>
 );
 
-const VideoCard = ({ video, index }: { video: typeof videoProjects[0], index: number }) => {
+const VideoCard = ({ video }: { video: typeof videoProjects[0] }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      // Added transform-gpu and will-change-transform to fix flicker on scroll
-      className="transform-gpu will-change-transform w-full relative group"
+      variants={itemVariants}
+      className="w-full relative group transform-gpu will-change-transform"
     >
       <div className="relative w-full bg-[#080808] rounded-xl overflow-hidden border border-white/10 shadow-lg md:hover:border-white/30 transition-all duration-300 flex flex-col">
           
-          {/* 9:16 Aspect Ratio Container - Video Only */}
-          <div className="relative w-full pb-[177.78%] bg-black group-hover:opacity-100 transition-opacity">
-            {/* 
-                Google Drive Iframe 
-                REMOVED autoplay parameters because they break the Drive Preview player.
-                Drive Preview does NOT support auto-play via URL params reliably.
-            */}
+          {/* 
+             Video Container 
+             - Flexbox used to perfectly center the iframe content.
+             - Aspect ratio maintained via padding hack.
+          */}
+          <div className="relative w-full pb-[177.78%] bg-black flex items-center justify-center overflow-hidden">
             <iframe 
                 src={`https://drive.google.com/file/d/${video.driveId}/preview`}
                 className="absolute inset-0 w-full h-full border-0 z-10"
                 allow="fullscreen"
                 title={video.title}
                 loading="lazy"
+                style={{ border: 'none' }}
             />
             
-            {/* 
-                MASKING LAYER: 
-                Covers the top-right "Pop-out" button to keep users on site.
-            */}
+            {/* Masking Layer for Pop-out button */}
             <div className="absolute top-0 right-0 w-16 h-16 bg-transparent z-20 pointer-events-none" /> 
           </div>
 
-          {/* Footer Info - Below Video */}
+          {/* Footer Info */}
           <div className="p-3 bg-[#0A0A0A] border-t border-white/5 relative z-30">
                 <h3 className="text-white font-bold tracking-wider text-xs mb-0.5">{video.title}</h3>
                 <span className="text-[9px] text-gray-500 font-mono uppercase tracking-widest">{video.category}</span>
@@ -164,7 +173,7 @@ export const Projects: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-4 mb-4">
@@ -178,7 +187,7 @@ export const Projects: React.FC = () => {
           <motion.p 
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="text-gray-400 max-w-md text-right md:text-left text-lg font-light"
           >
@@ -186,19 +195,26 @@ export const Projects: React.FC = () => {
           </motion.p>
       </div>
 
-      {/* SECTION 1: WEBSITES (PREVIEW WORK) */}
+      {/* SECTION 1: WEBSITES */}
       <div className="mb-8 flex items-center gap-2">
          <div className="w-2 h-2 bg-white rounded-full" />
          <h3 className="text-xl font-display font-bold text-white uppercase tracking-wider">Preview Work</h3>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
-         {websiteProjects.map((p, i) => (
-             <WebsiteCard key={p.id} project={p} index={i} />
+      {/* STAGGERED GRID FOR WEBSITES */}
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-50px" }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24"
+      >
+         {websiteProjects.map((p) => (
+             <WebsiteCard key={p.id} project={p} />
          ))}
-      </div>
+      </motion.div>
 
-      {/* SECTION 2: MOTION PROJECTS (VIDEO PREVIEW EDITOR) */}
+      {/* SECTION 2: MOTION PROJECTS */}
       <div className="mb-8 flex items-center justify-between">
          <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
@@ -207,21 +223,24 @@ export const Projects: React.FC = () => {
          <span className="text-xs font-mono text-gray-500 hidden md:block">STREAMING FROM SECURE DRIVE</span>
       </div>
       
-      {/* 
-         UPDATED GRID: 
-         Changed to grid-cols-2 md:grid-cols-4 for smaller cards as requested.
-      */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
-        {videoProjects.map((vid, index) => (
-             <VideoCard key={vid.id} video={vid} index={index} />
+      {/* STAGGERED GRID FOR VIDEOS */}
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-50px" }}
+        className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16"
+      >
+        {videoProjects.map((vid) => (
+             <VideoCard key={vid.id} video={vid} />
         ))}
-      </div>
+      </motion.div>
 
       {/* COMING SOON */}
       <motion.div
          initial={{ opacity: 0, y: 20 }}
          whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, amount: 0.1 }}
+         viewport={{ once: true }}
          transition={{ duration: 0.5 }}
          className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black/50 p-12 text-center group md:hover:border-white/20 transition-all duration-500"
       >
