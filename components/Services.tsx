@@ -1,73 +1,119 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Section } from './ui/Section';
-import { Check, Scale, Server, CreditCard, LayoutDashboard, Globe, Lock, Video, Wrench, Palette, Terminal, Layers, Infinity, ArrowRight, Sparkles, ArrowDown, ShieldAlert, Cpu, Database, Zap } from 'lucide-react';
+import { Check, Scale, Server, CreditCard, LayoutDashboard, Globe, Lock, Video, Wrench, Palette, Terminal, Layers, Infinity, ArrowRight, Sparkles, ArrowDown, ShieldAlert, Cpu, Database, Zap, HardDrive, Wifi } from 'lucide-react';
 
-// --- Terms of Engagement Upgrade ---
-const TermItem = ({ title, text, index }: { title: string, text: string, index: number }) => (
-  <div className="relative pl-8 border-l border-white/10 py-2 group">
-      <div className="absolute left-[-5px] top-3 w-2.5 h-2.5 bg-black border border-white/30 rounded-full group-hover:bg-accent group-hover:border-accent transition-colors duration-300" />
-      <h5 className="text-white font-bold text-sm mb-1 font-display tracking-wide flex items-center gap-2">
-          <span className="text-gray-500 font-mono text-xs">0{index + 1} //</span> {title}
-      </h5>
-      <p className="text-gray-400 text-sm leading-relaxed font-light">{text}</p>
-  </div>
+// --- Engagement Protocols (Upgraded) ---
+const ProtocolCard = ({ number, title, text }: { number: string, title: string, text: string }) => (
+    <div className="relative group p-6 bg-black/40 border border-white/10 rounded-xl hover:bg-white/5 transition-colors duration-300">
+        <div className="flex items-start gap-4">
+            <div className="text-xs font-mono text-gray-600 pt-1 group-hover:text-accent transition-colors">{number}</div>
+            <div>
+                <h4 className="text-white font-bold text-sm mb-2 font-display tracking-wide group-hover:text-glow transition-all">{title}</h4>
+                <p className="text-gray-400 text-xs leading-relaxed font-light">{text}</p>
+            </div>
+        </div>
+        {/* Corner Accents */}
+        <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/20 group-hover:border-accent transition-colors" />
+        <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/20 group-hover:border-accent transition-colors" />
+    </div>
 );
 
 const TermsSection = () => (
-    <div className="bg-[#050505] border border-white/10 rounded-3xl p-8 relative overflow-hidden h-full">
-         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay"></div>
-         <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-8 pb-4 border-b border-white/10">
-                <div className="p-2 bg-white/5 rounded-lg">
-                    <Scale className="w-5 h-5 text-white" />
-                </div>
-                <h4 className="font-bold text-lg uppercase tracking-wider text-white">Engagement Protocols</h4>
+    <div className="bg-[#050505] border border-white/10 rounded-3xl p-8 relative overflow-hidden h-full flex flex-col">
+         {/* Grid Background */}
+         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px] opacity-20 pointer-events-none" />
+         
+         <div className="relative z-10 mb-8">
+            <div className="flex items-center gap-3 mb-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <h4 className="font-bold text-lg uppercase tracking-wider text-white font-display">Engagement Protocols</h4>
             </div>
-            
-            <div className="space-y-6">
-                <TermItem index={0} title="50% Deployment Fee" text="Work commences immediately after the initial secure deposit is verified." />
-                <TermItem index={1} title="Asset Readiness" text="Logos, copy, and brand keys must be provided before the build phase begins." />
-                <TermItem index={2} title="Scope Containment" text="The initial brief defines Phase 1. New features are logged as Phase 2 upgrades." />
-                <TermItem index={3} title="Unified Command" text="One decision-maker. One channel. Zero communication latency." />
-            </div>
+            <p className="text-gray-500 text-xs font-mono uppercase tracking-widest">Standard Operating Procedures</p>
+         </div>
+         
+         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
+            <ProtocolCard number="01" title="Deployment Fee" text="50% upfront to initiate the build sequence. Secure transaction verified." />
+            <ProtocolCard number="02" title="Asset Readiness" text="All brand assets must be staged and ready before Phase 1 begins." />
+            <ProtocolCard number="03" title="Scope Lock" text="Phase 1 is absolute. Feature creep is logged for Phase 2 upgrades." />
+            <ProtocolCard number="04" title="Unified Command" text="Single point of contact to ensure zero-latency communication." />
          </div>
     </div>
 );
 
-// --- Technical Arsenal Upgrade ---
+// --- Technical Arsenal (Upgraded to Server Rack Style) ---
 const TechArsenal = () => (
-    <div className="bg-surface border border-white/10 rounded-3xl p-8 relative overflow-hidden h-full">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
-        <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-8 pb-4 border-b border-white/10">
-                 <div className="p-2 bg-white/5 rounded-lg">
-                    <Cpu className="w-5 h-5 text-white" />
+    <div className="bg-[#080808] border border-white/10 rounded-3xl p-8 relative overflow-hidden h-full flex flex-col justify-between">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black/80 pointer-events-none" />
+        
+        {/* Header */}
+        <div className="relative z-10 flex justify-between items-start mb-8">
+            <div className="flex items-center gap-3">
+                 <div className="p-2 bg-white/5 rounded-lg border border-white/10">
+                    <Server className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-white uppercase tracking-wider">Technical Arsenal</h3>
+                <div>
+                    <h3 className="text-lg font-bold text-white uppercase tracking-wider font-display">Technical Arsenal</h3>
+                    <div className="flex items-center gap-2 mt-1">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                        <span className="text-[10px] text-green-500 font-mono tracking-widest uppercase">Systems Online</span>
+                    </div>
+                </div>
             </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-                 <div className="p-4 bg-black/40 border border-white/5 rounded-xl hover:border-white/20 transition-colors">
-                    <Globe className="w-6 h-6 text-blue-400 mb-3" />
-                    <h5 className="text-white font-bold text-sm">Vercel Edge</h5>
-                    <p className="text-xs text-gray-500 mt-1">Global CDN deployment.</p>
-                 </div>
-                 <div className="p-4 bg-black/40 border border-white/5 rounded-xl hover:border-white/20 transition-colors">
-                    <Database className="w-6 h-6 text-yellow-400 mb-3" />
-                    <h5 className="text-white font-bold text-sm">Firebase</h5>
-                    <p className="text-xs text-gray-500 mt-1">Real-time DB & Auth.</p>
-                 </div>
-                 <div className="p-4 bg-black/40 border border-white/5 rounded-xl hover:border-white/20 transition-colors">
-                    <LayoutDashboard className="w-6 h-6 text-purple-400 mb-3" />
-                    <h5 className="text-white font-bold text-sm">CMS Control</h5>
-                    <p className="text-xs text-gray-500 mt-1">Headless management.</p>
-                 </div>
-                 <div className="p-4 bg-black/40 border border-white/5 rounded-xl hover:border-white/20 transition-colors">
-                    <Lock className="w-6 h-6 text-green-400 mb-3" />
-                    <h5 className="text-white font-bold text-sm">Ironclad</h5>
-                    <p className="text-xs text-gray-500 mt-1">SSL & DDoS Armor.</p>
-                 </div>
+            <div className="hidden md:flex gap-1">
+                {[...Array(3)].map((_, i) => (
+                    <div key={i} className="w-1 h-8 bg-white/5 rounded-full" />
+                ))}
+            </div>
+        </div>
+
+        {/* Rack Units */}
+        <div className="relative z-10 space-y-3">
+            {/* Unit 1 */}
+            <div className="group flex items-center justify-between p-3 bg-black/50 border border-white/5 hover:border-white/20 rounded-lg transition-all duration-300">
+                <div className="flex items-center gap-3">
+                    <Globe className="w-4 h-4 text-blue-400" />
+                    <span className="text-sm font-bold text-gray-300 group-hover:text-white">Vercel Edge Network</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-gray-600 font-mono">CDN</span>
+                    <div className="w-2 h-2 bg-blue-500/50 rounded-full shadow-[0_0_5px_rgba(59,130,246,0.5)]" />
+                </div>
+            </div>
+
+            {/* Unit 2 */}
+            <div className="group flex items-center justify-between p-3 bg-black/50 border border-white/5 hover:border-white/20 rounded-lg transition-all duration-300">
+                <div className="flex items-center gap-3">
+                    <Database className="w-4 h-4 text-yellow-400" />
+                    <span className="text-sm font-bold text-gray-300 group-hover:text-white">Firebase Realtime</span>
+                </div>
+                 <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-gray-600 font-mono">DB</span>
+                    <div className="w-2 h-2 bg-yellow-500/50 rounded-full shadow-[0_0_5px_rgba(234,179,8,0.5)]" />
+                </div>
+            </div>
+
+            {/* Unit 3 */}
+            <div className="group flex items-center justify-between p-3 bg-black/50 border border-white/5 hover:border-white/20 rounded-lg transition-all duration-300">
+                <div className="flex items-center gap-3">
+                    <Lock className="w-4 h-4 text-green-400" />
+                    <span className="text-sm font-bold text-gray-300 group-hover:text-white">Enterprise Security</span>
+                </div>
+                 <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-gray-600 font-mono">SSL</span>
+                    <div className="w-2 h-2 bg-green-500/50 rounded-full shadow-[0_0_5px_rgba(34,197,94,0.5)]" />
+                </div>
+            </div>
+             {/* Unit 4 */}
+             <div className="group flex items-center justify-between p-3 bg-black/50 border border-white/5 hover:border-white/20 rounded-lg transition-all duration-300">
+                <div className="flex items-center gap-3">
+                    <LayoutDashboard className="w-4 h-4 text-purple-400" />
+                    <span className="text-sm font-bold text-gray-300 group-hover:text-white">Headless CMS</span>
+                </div>
+                 <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-gray-600 font-mono">API</span>
+                    <div className="w-2 h-2 bg-purple-500/50 rounded-full shadow-[0_0_5px_rgba(168,85,247,0.5)]" />
+                </div>
             </div>
         </div>
     </div>
@@ -89,8 +135,9 @@ const ServiceCard = ({
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0 }} // Trigger instantly
-        transition={{ duration: 0.4, delay: Math.min(delay, 0.1), ease: "easeOut" }}
+        // CRITICAL FIX: Trigger 200px BEFORE it enters viewport to prevent flicker
+        viewport={{ once: true, margin: "200px" }} 
+        transition={{ duration: 0.4, delay: 0, ease: "easeOut" }} // Removed delay for instant feel
         className={`relative bg-gradient-to-br from-[#0A0A0A] to-black border ${isLocked ? 'border-white/5 border-dashed' : 'border-white/10'} shadow-[0_0_0_1px_rgba(255,255,255,0.02)] rounded-2xl p-6 overflow-hidden group hover:border-white/30 hover:shadow-[0_0_30px_-10px_rgba(255,255,255,0.3)] transition-all duration-500 h-full flex flex-col backdrop-blur-sm`}
     >
          {/* Holographic Sheen on Hover */}
@@ -144,7 +191,7 @@ export const Services: React.FC = () => {
        <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "100px" }}
         transition={{ duration: 0.6 }}
         className="mb-16 text-center"
       >
@@ -164,7 +211,7 @@ export const Services: React.FC = () => {
         <ServiceCard icon={Wrench} title="Custom Request" desc="Need something specific? If it's digital, I can likely build, fix, or optimize it. Just ask." delay={0.3} />
         <ServiceCard icon={Infinity} title="Full Stack Ops" desc="End-to-end development for complex projects requiring multiple disciplines and rapid execution." delay={0.35} />
         
-        {/* The New "Coming Soon" Card to fill the gap */}
+        {/* The New "Coming Soon" Card */}
         <ServiceCard 
             icon={ShieldAlert} 
             title="System Upgrade" 
@@ -198,8 +245,8 @@ export const Services: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-           <div className="lg:col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+           <div className="h-full">
                 <TechArsenal />
            </div>
 

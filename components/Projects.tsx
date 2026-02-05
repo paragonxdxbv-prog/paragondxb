@@ -39,15 +39,15 @@ const projects: (Project & { tech: string[] })[] = [
 
 const ProjectCard: React.FC<{ project: Project & { tech: string[] }; index: number }> = ({ project, index }) => {
   return (
-    // 1. Motion Wrapper: Fast entrance without waiting
+    // Motion Wrapper: Trigger animation 200px before entering viewport to prevent empty spaces on fast scroll
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }} // Trigger slightly before
-      transition={{ duration: 0.5, delay: Math.min(index * 0.1, 0.2), ease: "easeOut" }} // Max 0.2s delay
+      viewport={{ once: true, margin: "200px" }}
+      transition={{ duration: 0.5, delay: 0, ease: "easeOut" }} // Instant animation
       className="w-full"
     >
-      {/* 2. Content Container */}
+      {/* Content Container */}
       <a
         href={project.link}
         target="_blank"
@@ -91,7 +91,7 @@ const ProjectCard: React.FC<{ project: Project & { tech: string[] }; index: numb
                {project.description}
             </p>
 
-            {/* Tech Stack Tags - New Addition */}
+            {/* Tech Stack Tags */}
             <div className="flex flex-wrap gap-2 mt-auto">
                 {project.tech.map((t, i) => (
                     <div key={i} className="px-2 py-1 rounded-md bg-white/5 border border-white/5 text-[10px] font-mono text-gray-500 uppercase tracking-wide group-hover:border-white/10 group-hover:text-gray-400 transition-colors">
@@ -145,8 +145,8 @@ export const Projects: React.FC = () => {
       <motion.div
          initial={{ opacity: 0, y: 20 }}
          whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, margin: "0px" }}
-         transition={{ duration: 0.5, delay: 0.1 }}
+         viewport={{ once: true, margin: "200px" }}
+         transition={{ duration: 0.5 }}
          className="relative w-full overflow-hidden rounded-2xl border border-white/15 bg-black/50 p-12 text-center group md:hover:border-white/30 transition-all duration-500 shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)]"
       >
         {/* CSS-only Animation for Background */}

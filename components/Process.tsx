@@ -56,10 +56,10 @@ export const Process: React.FC = () => {
             {steps.map((step, i) => (
                 <motion.div
                     key={step.id}
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "0px" }}
-                    transition={{ duration: 0.5, delay: Math.min(i * 0.1, 0.2) }}
+                    viewport={{ once: true, margin: "200px" }}
+                    transition={{ duration: 0.5, delay: 0 }}
                     className="relative flex flex-col items-center text-center group"
                 >
                     {/* Number Badge */}

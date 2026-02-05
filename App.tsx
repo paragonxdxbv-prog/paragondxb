@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
@@ -13,17 +13,14 @@ import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
 import { Noise } from './components/ui/Noise';
-import { Preloader } from './components/ui/Preloader';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling
+    // Initialize Lenis for smooth scrolling with lighter settings for performance
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0, // Reduced from 1.2 for snappier feel
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
@@ -46,16 +43,9 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <Preloader onComplete={() => setLoading(false)} />
-      
-      {/* 
-          We hide the main app until loading is mostly done to prevent 
-          animation conflicts, although Preloader sits on top z-index.
-      */}
-      <main className={`bg-[#030303] text-white min-h-screen relative selection:bg-accent selection:text-white ${loading ? 'h-screen overflow-hidden' : ''}`}>
+    <main className="bg-[#030303] text-white min-h-screen relative selection:bg-accent selection:text-white overflow-x-hidden">
         
-        {/* Global Film Grain Overlay */}
+        {/* Global Film Grain Overlay - Optimized */}
         <Noise />
         
         {/* Vercel Analytics */}
@@ -80,8 +70,7 @@ const App: React.FC = () => {
           <Socials />
           <Footer /> {/* Command Center Footer */}
         </div>
-      </main>
-    </>
+    </main>
   );
 };
 
