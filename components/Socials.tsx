@@ -123,7 +123,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
 
 export const Socials: React.FC = () => {
   return (
-    <Section id="socials" className="pb-32 md:pb-40">
+    <Section id="socials" className="pb-24">
       <div className="bg-gradient-to-b from-surface to-black border border-white/20 shadow-[0_0_40px_-10px_rgba(255,255,255,0.15)] rounded-3xl p-8 md:p-16 text-center relative overflow-hidden">
         
         {/* Animated Grid Background */}
@@ -260,12 +260,6 @@ export const Socials: React.FC = () => {
             </motion.div>
         </div>
       </div>
-      
-      <footer className="mt-20 text-center border-t border-white/5 pt-10">
-          <p className="text-gray-500 text-sm font-mono uppercase tracking-widest">
-              &copy; {new Date().getFullYear()} Paragon. System Active.
-          </p>
-      </footer>
     </Section>
   );
 };
