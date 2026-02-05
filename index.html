@@ -29,6 +29,7 @@
               'scan': 'scan 4s linear infinite',
               'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'spin-slow': 'spin 8s linear infinite',
+              'spin-reverse': 'spin-reverse 10s linear infinite',
               'glitch-1': 'glitch-1 2.5s infinite linear alternate-reverse',
               'glitch-2': 'glitch-2 3s infinite linear alternate-reverse',
             },
@@ -40,6 +41,10 @@
               scan: {
                 '0%': { transform: 'translateY(-100%)' },
                 '100%': { transform: 'translateY(100%)' },
+              },
+              'spin-reverse': {
+                '0%': { transform: 'rotate(0deg)' },
+                '100%': { transform: 'rotate(-360deg)' },
               },
               'glitch-1': {
                  '0%': { clipPath: 'inset(20% 0 80% 0)' },
@@ -68,20 +73,23 @@
         color: #ffffff;
         overflow-x: hidden;
         margin: 0;
-        /* Improved Text Rendering */
-        text-rendering: optimizeLegibility;
+        
+        /* SCALING ENGINE */
+        zoom: 0.75;  /* Restored as requested */
+
+        /* PERFORMANCE OPTIMIZATIONS FOR SMOOTH SCROLLING AT ZOOM */
+        text-rendering: optimizeSpeed; /* Prioritize speed over legibility precision */
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         -webkit-tap-highlight-color: transparent;
-        touch-action: pan-y; 
-        /* cursor: none;  <-- REMOVED TO RESTORE POINTER */
+        touch-action: pan-y;
+        
+        /* Force GPU Acceleration on the entire body to prevent CPU layout thrashing */
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000px;
       }
       
-      /* Restored Zoom: Creates the 'scaled out' premium desktop feel on mobile */
-      html { 
-        zoom: 0.65; 
-      }
-
       /* Completely hide scrollbar */
       ::-webkit-scrollbar {
         display: none;

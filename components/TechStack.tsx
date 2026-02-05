@@ -21,7 +21,7 @@ const MarqueeRow = ({ items, direction = "left", speed = 20 }: { items: string[]
           duration: speed 
         }}
         className="flex flex-shrink-0 group-hover:[animation-play-state:paused]"
-        style={{ willChange: "transform" }} // Performance hint
+        style={{ willChange: "transform", backfaceVisibility: "hidden" }} // Performance boost
       >
         {[...Array(4)].map((_, i) => (
            <div key={i} className="flex items-center gap-8 md:gap-16 px-4 md:px-8">
@@ -46,7 +46,7 @@ const MarqueeRow = ({ items, direction = "left", speed = 20 }: { items: string[]
           duration: speed 
         }}
         className="flex flex-shrink-0 group-hover:[animation-play-state:paused]"
-        style={{ willChange: "transform" }}
+        style={{ willChange: "transform", backfaceVisibility: "hidden" }}
       >
         {[...Array(4)].map((_, i) => (
            <div key={i} className="flex items-center gap-8 md:gap-16 px-4 md:px-8">

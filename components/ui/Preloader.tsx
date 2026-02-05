@@ -1,10 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const HERO_IMAGE = "https://i.ibb.co/TxDGgNY7/Make-dis-picture-2k-202601182124.jpg";
-const TARGET_TEXT = "PARAGON";
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+[]{}|;:,.<>?";
-
 const LOGS = [
     "INITIALIZING KERNEL...",
     "ALLOCATING MEMORY HEAPS...",
@@ -18,9 +15,34 @@ const LOGS = [
     "SYSTEM READY."
 ];
 
+// Matrix/Data Rain Effect Component
+const DataStreamBackground = () => {
+    return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
+            {[...Array(20)].map((_, i) => (
+                <motion.div
+                    key={i}
+                    initial={{ y: -100, opacity: 0 }}
+                    animate={{ y: '120vh', opacity: [0, 1, 0] }}
+                    transition={{
+                        duration: Math.random() * 2 + 1.5,
+                        repeat: Infinity,
+                        delay: Math.random() * 2,
+                        ease: "linear"
+                    }}
+                    className="absolute w-[1px] bg-gradient-to-b from-transparent via-white to-transparent"
+                    style={{
+                        left: `${Math.random() * 100}%`,
+                        height: `${Math.random() * 300 + 100}px`
+                    }}
+                />
+            ))}
+        </div>
+    );
+};
+
 export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
-  const [displayText, setDisplayText] = useState("");
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isExit, setIsExit] = useState(false);
   const [logIndex, setLogIndex] = useState(0);
@@ -30,7 +52,7 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
     const img = new Image();
     img.src = HERO_IMAGE;
     img.onload = () => setIsImageLoaded(true);
-    const timeout = setTimeout(() => setIsImageLoaded(true), 5000);
+    const timeout = setTimeout(() => setIsImageLoaded(true), 5000); // Fallback
     return () => clearTimeout(timeout);
   }, []);
 
@@ -49,10 +71,9 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
       });
     }, 40);
 
-    // Log cycler
     const logInterval = setInterval(() => {
         setLogIndex(prev => (prev + 1) % LOGS.length);
-    }, 250);
+    }, 150); // Faster logs for V2
 
     return () => {
         clearInterval(interval);
@@ -60,37 +81,18 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
     };
   }, [isImageLoaded]);
 
-  // 3. Decryption
-  useEffect(() => {
-    let iteration = 0;
-    const interval = setInterval(() => {
-      setDisplayText(prev => 
-        TARGET_TEXT
-          .split("")
-          .map((letter, index) => {
-            if (index < iteration) return TARGET_TEXT[index];
-            return CHARS[Math.floor(Math.random() * CHARS.length)];
-          })
-          .join("")
-      );
-      if (iteration >= TARGET_TEXT.length) clearInterval(interval);
-      iteration += 1 / 3;
-    }, 30);
-    return () => clearInterval(interval);
-  }, []);
-
-  // 4. Exit Trigger
+  // 3. Exit Trigger
   useEffect(() => {
     if (progress === 100) {
-      setTimeout(() => setIsExit(true), 200); // Slight pause at 100 before blast
+      setTimeout(() => setIsExit(true), 200);
       setTimeout(onComplete, 1400); 
     }
   }, [progress, onComplete]);
 
   return (
-    <div className="fixed inset-0 z-[99999] flex flex-col pointer-events-none">
+    <div className="fixed inset-0 z-[99999] bg-[#050505] flex flex-col items-center justify-center overflow-hidden font-sans">
         
-        {/* Flash Effect on Completion */}
+        {/* Flash Effect */}
         <motion.div 
             initial={{ opacity: 0 }}
             animate={isExit ? { opacity: [0, 1, 0] } : { opacity: 0 }}
@@ -98,67 +100,95 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
             className="absolute inset-0 bg-white z-50 pointer-events-none"
         />
 
-        {/* TOP SHUTTER */}
+        {/* Exit Shutters */}
         <motion.div 
-            initial={{ y: 0 }}
-            animate={isExit ? { y: "-100%" } : { y: 0 }}
-            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
-            className="relative flex-1 bg-[#050505] w-full flex items-end justify-center border-b border-white/10 z-20"
+            initial={{ y: "100%" }}
+            animate={isExit ? { y: 0 } : { y: "100%" }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="absolute inset-0 bg-black z-40"
+        />
+        <motion.div 
+             initial={{ y: "-100%" }}
+             animate={isExit ? { y: 0 } : { y: "-100%" }}
+             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+             className="absolute inset-0 bg-black z-40"
+        />
+
+        {/* Main Content Container (Fades out on exit) */}
+        <motion.div 
+            animate={isExit ? { scale: 0.9, opacity: 0 } : { scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="relative w-full h-full flex flex-col items-center justify-center"
         >
-             <div className="absolute bottom-0 w-full p-6 md:p-12 flex justify-between items-end pb-4 md:pb-8">
-                <div className="overflow-hidden">
-                    <motion.div 
-                        initial={{ opacity: 1 }}
-                        animate={isExit ? { opacity: 0 } : { opacity: 1 }}
-                        transition={{ duration: 0.4 }}
-                    >
-                         <h1 className="text-[12vw] md:text-[10vw] font-display font-bold leading-none tracking-tighter text-white">
-                            {displayText}
-                         </h1>
-                    </motion.div>
+            <DataStreamBackground />
+
+            {/* Background Grid - Animated */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_100%)] opacity-20" />
+
+            {/* REACTOR CORE VISUALIZATION */}
+            <div className="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center mb-12">
+                
+                {/* Outer Targeting Reticle */}
+                <div className="absolute inset-[-20px] border border-white/5 rounded-full" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-[20px] bg-white/20" />
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-[20px] bg-white/20" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[20px] h-[1px] bg-white/20" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[20px] h-[1px] bg-white/20" />
+
+                {/* Outer Ring - Slow Spin */}
+                <div className="absolute inset-0 rounded-full border border-white/10 animate-[spin_10s_linear_infinite]" />
+                <div className="absolute inset-0 rounded-full border-t border-white/30 animate-[spin_10s_linear_infinite]" />
+                
+                {/* Middle Ring - Reverse Spin */}
+                <div className="absolute inset-8 rounded-full border border-white/10 animate-[spin_6s_linear_infinite_reverse]" />
+                <div className="absolute inset-8 rounded-full border-r border-l border-white/20 animate-[spin_6s_linear_infinite_reverse]" />
+
+                {/* Inner Ring - Fast Spin */}
+                <div className="absolute inset-16 rounded-full border border-white/5 animate-[spin_3s_linear_infinite]" />
+                <div className="absolute inset-16 rounded-full border-b-2 border-white/50 animate-[spin_3s_linear_infinite]" />
+
+                {/* Core Number */}
+                <div className="relative z-10 flex flex-col items-center justify-center bg-black rounded-full w-32 h-32 border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                    <span className="text-4xl font-display font-bold text-white tabular-nums tracking-tighter mix-blend-screen">
+                        {progress}
+                    </span>
+                    <span className="text-[10px] text-gray-500 font-mono mt-1">PERCENT</span>
                 </div>
-             </div>
-        </motion.div>
 
-        {/* BOTTOM SHUTTER */}
-        <motion.div 
-            initial={{ y: 0 }}
-            animate={isExit ? { y: "100%" } : { y: 0 }}
-            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
-            className="relative flex-1 bg-[#050505] w-full flex items-start justify-center border-t border-white/10 z-20"
-        >
-             <div className="absolute top-0 w-full p-6 md:p-12 flex justify-between items-start pt-4 md:pt-8">
-                 <motion.div 
-                    initial={{ opacity: 1 }}
-                    animate={isExit ? { opacity: 0 } : { opacity: 1 }}
-                    transition={{ duration: 0.4 }}
-                    className="w-full grid grid-cols-2 md:grid-cols-3 gap-4"
-                 >
-                     {/* Col 1: Status */}
-                     <div className="flex flex-col gap-2">
-                        <span className="text-xs font-mono text-gray-500">SYSTEM STATUS</span>
-                        <div className="flex items-center gap-2">
-                             <div className={`w-2 h-2 rounded-full ${isImageLoaded ? 'bg-white' : 'bg-gray-600 animate-pulse'}`} />
-                             <span className="text-xs font-bold text-white tracking-widest uppercase">
-                                {isImageLoaded ? "ASSETS READY" : "LOADING..."}
-                             </span>
-                        </div>
-                     </div>
+                {/* Scanner Line */}
+                <div className="absolute inset-0 rounded-full animate-[spin_2s_linear_infinite] opacity-50">
+                     <div className="w-full h-1/2 bg-gradient-to-t from-white/10 to-transparent blur-sm" />
+                </div>
+            </div>
 
-                     {/* Col 2: Terminal Log (Visible on desktop) */}
-                     <div className="hidden md:flex flex-col gap-1 overflow-hidden h-12">
-                         <span className="text-[10px] font-mono text-gray-600 uppercase">&gt; {LOGS[logIndex]}</span>
-                         <span className="text-[10px] font-mono text-gray-700 uppercase">&gt; {LOGS[(logIndex + 1) % LOGS.length]}</span>
-                     </div>
+            {/* Bottom HUD Area */}
+            <div className="absolute bottom-12 left-0 right-0 px-8 flex justify-between items-end max-w-7xl mx-auto w-full">
+                
+                {/* Terminal Log */}
+                <div className="hidden md:flex flex-col gap-1 w-64">
+                    <div className="h-px w-full bg-white/20 mb-2" />
+                    <div className="h-16 overflow-hidden flex flex-col justify-end mask-image:linear-gradient(to top, black, transparent)">
+                        <span className="text-[10px] font-mono text-gray-600 uppercase opacity-50">&gt; {LOGS[(logIndex + 2) % LOGS.length]}</span>
+                        <span className="text-[10px] font-mono text-gray-500 uppercase opacity-70">&gt; {LOGS[(logIndex + 1) % LOGS.length]}</span>
+                        <span className="text-[10px] font-mono text-white uppercase">&gt; {LOGS[logIndex]}</span>
+                    </div>
+                </div>
 
-                     {/* Col 3: Percentage */}
-                     <div className="text-right md:col-start-3">
-                        <span className="text-[4rem] md:text-[6rem] font-display font-bold leading-none text-white/10 tabular-nums">
-                            {progress}%
+                {/* System ID */}
+                <div className="text-right">
+                     <div className="flex items-center justify-end gap-2 mb-2">
+                        <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                        <span className="text-xs font-bold text-white tracking-widest uppercase">
+                            Paragon System
                         </span>
                      </div>
-                 </motion.div>
-             </div>
+                     <span className="text-[10px] text-gray-500 font-mono">
+                        VERSION: 4.1.0 <br/>
+                        SCALE: 0.75X
+                     </span>
+                </div>
+            </div>
+
         </motion.div>
     </div>
   );
