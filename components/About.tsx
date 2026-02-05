@@ -19,8 +19,8 @@ export const About: React.FC = () => {
             viewport={viewportConfig}
             transition={transition}
           >
-            <div className="w-12 h-1 bg-white mb-8 shadow-[0_0_15px_rgba(255,255,255,0.5)]" />
-            <h2 className="text-4xl md:text-6xl font-display font-bold leading-tight mb-8 text-white">
+            <div className="w-12 h-1 bg-white mb-8 shadow-[0_0_20px_rgba(255,255,255,0.8)]" />
+            <h2 className="text-4xl md:text-6xl font-display font-bold leading-tight mb-8 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
               No Team.<br />
               No Agencies.<br />
               <span className="text-gray-400">
@@ -36,7 +36,7 @@ export const About: React.FC = () => {
             transition={{ ...transition, delay: 0.1 }}
             className="text-lg text-gray-400 font-light leading-relaxed mb-8"
           >
-             The digital landscape is flooded with noise, slow teams, and bloated agencies. I operate differently. I am a <span className="text-white font-medium">Solo Operative</span>. When you hire me, you get me—direct communication, pure execution, and zero middlemen.
+             The digital landscape is flooded with noise, slow teams, and bloated agencies. I operate differently. I am a <span className="text-white font-medium drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">Solo Operative</span>. When you hire me, you get me—direct communication, pure execution, and zero middlemen.
            </motion.p>
            
            <motion.div
@@ -46,23 +46,23 @@ export const About: React.FC = () => {
             transition={{ ...transition, delay: 0.2 }}
             className="flex items-center gap-4"
            >
-             <p className="text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]">
+             <p className="text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
                US HQ • Global Reach
              </p>
            </motion.div>
         </div>
 
-        {/* Right: Operational Philosophy */}
+        {/* Right: Operational Philosophy - Upgraded with Passive Glow */}
         <div className="space-y-8">
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
                 transition={{ ...transition, delay: 0.15 }}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm md:hover:bg-white/10 transition-colors"
+                className="bg-black/50 border border-white/15 rounded-2xl p-6 backdrop-blur-md shadow-[0_0_25px_rgba(255,255,255,0.08)] hover:shadow-[0_0_35px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
             >
                 <div className="flex items-center gap-4 mb-3">
-                    <Target className="w-6 h-6 text-white" />
+                    <Target className="w-6 h-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]" />
                     <h3 className="text-xl font-bold text-white">Precision Engineering</h3>
                 </div>
                 <p className="text-gray-400 text-sm leading-relaxed">
@@ -75,10 +75,10 @@ export const About: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
                 transition={{ ...transition, delay: 0.25 }}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm md:hover:bg-white/10 transition-colors"
+                className="bg-black/50 border border-white/15 rounded-2xl p-6 backdrop-blur-md shadow-[0_0_25px_rgba(255,255,255,0.08)] hover:shadow-[0_0_35px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
             >
                 <div className="flex items-center gap-4 mb-3">
-                    <Zap className="w-6 h-6 text-white" />
+                    <Zap className="w-6 h-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]" />
                     <h3 className="text-xl font-bold text-white">Velocity & Impact</h3>
                 </div>
                 <p className="text-gray-400 text-sm leading-relaxed">
@@ -91,10 +91,10 @@ export const About: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
                 transition={{ ...transition, delay: 0.35 }}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm md:hover:bg-white/10 transition-colors"
+                className="bg-black/50 border border-white/15 rounded-2xl p-6 backdrop-blur-md shadow-[0_0_25px_rgba(255,255,255,0.08)] hover:shadow-[0_0_35px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
             >
                 <div className="flex items-center gap-4 mb-3">
-                    <Shield className="w-6 h-6 text-white" />
+                    <Shield className="w-6 h-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]" />
                     <h3 className="text-xl font-bold text-white">Total Ownership</h3>
                 </div>
                 <p className="text-gray-400 text-sm leading-relaxed">

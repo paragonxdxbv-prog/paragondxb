@@ -12,7 +12,7 @@ export const ProductShowcase: React.FC = () => {
          viewport={{ once: true, amount: 0.1 }}
          transition={{ duration: 0.6 }}
          style={{ willChange: 'transform, opacity' }}
-         className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_15px_-5px_rgba(255,255,255,0.05)] bg-surface group md:hover:border-white/30 md:hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.15)] transition-colors transition-shadow duration-500"
+         className="relative rounded-3xl overflow-hidden border border-white/15 shadow-[0_0_30px_rgba(255,255,255,0.1)] bg-surface group md:hover:border-white/40 md:hover:shadow-[0_0_50px_-5px_rgba(255,255,255,0.2)] transition-all duration-500"
       >
         <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Side */}
@@ -36,19 +36,19 @@ export const ProductShowcase: React.FC = () => {
                     viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                  >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-xs font-medium text-accent mb-6 shadow-[0_0_10px_rgba(255,255,255,0.1)]">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-xs font-medium text-accent mb-6 shadow-[0_0_15px_rgba(255,255,255,0.2)] backdrop-blur-sm">
                         <ShoppingBag className="w-3 h-3" />
                         <span>Digital Asset</span>
                     </div>
 
-                    <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 text-white">
+                    <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
                         Digital Motivation <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">Bundle</span>
                     </h2>
 
                     <p className="text-gray-400 text-lg mb-8 leading-relaxed border-l-2 border-accent/30 pl-6">
                         High-definition digital environments designed to fuel ambition. <br/>
-                        <span className="text-white">Download. Print. Dominate.</span>
+                        <span className="text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]">Download. Print. Dominate.</span>
                     </p>
 
                     <a 

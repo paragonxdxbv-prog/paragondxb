@@ -76,10 +76,10 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
                 )}
             </AnimatePresence>
 
-            <div className={`w-10 h-10 mb-3 transition-transform duration-300 md:group-hover:scale-110 ${baseColor} md:group-hover:text-white relative z-10`}>
+            <div className={`w-10 h-10 mb-3 transition-transform duration-300 md:group-hover:scale-110 ${baseColor} md:group-hover:text-white relative z-10 drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]`}>
                 {copied ? <Check className="w-full h-full" /> : <Icon className="w-full h-full" />}
             </div>
-            <span className={`text-xs font-bold uppercase tracking-widest ${isCopy ? 'text-gray-300' : 'text-white'} md:group-hover:text-white transition-colors duration-300 relative z-10 text-center px-2`}>
+            <span className={`text-xs font-bold uppercase tracking-widest ${isCopy ? 'text-gray-300' : 'text-white'} md:group-hover:text-white transition-colors duration-300 relative z-10 text-center px-2 drop-shadow-md`}>
                 {copied ? "Copied" : label}
             </span>
             <span className="text-[10px] text-gray-500 md:group-hover:text-white/70 mt-1 font-mono relative z-10 max-w-[90%] truncate">
@@ -92,7 +92,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
         </>
     );
 
-    const cardClasses = "flex flex-col items-center justify-center w-full h-36 md:h-40 bg-surface border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.02)] rounded-2xl backdrop-blur-md transition-colors transition-shadow duration-300 group md:hover:border-white/30 md:hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] relative overflow-hidden";
+    const cardClasses = "flex flex-col items-center justify-center w-full h-36 md:h-40 bg-surface border border-white/15 shadow-[0_0_20px_rgba(255,255,255,0.08)] rounded-2xl backdrop-blur-md transition-all duration-300 group md:hover:border-white/30 md:hover:shadow-[0_0_35px_rgba(255,255,255,0.2)] relative overflow-hidden";
 
     if (href) {
         return (
@@ -124,13 +124,13 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
 export const Socials: React.FC = () => {
   return (
     <Section id="socials" className="pb-32 md:pb-40">
-      <div className="bg-gradient-to-b from-surface to-black border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.07)] rounded-3xl p-8 md:p-16 text-center relative overflow-hidden">
+      <div className="bg-gradient-to-b from-surface to-black border border-white/20 shadow-[0_0_40px_-10px_rgba(255,255,255,0.15)] rounded-3xl p-8 md:p-16 text-center relative overflow-hidden">
         
         {/* Animated Grid Background */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 pointer-events-none" />
 
         <div className="relative z-10">
-            <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
+            <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
                 Connect & <span className="text-white">Explore</span>
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto mb-16 text-lg">
@@ -146,9 +146,9 @@ export const Socials: React.FC = () => {
                 className="mb-16"
             >
                 <div className="flex items-center justify-center gap-3 mb-8">
-                    <div className="h-px w-12 bg-white/20" />
+                    <div className="h-px w-12 bg-white/20 shadow-[0_0_5px_rgba(255,255,255,0.5)]" />
                     <h3 className="text-sm font-mono uppercase tracking-widest text-white font-bold text-glow">Direct Contact Lines</h3>
-                    <div className="h-px w-12 bg-white/20" />
+                    <div className="h-px w-12 bg-white/20 shadow-[0_0_5px_rgba(255,255,255,0.5)]" />
                 </div>
                 
                 {/* Responsive Grid for Large Cards */}
@@ -215,9 +215,9 @@ export const Socials: React.FC = () => {
                 transition={{ duration: 0.6 }}
             >
                  <div className="flex items-center justify-center gap-3 mb-8">
-                    <div className="h-px w-12 bg-white/10" />
+                    <div className="h-px w-12 bg-white/10 shadow-[0_0_5px_rgba(255,255,255,0.5)]" />
                     <h3 className="text-sm font-mono uppercase tracking-widest text-gray-500">Media Content</h3>
-                    <div className="h-px w-12 bg-white/10" />
+                    <div className="h-px w-12 bg-white/10 shadow-[0_0_5px_rgba(255,255,255,0.5)]" />
                 </div>
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
