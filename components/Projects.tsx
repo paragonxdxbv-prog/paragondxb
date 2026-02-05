@@ -1,52 +1,59 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Section } from './ui/Section';
-import { Loader2, ExternalLink, ArrowRight } from 'lucide-react';
+import { ExternalLink, Loader2, ArrowUpRight } from 'lucide-react';
 
 // --- DATA ---
 
-// 1. Static Visual Projects (Preview Work)
-const visualProjects = [
+// 1. Static Visual Projects (Websites)
+const websiteProjects = [
   {
-    id: 'p1',
-    title: "Neon Genesis",
-    category: "Brand Identity",
-    image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop",
-    link: "#"
+    id: 'onyx',
+    title: 'Onyx',
+    category: 'Enterprise Engine',
+    description: 'High-performance data processing architecture.',
+    link: 'https://onyx-best.vercel.app/',
+    gradient: 'from-slate-900 to-slate-800',
+    image: 'https://i.ibb.co/NdkV2L1k/Screenshot-45.png'
   },
   {
-    id: 'p2',
-    title: "Cyber Deck",
-    category: "UI Architecture",
-    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop",
-    link: "#"
+    id: 'nexus',
+    title: 'Nexus',
+    category: 'Interactive Framework',
+    description: 'Fluid state management for next-gen UX.',
+    link: 'https://nexus-best.vercel.app/',
+    gradient: 'from-indigo-950 to-purple-950',
+    image: 'https://i.ibb.co/8gnp69rs/Screenshot-44.png'
   },
   {
-    id: 'p3',
-    title: "Void Walker",
-    category: "3D Environment",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop",
-    link: "#"
+    id: 'noir',
+    title: 'Noir',
+    category: 'Prestige Platform',
+    description: 'Luxury aesthetics meeting minimalist code.',
+    link: 'https://noir-best.vercel.app/',
+    gradient: 'from-zinc-900 to-black',
+    image: 'https://i.ibb.co/ZRXwd5JZ/Screenshot-43.png'
   }
 ];
 
-// 2. Motion Projects (Videos)
+// 2. Motion Projects (Google Drive Videos)
+// Using Embed/Preview IDs to prevent infinite loading
 const videoProjects = [
   {
     id: 'vid1',
-    src: "https://drive.google.com/uc?export=download&id=10zeE4Vs3JnrVtNgIocqfTPwsebbojpsI", 
+    driveId: "10zeE4Vs3JnrVtNgIocqfTPwsebbojpsI", 
     title: "Kinetic Rush",
     category: "Motion Design"
   },
   {
     id: 'vid2',
-    src: "https://drive.google.com/uc?export=download&id=1qAQU_1f-MARM1wuxfPwF3xhB1qcmtbxa",
+    driveId: "1qAQU_1f-MARM1wuxfPwF3xhB1qcmtbxa",
     title: "Glitch Protocol",
     category: "VFX"
   },
   {
     id: 'vid3',
-    src: "https://drive.google.com/uc?export=download&id=1r2eFtpNiHGIcOHU8sqLzo4pij5lHuwhj",
+    driveId: "1r2eFtpNiHGIcOHU8sqLzo4pij5lHuwhj",
     title: "Data Stream",
     category: "CGI Loop"
   }
@@ -54,63 +61,59 @@ const videoProjects = [
 
 // --- COMPONENTS ---
 
-const VisualCard = ({ project, index }: { project: typeof visualProjects[0], index: number }) => (
+const WebsiteCard = ({ project, index }: { project: typeof websiteProjects[0], index: number }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.1 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="group relative h-[400px] w-full overflow-hidden rounded-2xl bg-[#080808] border border-white/10"
+    className="group relative w-full bg-[#080808] border border-white/10 rounded-xl overflow-hidden hover:border-white/30 transition-all duration-300 shadow-lg flex flex-col h-full"
   >
-    {/* Image with zoom effect */}
-    <div className="absolute inset-0 overflow-hidden">
+    {/* Gradient Glow Effect on Hover */}
+    <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none`} />
+
+    {/* 16:9 Aspect Ratio Container for Websites */}
+    <div className="relative w-full aspect-video overflow-hidden bg-black border-b border-white/5">
         <motion.img 
             src={project.image} 
             alt={project.title}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300" />
+        
+        {/* Overlay Button */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
+            <a 
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 bg-white text-black font-bold rounded-full transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-2 hover:bg-gray-200 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+            >
+                <span>Live Preview</span>
+                <ArrowUpRight className="w-4 h-4" />
+            </a>
+        </div>
     </div>
 
-    {/* Content Overlay */}
-    <div className="absolute bottom-0 left-0 w-full p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-        <span className="text-xs font-mono text-accent uppercase tracking-widest mb-2 block opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-            {project.category}
-        </span>
-        <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-display font-bold text-white">{project.title}</h3>
-            <div className="p-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-10px] group-hover:translate-x-0">
-                <ExternalLink className="w-4 h-4 text-black" />
+    {/* Footer Info */}
+    <div className="p-6 bg-[#0A0A0A] flex-grow flex flex-col justify-between relative z-10">
+        <div>
+            <div className="flex justify-between items-start mb-2">
+                <h3 className="text-2xl font-display font-bold text-white tracking-tight group-hover:text-gray-200 transition-colors">{project.title}</h3>
+                <ExternalLink className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors duration-300" />
             </div>
+            <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-3">{project.category}</p>
+            <p className="text-sm text-gray-400 font-light leading-relaxed border-l-2 border-white/10 pl-3 group-hover:border-white/30 transition-colors">
+                {project.description}
+            </p>
         </div>
     </div>
   </motion.div>
 );
 
 const VideoCard = ({ video, index }: { video: typeof videoProjects[0], index: number }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { amount: 0.4 }); // Trigger earlier (40% visibility)
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if (videoRef.current) {
-        if (isInView) {
-            const playPromise = videoRef.current.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Auto-play prevented:", error);
-                });
-            }
-        } else {
-            videoRef.current.pause();
-        }
-    }
-  }, [isInView]);
-
   return (
     <motion.div
-      ref={containerRef}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
@@ -120,32 +123,26 @@ const VideoCard = ({ video, index }: { video: typeof videoProjects[0], index: nu
       <div className="relative w-full bg-[#080808] rounded-xl overflow-hidden border border-white/10 shadow-lg md:hover:border-white/30 transition-all duration-300">
           
           {/* 9:16 Aspect Ratio Container */}
-          <div className="relative w-full pb-[177.78%]">
-            {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center bg-[#050505] z-10">
-                    <Loader2 className="w-8 h-8 text-white/20 animate-spin" />
-                </div>
-            )}
-            
-            <video
-                ref={videoRef}
-                src={video.src}
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                onLoadedData={() => setIsLoading(false)}
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.5s ease' }}
+          <div className="relative w-full pb-[177.78%] bg-black">
+            {/* Google Drive Iframe - Uses Preview Mode for reliable streaming */}
+            <iframe 
+                src={`https://drive.google.com/file/d/${video.driveId}/preview`}
+                className="absolute inset-0 w-full h-full border-0"
+                allow="autoplay"
+                title={video.title}
+                loading="lazy"
             />
-
-            {/* Glass Overlay for Title */}
-            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <h3 className="text-white font-bold tracking-wider text-sm">{video.title}</h3>
-                <span className="text-[10px] text-gray-400 font-mono uppercase">{video.category}</span>
-            </div>
+            {/* Pointer events overlay to allow scrolling on mobile without getting stuck in iframe.
+                It disappears on hover (desktop) or touch (mobile logic needed usually) to allow interaction if strictly necessary, 
+                but for background loops, blocking pointer events is often better for UX. */}
+            <div className="absolute inset-0 pointer-events-auto md:pointer-events-none bg-transparent" />
           </div>
 
+          {/* Title Overlay */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none">
+                <h3 className="text-white font-bold tracking-wider text-sm">{video.title}</h3>
+                <span className="text-[10px] text-gray-400 font-mono uppercase">{video.category}</span>
+          </div>
       </div>
     </motion.div>
   );
@@ -182,24 +179,25 @@ export const Projects: React.FC = () => {
           </motion.p>
       </div>
 
-      {/* SECTION 1: VISUAL PROJECTS (Preview Work) */}
+      {/* SECTION 1: WEBSITES (PREVIEW WORK) */}
       <div className="mb-8 flex items-center gap-2">
          <div className="w-2 h-2 bg-white rounded-full" />
          <h3 className="text-xl font-display font-bold text-white uppercase tracking-wider">Preview Work</h3>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
-         {visualProjects.map((p, i) => (
-             <VisualCard key={p.id} project={p} index={i} />
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+         {websiteProjects.map((p, i) => (
+             <WebsiteCard key={p.id} project={p} index={i} />
          ))}
       </div>
 
-      {/* SECTION 2: MOTION PROJECTS (Videos) */}
+      {/* SECTION 2: MOTION PROJECTS (VIDEOS) */}
       <div className="mb-8 flex items-center justify-between">
          <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
             <h3 className="text-xl font-display font-bold text-white uppercase tracking-wider">Kinetic Ops</h3>
          </div>
-         <span className="text-xs font-mono text-gray-500 hidden md:block">AUTOPLAY ENABLED [SCROLL]</span>
+         <span className="text-xs font-mono text-gray-500 hidden md:block">STREAMING FROM SECURE DRIVE</span>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
