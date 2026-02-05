@@ -22,10 +22,10 @@ const RealRedditIcon = ({ className }: { className?: string }) => (
     </svg>
 )
 
-// Simplified Clean PayPal Icon (Just a P)
-const RealPayPalIcon = ({ className }: { className?: string }) => (
+// Simplified Bold "P" Icon for PayPal
+const SimplePayPalIcon = ({ className }: { className?: string }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-         <path d="M8.5 2h5.5c2.5 0 4.5 2 4.5 4.5 0 1.5-.7 2.9-1.9 3.8.5.5.9 1.1.9 1.7 0 2.5-2 4.5-4.5 4.5h-1.5l-1 5.5h-3l2.8-15.5h-1.8zm3 6.5h1.5c.8 0 1.5-.7 1.5-1.5s-.7-1.5-1.5-1.5h-1.2l-.3 3z"/>
+         <path d="M6 3h6.5c3.5 0 6 2.5 6 6s-2.5 6-6 6H9v6H6V3z"/>
     </svg>
 )
 
@@ -102,8 +102,8 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -5 }}
+                style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }} // Flicker Fix
                 className={cardClasses}
-                // REMOVED transition-all to stop fighting motion's y transform
             >
                 <Content />
             </motion.a>
@@ -114,6 +114,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
         <motion.button
             onClick={handleClick}
             whileHover={{ y: -5 }}
+            style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }} // Flicker Fix
             className={cardClasses}
         >
             <Content />
@@ -188,11 +189,11 @@ export const Socials: React.FC = () => {
                      
                      {/* 4. PayPal (Link) */}
                      <InteractiveCard 
-                        icon={RealPayPalIcon}
+                        icon={SimplePayPalIcon}
                         label="PayPal"
                         subLabel="Direct Pay"
                         href="https://www.paypal.com/paypalme/AndresRiosXYZ"
-                        // Changed to Dark Blue as requested
+                        // Changed to Dark Blue (#001C64) as requested
                         baseColor="text-[#001C64]"
                         glowColor="bg-[#003087]"
                      />

@@ -66,7 +66,8 @@ const WebsiteCard = ({ project, index }: { project: typeof websiteProjects[0], i
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.1 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="transform-gpu will-change-transform group relative w-full bg-[#080808] border border-white/10 rounded-xl overflow-hidden hover:border-white/30 transition-all duration-300 shadow-lg flex flex-col h-full"
+    style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }} // Flicker Fix
+    className="group relative w-full bg-[#080808] border border-white/10 rounded-xl overflow-hidden hover:border-white/30 transition-all duration-300 shadow-lg flex flex-col h-full"
   >
     {/* Gradient Glow Effect on Hover */}
     <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none`} />
@@ -117,37 +118,37 @@ const VideoCard = ({ video, index }: { video: typeof videoProjects[0], index: nu
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      // Added transform-gpu to fix flicker on scroll
-      className="transform-gpu will-change-transform w-full relative group"
+      style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }} // Flicker Fix
+      className="w-full relative group"
     >
       <div className="relative w-full bg-[#080808] rounded-xl overflow-hidden border border-white/10 shadow-lg md:hover:border-white/30 transition-all duration-300 flex flex-col">
           
           {/* 9:16 Aspect Ratio Container - Video Only */}
-          <div className="relative w-full pb-[177.78%] bg-black">
-            {/* Google Drive Iframe with Autoplay & Mute */}
+          <div className="relative w-full pb-[177.78%] bg-black group-hover:opacity-100 transition-opacity">
+            {/* 
+                Google Drive Iframe 
+                REMOVED autoplay parameters because they break the Drive Preview player.
+                Drive Preview does NOT support auto-play via URL params reliably.
+            */}
             <iframe 
-                src={`https://drive.google.com/file/d/${video.driveId}/preview?autoplay=1&muted=1`}
+                src={`https://drive.google.com/file/d/${video.driveId}/preview`}
                 className="absolute inset-0 w-full h-full border-0 z-10"
-                allow="autoplay; fullscreen"
+                allow="fullscreen"
                 title={video.title}
                 loading="lazy"
             />
+            
             {/* 
                 MASKING LAYER: 
-                This black div covers the top-right corner where the Drive "Pop-out" button usually sits.
-                It forces the user to stay on the page.
+                Covers the top-right "Pop-out" button to keep users on site.
             */}
             <div className="absolute top-0 right-0 w-16 h-16 bg-transparent z-20 pointer-events-none" /> 
-            {/* 
-                We cannot block pointer events completely if you want to use the play button at the bottom.
-                Drive controls are usually at the bottom.
-            */}
           </div>
 
-          {/* Footer Info - Moved OUTSIDE the video area so it doesn't block controls */}
-          <div className="p-4 bg-[#0A0A0A] border-t border-white/5 relative z-30">
-                <h3 className="text-white font-bold tracking-wider text-sm mb-1">{video.title}</h3>
-                <span className="text-[10px] text-gray-500 font-mono uppercase tracking-widest">{video.category}</span>
+          {/* Footer Info - Below Video */}
+          <div className="p-3 bg-[#0A0A0A] border-t border-white/5 relative z-30">
+                <h3 className="text-white font-bold tracking-wider text-xs mb-0.5">{video.title}</h3>
+                <span className="text-[9px] text-gray-500 font-mono uppercase tracking-widest">{video.category}</span>
           </div>
       </div>
     </motion.div>
@@ -206,7 +207,10 @@ export const Projects: React.FC = () => {
          <span className="text-xs font-mono text-gray-500 hidden md:block">STREAMING FROM SECURE DRIVE</span>
       </div>
       
-      {/* Changed Grid to md:grid-cols-4 for smaller video cards */}
+      {/* 
+         UPDATED GRID: 
+         Changed to grid-cols-2 md:grid-cols-4 for smaller cards as requested.
+      */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
         {videoProjects.map((vid, index) => (
              <VideoCard key={vid.id} video={vid} index={index} />
