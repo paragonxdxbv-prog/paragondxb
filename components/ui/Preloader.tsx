@@ -19,7 +19,7 @@ const LOGS = [
 const DataStreamBackground = () => {
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
-            {[...Array(20)].map((_, i) => (
+            {[...Array(30)].map((_, i) => (
                 <motion.div
                     key={i}
                     initial={{ y: -100, opacity: 0 }}
@@ -73,7 +73,7 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
 
     const logInterval = setInterval(() => {
         setLogIndex(prev => (prev + 1) % LOGS.length);
-    }, 150); // Faster logs for V2
+    }, 150); 
 
     return () => {
         clearInterval(interval);
@@ -90,7 +90,12 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
   }, [progress, onComplete]);
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-[#050505] flex flex-col items-center justify-center overflow-hidden font-sans">
+    // FIX: Scaled width/height to 133.33% to counter the 0.75 body zoom
+    // This ensures the preloader covers the ENTIRE physical screen.
+    <div 
+        className="fixed top-0 left-0 z-[99999] bg-[#050505] flex flex-col items-center justify-center overflow-hidden font-sans"
+        style={{ width: '133.33vw', height: '133.33vh', transform: 'translateZ(0)' }}
+    >
         
         {/* Flash Effect */}
         <motion.div 
@@ -126,7 +131,7 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_100%)] opacity-20" />
 
             {/* REACTOR CORE VISUALIZATION */}
-            <div className="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center mb-12">
+            <div className="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center mb-12 transform-gpu">
                 
                 {/* Outer Targeting Reticle */}
                 <div className="absolute inset-[-20px] border border-white/5 rounded-full" />

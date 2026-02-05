@@ -23,7 +23,8 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-8 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+    // Changed bottom-8 to bottom-12 to account for zoom: 0.75 scaling
+    <div className="fixed bottom-12 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none">
       <motion.div 
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

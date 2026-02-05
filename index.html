@@ -75,19 +75,19 @@
         margin: 0;
         
         /* SCALING ENGINE */
-        zoom: 0.75;  /* Restored as requested */
+        zoom: 0.75;  
 
-        /* PERFORMANCE OPTIMIZATIONS FOR SMOOTH SCROLLING AT ZOOM */
-        text-rendering: optimizeSpeed; /* Prioritize speed over legibility precision */
+        /* PERFORMANCE OPTIMIZATIONS */
+        text-rendering: optimizeSpeed; 
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         -webkit-tap-highlight-color: transparent;
         touch-action: pan-y;
         
-        /* Force GPU Acceleration on the entire body to prevent CPU layout thrashing */
-        transform: translateZ(0);
-        backface-visibility: hidden;
-        perspective: 1000px;
+        /* Stop bounce effect */
+        overscroll-behavior: none;
+
+        /* REMOVED TRANSFORM from body to restore 'fixed' positioning context for Navbar */
       }
       
       /* Completely hide scrollbar */
