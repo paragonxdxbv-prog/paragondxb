@@ -206,13 +206,14 @@ export const Projects: React.FC = () => {
           CRITICAL FIX: 
           Using parent variants (containerVariants) to control children.
           Viewport detection happens ONCE on this container.
-          'amount: 0.1' means it triggers as soon as 10% is visible, but once:true locks it.
+          'amount: 0.2' ensures 20% visibility before triggering, preventing edge flickering.
+          'once: true' LOCKS the state to 'show' forever after triggered.
       */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.1 }}
+        viewport={{ once: true, amount: 0.2 }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24"
       >
          {websiteProjects.map((p) => (
@@ -237,7 +238,7 @@ export const Projects: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.1 }}
+        viewport={{ once: true, amount: 0.2 }}
         className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16"
       >
         {videoProjects.map((vid) => (
