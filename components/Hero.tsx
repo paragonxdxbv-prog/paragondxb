@@ -36,19 +36,9 @@ export const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
-            {/* Glitch Title Container */}
+            {/* Title Container - Removed Hover Glitch Effects */}
             <div className="relative inline-block group">
                 <h1 className="relative z-10 text-[13vw] md:text-9xl font-display font-bold text-white mb-2 drop-shadow-2xl leading-[0.9] tracking-tighter mix-blend-difference">
-                    PARA<span className="text-gray-500">GON</span>
-                </h1>
-                
-                {/* Glitch Layer 1 (Red Shift) */}
-                <h1 className="absolute top-0 left-0 z-0 text-[13vw] md:text-9xl font-display font-bold text-red-500/50 mb-2 leading-[0.9] tracking-tighter opacity-0 group-hover:opacity-100 group-hover:animate-glitch-1 hidden md:block">
-                    PARA<span className="text-gray-500">GON</span>
-                </h1>
-
-                 {/* Glitch Layer 2 (Blue Shift) */}
-                 <h1 className="absolute top-0 left-0 z-0 text-[13vw] md:text-9xl font-display font-bold text-blue-500/50 mb-2 leading-[0.9] tracking-tighter opacity-0 group-hover:opacity-100 group-hover:animate-glitch-2 hidden md:block">
                     PARA<span className="text-gray-500">GON</span>
                 </h1>
             </div>

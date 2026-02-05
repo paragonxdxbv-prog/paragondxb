@@ -40,7 +40,7 @@ export const Testimonials: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }} // Flicker Fix
             transition={{ duration: 0.6 }}
           >
              <div className="flex justify-center mb-4">
@@ -61,8 +61,8 @@ export const Testimonials: React.FC = () => {
                 key={t.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "200px" }} // Pre-load to prevent flicker
-                transition={{ duration: 0.5, delay: 0 }} // No delay for instant appearance
+                viewport={{ once: true, amount: 0.1 }} // Flicker Fix: Removed large margin
+                transition={{ duration: 0.5, delay: 0 }}
                 className="bg-[#080808] border border-white/10 p-8 rounded-2xl relative group hover:border-white/30 transition-colors duration-500 flex flex-col h-full"
              >
                 <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">

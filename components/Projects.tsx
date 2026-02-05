@@ -1,106 +1,58 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Cpu, Clock, Loader2, Code2, Database, Zap } from 'lucide-react';
 import { Section } from './ui/Section';
-import { Project } from '../types';
+import { Loader2 } from 'lucide-react';
 
-const projects: (Project & { tech: string[] })[] = [
+// Video Data
+const videos = [
   {
-    id: 'onyx',
-    title: 'Onyx',
-    category: 'Enterprise Engine',
-    description: 'High-performance data processing architecture.',
-    link: 'https://onyx-best.vercel.app/',
-    gradient: 'from-slate-900 to-slate-800',
-    image: 'https://i.ibb.co/NdkV2L1k/Screenshot-45.png',
-    tech: ['React', 'Next.js', 'PostgreSQL']
+    id: 'vid1',
+    src: "https://streamable.com/e/l1h0bu?autoplay=0", // Changed autoplay to 0 for better UX, user can play manually or we can set 1
+    title: "Project Alpha",
+    category: "Visuals"
   },
   {
-    id: 'nexus',
-    title: 'Nexus',
-    category: 'Interactive Framework',
-    description: 'Fluid state management for next-gen UX.',
-    link: 'https://nexus-best.vercel.app/',
-    gradient: 'from-indigo-950 to-purple-950',
-    image: 'https://i.ibb.co/8gnp69rs/Screenshot-44.png',
-    tech: ['Framer Motion', 'Tailwind', 'WebGL']
+    id: 'vid2',
+    src: "https://streamable.com/e/sx9i9q?autoplay=0",
+    title: "Project Beta",
+    category: "Motion"
   },
   {
-    id: 'noir',
-    title: 'Noir',
-    category: 'Prestige Platform',
-    description: 'Luxury aesthetics meeting minimalist code.',
-    link: 'https://noir-best.vercel.app/',
-    gradient: 'from-zinc-900 to-black',
-    image: 'https://i.ibb.co/ZRXwd5JZ/Screenshot-43.png',
-    tech: ['Minimal UI', 'Three.js', 'Vercel']
+    id: 'vid3',
+    src: "https://streamable.com/e/colmqj?autoplay=0",
+    title: "Project Gamma",
+    category: "CGI"
   }
 ];
 
-const ProjectCard: React.FC<{ project: Project & { tech: string[] }; index: number }> = ({ project, index }) => {
+const VideoCard: React.FC<{ src: string; title: string; index: number }> = ({ src, title, index }) => {
   return (
-    // Motion Wrapper: Trigger animation 200px before entering viewport to prevent empty spaces on fast scroll
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "200px" }}
-      transition={{ duration: 0.5, delay: 0, ease: "easeOut" }} // Instant animation
-      className="w-full"
+      // FIX: Using 'amount' instead of 'margin' prevents flicker issues caused by zoom
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="w-full relative group"
     >
-      {/* Content Container */}
-      <a
-        href={project.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group relative block w-full bg-surface border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.05)] rounded-xl overflow-hidden md:hover:border-white/30 md:hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.15)] transition-all duration-500 h-full flex flex-col"
-      >
-        {/* 16:9 Aspect Ratio Container for Image */}
-        <div className="relative w-full aspect-video overflow-hidden bg-[#080808]">
-           <img 
-              src={project.image} 
-              alt={project.title} 
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-105"
-           />
-           
-           <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
-           
-           {/* Overlay on hover */}
-           <div className="absolute inset-0 bg-black/20 md:group-hover:bg-transparent transition-colors duration-300" />
-        </div>
-
-        {/* Content Below Image */}
-        <div className="relative p-6 border-t border-white/5 bg-[#080808] flex-grow flex flex-col">
-            <div className="flex justify-between items-start mb-3 relative z-10">
-               <div className="flex items-center gap-2">
-                   <Cpu className="w-4 h-4 text-accent drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]" />
-                   <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">
-                       {project.category}
-                   </span>
-               </div>
-               <div className="p-1.5 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors">
-                  <ArrowUpRight className="w-4 h-4 text-gray-500 md:group-hover:text-white transition-colors duration-300" />
-               </div>
-            </div>
-
-            <h3 className="text-3xl font-display font-bold text-white mb-2 md:group-hover:text-accent transition-colors duration-300 drop-shadow-md">
-               {project.title}
-            </h3>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
-               {project.description}
-            </p>
-
-            {/* Tech Stack Tags */}
-            <div className="flex flex-wrap gap-2 mt-auto">
-                {project.tech.map((t, i) => (
-                    <div key={i} className="px-2 py-1 rounded-md bg-white/5 border border-white/5 text-[10px] font-mono text-gray-500 uppercase tracking-wide group-hover:border-white/10 group-hover:text-gray-400 transition-colors">
-                        {t}
-                    </div>
-                ))}
-            </div>
-        </div>
-      </a>
+      <div className="relative w-full bg-[#080808] rounded-xl overflow-hidden border border-white/10 shadow-lg md:hover:border-white/30 transition-all duration-300">
+          {/* 9:16 Aspect Ratio Container (177.78%) */}
+          <div style={{ position: 'relative', width: '100%', paddingBottom: '177.778%' }}>
+            <iframe 
+                allow="fullscreen" 
+                allowFullScreen 
+                height="100%" 
+                src={src} 
+                width="100%" 
+                style={{ border: 'none', width: '100%', height: '100%', position: 'absolute', left: '0px', top: '0px', overflow: 'hidden' }}
+            ></iframe>
+          </div>
+          
+          {/* Overlay info - Optional */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+             <h3 className="text-white font-bold tracking-wider">{title}</h3>
+          </div>
+      </div>
     </motion.div>
   );
 };
@@ -112,32 +64,32 @@ export const Projects: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }} // Flicker Fix
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-4 mb-4">
                 <div className="h-px w-12 bg-accent shadow-[0_0_5px_rgba(255,255,255,0.5)]" />
-                <span className="text-accent uppercase tracking-widest text-sm font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">Deployments</span>
+                <span className="text-accent uppercase tracking-widest text-sm font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">Showcase</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-display font-bold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
-                Selected Works
+                Recent Work
             </h2>
           </motion.div>
           <motion.p 
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }} // Flicker Fix
             transition={{ duration: 0.6 }}
             className="text-gray-400 max-w-md text-right md:text-left"
           >
-            Full-scale previews of high-performance digital environments.
+            High-fidelity motion and visual design.
           </motion.p>
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-        {projects.map((project, index) => (
-             <ProjectCard key={project.id} project={project} index={index} />
+      {/* Video Grid - Adjusted for Vertical Aspect Ratios */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {videos.map((vid, index) => (
+             <VideoCard key={vid.id} src={vid.src} title={vid.title} index={index} />
         ))}
       </div>
 
@@ -145,7 +97,7 @@ export const Projects: React.FC = () => {
       <motion.div
          initial={{ opacity: 0, y: 20 }}
          whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, margin: "200px" }}
+         viewport={{ once: true, amount: 0.1 }} // Flicker Fix
          transition={{ duration: 0.5 }}
          className="relative w-full overflow-hidden rounded-2xl border border-white/15 bg-black/50 p-12 text-center group md:hover:border-white/30 transition-all duration-500 shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)]"
       >
@@ -158,10 +110,10 @@ export const Projects: React.FC = () => {
                 <Loader2 className="w-8 h-8 text-white animate-spin-slow" />
             </div>
             <h3 className="text-2xl md:text-3xl font-display font-bold text-white tracking-tight drop-shadow-md">
-                System Expansion in Progress
+                More Projects Incoming
             </h3>
             <p className="text-gray-400 max-w-lg mx-auto leading-relaxed">
-                New architectural templates, premium assets, and high-velocity demos are currently being forged in the lab.
+                The lab is always active. New assets are being forged.
             </p>
         </div>
       </motion.div>

@@ -109,7 +109,8 @@ const ServiceCard = ({
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "200px" }} 
+        // FIX: Using amount: 0.1 instead of margin ensures reliable trigger even with zoom
+        viewport={{ once: true, amount: 0.1 }} 
         transition={{ duration: 0.4, delay: 0, ease: "easeOut" }}
         className={`relative bg-[#080808] border ${isLocked ? 'border-white/5 border-dashed' : 'border-white/10'} rounded-2xl p-6 overflow-hidden group hover:border-white/30 hover:bg-[#0A0A0A] transition-all duration-500 h-full flex flex-col`}
     >
@@ -158,7 +159,7 @@ export const Services: React.FC = () => {
        <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "100px" }}
+        viewport={{ once: true, amount: 0.1 }} // Flicker Fix
         transition={{ duration: 0.6 }}
         className="mb-16 text-center"
       >
@@ -178,7 +179,6 @@ export const Services: React.FC = () => {
         <ServiceCard icon={Wrench} title="Custom Request" desc="Need something specific? If it's digital, I can likely build, fix, or optimize it. Just ask." delay={0.3} />
         <ServiceCard icon={Infinity} title="Full Stack Ops" desc="End-to-end development for complex projects requiring multiple disciplines and rapid execution." delay={0.35} />
         
-        {/* The New "Coming Soon" Card */}
         <ServiceCard 
             icon={ShieldAlert} 
             title="System Upgrade" 
