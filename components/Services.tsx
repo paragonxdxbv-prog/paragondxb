@@ -51,11 +51,10 @@ const ServiceCard = ({
     delay: number
 }) => (
     <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.5, delay: delay }}
-        style={{ willChange: 'transform, opacity' }}
+        viewport={{ once: true, margin: "-10%" }}
+        transition={{ duration: 0.4, delay: delay, ease: "easeOut" }}
         className="relative bg-gradient-to-br from-[#0A0A0A] to-black border border-white/20 shadow-[0_0_25px_-5px_rgba(255,255,255,0.15)] rounded-2xl p-6 overflow-hidden group hover:border-white/40 hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.3)] transition-all duration-500 h-full flex flex-col backdrop-blur-sm"
     >
          {/* Noise Texture */}
@@ -92,7 +91,7 @@ export const Services: React.FC = () => {
        <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         className="mb-16 text-center"
       >
@@ -104,6 +103,7 @@ export const Services: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         
+        {/* Reduced delays to prevent "disappearing" feel on rapid scroll */}
         <ServiceCard 
             icon={Globe}
             title="Web Architecture"
@@ -115,54 +115,54 @@ export const Services: React.FC = () => {
             icon={Server}
             title="Discord Setup"
             desc="Advanced community infrastructure. Channels, roles, bots & permission hierarchies ready for launch."
-            delay={0.1}
+            delay={0.05}
         />
 
         <ServiceCard 
             icon={Layers}
             title="UI Components"
             desc="Bespoke React components, fluid animations, and interactive elements tailored to your brand's physics."
-            delay={0.15}
+            delay={0.1}
         />
 
         <ServiceCard 
             icon={Terminal}
             title="Advanced Coding"
             desc="Custom scripts, backend logic, and system integrations. Python, Java, C++, and more."
-            delay={0.2}
+            delay={0.15}
         />
 
         <ServiceCard 
             icon={Video}
             title="Video Production"
             desc="Cinematic editing, sound design, and motion graphics optimized for high-retention platforms."
-            delay={0.25}
+            delay={0.2}
         />
 
         <ServiceCard 
             icon={Palette}
             title="Visual Identity"
             desc="High-resolution branding assets, logos, and digital environments designed to command attention."
-            delay={0.3}
+            delay={0.25}
         />
 
         <ServiceCard 
             icon={Wrench}
             title="Custom Request"
             desc="Need something specific? If it's digital, I can likely build, fix, or optimize it. Just ask."
-            delay={0.35}
+            delay={0.3}
         />
 
         <ServiceCard 
             icon={Infinity}
             title="Full Stack Ops"
             desc="End-to-end development for complex projects requiring multiple disciplines and rapid execution."
-            delay={0.4}
+            delay={0.35}
         />
 
       </div>
 
-      {/* Pricing Disclaimer - Updated with Scroll Instruction & Passive Glow */}
+      {/* Pricing Disclaimer */}
       <div className="mb-20 max-w-4xl mx-auto">
         <div className="bg-black/80 backdrop-blur-xl border border-white/20 shadow-[0_0_40px_rgba(255,255,255,0.1)] p-8 md:p-12 rounded-[24px] text-center relative overflow-hidden group hover:shadow-[0_0_60px_rgba(255,255,255,0.2)] hover:border-white/30 transition-all duration-500">
              {/* Noise Texture */}
@@ -193,11 +193,11 @@ export const Services: React.FC = () => {
         </div>
       </div>
 
-      {/* Terms Section - Passive Glow */}
+      {/* Terms Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         className="mb-16 bg-black border border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.1)] rounded-3xl p-8 flex flex-col justify-center relative overflow-hidden"
       >
@@ -212,7 +212,7 @@ export const Services: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Bottom Section - Passive Glow */}
+      {/* Bottom Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
            <div className="lg:col-span-2 bg-surface border border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.1)] rounded-3xl p-8 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] pointer-events-none mix-blend-overlay"></div>
