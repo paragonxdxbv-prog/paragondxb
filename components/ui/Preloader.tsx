@@ -147,8 +147,8 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
 
                      {/* Col 2: Terminal Log (Visible on desktop) */}
                      <div className="hidden md:flex flex-col gap-1 overflow-hidden h-12">
-                         <span className="text-[10px] font-mono text-gray-600 uppercase"> > {LOGS[logIndex]}</span>
-                         <span className="text-[10px] font-mono text-gray-700 uppercase"> > {LOGS[(logIndex + 1) % LOGS.length]}</span>
+                         <span className="text-[10px] font-mono text-gray-600 uppercase">&gt; {LOGS[logIndex]}</span>
+                         <span className="text-[10px] font-mono text-gray-700 uppercase">&gt; {LOGS[(logIndex + 1) % LOGS.length]}</span>
                      </div>
 
                      {/* Col 3: Percentage */}
