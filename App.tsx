@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Lenis from '@studio-freight/lenis';
+import { AnimatePresence } from 'framer-motion';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
 import { About } from './components/About';
@@ -13,20 +14,27 @@ import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
 import { Noise } from './components/ui/Noise';
+import { Preloader } from './components/ui/Preloader';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const App: React.FC = () => {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling with lighter settings for performance
+    // Optimization: Disable scroll restoration to force top on reload
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    // Initialize Lenis with OPTIMIZED settings for performance
     const lenis = new Lenis({
-      duration: 1.0, // Reduced from 1.2 for snappier feel
+      duration: 0.8, // Faster response, less "laggy" feel
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.8, // Reduced multiplier for more control
       touchMultiplier: 2,
     });
 
@@ -43,34 +51,40 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <main className="bg-[#030303] text-white min-h-screen relative selection:bg-accent selection:text-white overflow-x-hidden">
-        
-        {/* Global Film Grain Overlay - Optimized */}
-        <Noise />
-        
-        {/* Vercel Analytics */}
-        <Analytics />
-        <SpeedInsights />
+    <>
+      <AnimatePresence mode='wait'>
+        {loading && <Preloader onComplete={() => setLoading(false)} />}
+      </AnimatePresence>
 
-        {/* Global Elements */}
-        <Navbar />
-
-        <Hero />
-        <div className="relative z-10 bg-[#030303]">
-          {/* Tech Stack Marquee - High Visibility Context */}
-          <TechStack />
+      <main className={`bg-[#030303] text-white min-h-screen relative selection:bg-accent selection:text-white overflow-x-hidden ${loading ? 'h-screen overflow-hidden' : ''}`}>
           
-          <About />
-          <Process /> {/* Workflow Section */}
-          <Services />
-          <Projects />
-          <Testimonials /> {/* Social Proof Section */}
-          <ProductShowcase />
-          <FAQ /> {/* Context/Intel Section */}
-          <Socials />
-          <Footer /> {/* Command Center Footer */}
-        </div>
-    </main>
+          {/* Global Film Grain Overlay */}
+          <Noise />
+          
+          {/* Vercel Analytics */}
+          <Analytics />
+          <SpeedInsights />
+
+          {/* Global Elements */}
+          {!loading && <Navbar />}
+
+          <Hero />
+          <div className="relative z-10 bg-[#030303]">
+            {/* Tech Stack Marquee - High Visibility Context */}
+            <TechStack />
+            
+            <About />
+            <Process /> {/* Workflow Section */}
+            <Services />
+            <Projects />
+            <Testimonials /> {/* Social Proof Section */}
+            <ProductShowcase />
+            <FAQ /> {/* Context/Intel Section */}
+            <Socials />
+            <Footer /> {/* Command Center Footer */}
+          </div>
+      </main>
+    </>
   );
 };
 
