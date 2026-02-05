@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Wifi } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const { scrollY } = useScroll();
@@ -8,7 +9,33 @@ export const Hero: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden flex items-center justify-center bg-black pt-32 md:pt-0 transform-gpu">
+    <div id="hero" className="relative min-h-screen w-full overflow-hidden flex items-center justify-center bg-black pt-32 md:pt-0 transform-gpu">
+      
+      {/* HUD Header - System Status */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 1 }}
+        className="absolute top-6 left-0 right-0 z-40 px-6 flex justify-between items-center max-w-7xl mx-auto w-full text-xs font-mono tracking-widest text-gray-500"
+      >
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_#22c55e]" />
+            <span className="text-green-500/80 font-bold">SYSTEM ONLINE</span>
+          </div>
+          <div className="hidden md:flex items-center gap-4">
+            <span>PARAGON // V2.0</span>
+            <span className="text-white/20">|</span>
+            <div className="flex items-center gap-2">
+               <Wifi className="w-3 h-3" />
+               <span>LATENCY: 12ms</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 border border-green-500/30 bg-green-500/10 px-3 py-1 rounded-full">
+            <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-ping" />
+            <span className="text-green-400 font-bold">AVAILABLE FOR WORK</span>
+          </div>
+      </motion.div>
+
       {/* Dynamic Background Image with Parallax */}
       <motion.div 
         style={{ y, scale: 1.1, transformOrigin: 'top center' }}
@@ -42,7 +69,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1.0], delay: 0.1 }}
-          className="text-6xl md:text-8xl lg:text-[10rem] font-display font-bold text-white mb-6 drop-shadow-2xl leading-[1.0] md:leading-[0.9] pt-10 tracking-tighter"
+          className="text-[15vw] md:text-8xl lg:text-[10rem] font-display font-bold text-white mb-6 drop-shadow-2xl leading-[1.0] md:leading-[0.9] pt-10 tracking-tighter"
         >
           PARA<span className="text-gray-500">GON</span>
         </motion.h1>
@@ -58,7 +85,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto font-light leading-relaxed"
+          className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto font-light leading-relaxed px-4"
         >
           Forging elite digital realities. <br className="hidden md:block" />
           <span className="text-white font-medium">Cinematic visuals</span> fused with <span className="text-white font-medium text-glow">Cyberpunk precision</span>.

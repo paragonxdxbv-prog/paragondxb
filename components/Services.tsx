@@ -25,11 +25,14 @@ const TermsList = () => (
 );
 
 const TechItem = ({ icon: Icon, title, desc }: { icon: any, title: string, desc: string }) => (
-    <div className="flex items-start gap-4 p-4 rounded-xl bg-black/50 border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)] md:hover:border-white/40 md:hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all duration-300 group backdrop-blur-sm">
-        <div className="p-2 rounded-lg bg-white/5 text-gray-400 md:group-hover:text-white transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05)]">
+    <div className="flex items-start gap-4 p-4 rounded-xl bg-black/50 border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)] md:hover:border-white/40 md:hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all duration-300 group backdrop-blur-sm relative overflow-hidden">
+        {/* Noise Texture */}
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none mix-blend-overlay"></div>
+        
+        <div className="p-2 rounded-lg bg-white/5 text-gray-400 md:group-hover:text-white transition-colors shadow-[0_0_10px_rgba(255,255,255,0.05)] relative z-10">
             <Icon className="w-5 h-5" />
         </div>
-        <div>
+        <div className="relative z-10">
             <h4 className="text-white font-bold text-sm mb-1 md:group-hover:text-white transition-colors">{title}</h4>
             <p className="text-gray-500 text-xs leading-relaxed">{desc}</p>
         </div>
@@ -53,12 +56,15 @@ const ServiceCard = ({
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.5, delay: delay }}
         style={{ willChange: 'transform, opacity' }}
-        className="relative bg-gradient-to-br from-surface to-black border border-white/20 shadow-[0_0_25px_-5px_rgba(255,255,255,0.15)] rounded-2xl p-6 overflow-hidden group hover:border-white/40 hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.3)] transition-all duration-500 h-full flex flex-col"
+        className="relative bg-gradient-to-br from-[#0A0A0A] to-black border border-white/20 shadow-[0_0_25px_-5px_rgba(255,255,255,0.15)] rounded-2xl p-6 overflow-hidden group hover:border-white/40 hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.3)] transition-all duration-500 h-full flex flex-col backdrop-blur-sm"
     >
+         {/* Noise Texture */}
+         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.07] pointer-events-none mix-blend-overlay"></div>
+
          {/* Passive background sheen */}
-         <div className="absolute inset-0 bg-white/5 opacity-50 group-hover:opacity-75 transition-opacity" />
+         <div className="absolute inset-0 bg-white/5 opacity-50 group-hover:opacity-75 transition-opacity pointer-events-none" />
          
-         <div className="absolute -right-4 -bottom-4 opacity-[0.07] group-hover:opacity-[0.15] transition-opacity duration-500 rotate-12">
+         <div className="absolute -right-4 -bottom-4 opacity-[0.07] group-hover:opacity-[0.15] transition-opacity duration-500 rotate-12 pointer-events-none">
             <Icon className="w-32 h-32 text-white" />
         </div>
         
@@ -159,6 +165,9 @@ export const Services: React.FC = () => {
       {/* Pricing Disclaimer - Updated with Scroll Instruction & Passive Glow */}
       <div className="mb-20 max-w-4xl mx-auto">
         <div className="bg-black/80 backdrop-blur-xl border border-white/20 shadow-[0_0_40px_rgba(255,255,255,0.1)] p-8 md:p-12 rounded-[24px] text-center relative overflow-hidden group hover:shadow-[0_0_60px_rgba(255,255,255,0.2)] hover:border-white/30 transition-all duration-500">
+             {/* Noise Texture */}
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] pointer-events-none mix-blend-overlay"></div>
+
             <div className="relative z-10 flex flex-col items-center">
                 <div className="p-4 rounded-full bg-white/10 mb-6 animate-pulse-slow shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                     <Sparkles className="w-8 h-8 text-white" />
@@ -192,6 +201,7 @@ export const Services: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="mb-16 bg-black border border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.1)] rounded-3xl p-8 flex flex-col justify-center relative overflow-hidden"
       >
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] pointer-events-none mix-blend-overlay"></div>
         <div className="absolute inset-0 bg-white/5 pointer-events-none" />
         <div className="relative z-10">
             <div className="flex items-center gap-2 mb-6 text-white justify-center md:justify-start">
@@ -205,6 +215,7 @@ export const Services: React.FC = () => {
       {/* Bottom Section - Passive Glow */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
            <div className="lg:col-span-2 bg-surface border border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.1)] rounded-3xl p-8 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] pointer-events-none mix-blend-overlay"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
                 <div className="relative z-10">
                     <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2 drop-shadow-md">

@@ -31,22 +31,27 @@ export const Navbar: React.FC = () => {
         className="pointer-events-auto bg-black/90 md:bg-black/80 md:backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-2 ring-1 ring-white/5 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-shadow duration-500"
       >
         {navItems.map((item) => (
-          <button
+          <motion.button
             key={item.id}
             onClick={() => scrollToSection(item.id)}
-            className="group relative flex flex-col items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full transition-all duration-300 hover:bg-white/10"
+            whileHover={{ y: -5 }}
+            whileTap={{ scale: 0.9 }}
+            className="group relative flex flex-col items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full"
             aria-label={item.label}
           >
-            <item.icon className="w-5 h-5 md:w-6 md:h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
+            <item.icon className="relative z-10 w-5 h-5 md:w-6 md:h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
             
             {/* Tooltip */}
-            <span className="absolute -top-12 scale-0 group-hover:scale-100 transition-transform duration-200 bg-black/90 backdrop-blur-md border border-white/20 text-white text-xs px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+            <span className="absolute -top-12 scale-0 group-hover:scale-100 transition-transform duration-200 bg-black/90 backdrop-blur-md border border-white/20 text-white text-xs px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-[0_0_15px_rgba(255,255,255,0.1)] pointer-events-none">
               {item.label}
             </span>
             
-            {/* Active/Hover Glow */}
-            <div className="absolute inset-0 rounded-full bg-white/10 scale-0 group-hover:scale-100 transition-transform duration-300" />
-          </button>
+            {/* Active/Hover Glow - Animated Spring */}
+            <motion.div 
+              layoutId="navGlow"
+              className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
+            />
+          </motion.button>
         ))}
       </motion.div>
     </div>
