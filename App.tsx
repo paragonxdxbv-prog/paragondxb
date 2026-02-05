@@ -7,7 +7,6 @@ import { Process } from './components/Process';
 import { Projects } from './components/Projects';
 import { Socials } from './components/Socials';
 import { Services } from './components/Services';
-import { Strategies } from './components/Strategies';
 import { ProductShowcase } from './components/ProductShowcase';
 import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
@@ -36,7 +35,6 @@ const App: React.FC = () => {
         <About />
         <Process /> {/* Workflow Section */}
         <Services />
-        <Strategies /> {/* New Engagement Models Section */}
         <Projects />
         <Testimonials /> {/* Social Proof Section */}
         <ProductShowcase />
