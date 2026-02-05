@@ -16,16 +16,21 @@ const TikTokIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// Correct Reddit Icon (Snoo Face / Standard Logo)
 const RealRedditIcon = ({ className }: { className?: string }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-        <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 1.249.688 0 1.249-.561 1.249-1.249 0-.687-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.094z"/>
+       <path d="M14.238 15.348c.085.084.085.221 0 .306-.465.462-1.194.687-2.231.687l-.008-.002-.008.002c-1.036 0-1.766-.225-2.231-.688-.085-.084-.085-.221 0-.305.084-.084.222-.084.307 0 .379.377 1.008.561 1.924.561l.008.002.008-.002c.915 0 1.544-.184 1.924-.561.085-.084.223-.084.307 0zm-3.44-2.418c0-.507-.414-.919-.922-.919-.508 0-.923.412-.923.919 0 .506.415.918.923.918.508.001.922-.411.922-.918zm13.202-.93c-3.925-2.573-6.983-2.783-10.204-2.764 1.691-1.975 2.188-4.324 1.734-6.42-.191-.884.06-1.01.696-.645 1.066.611 2.345.54 3.32-.42 1.458-1.435 3.369-.974 3.369-.974.453.111.956-.37.956-.37-.503 1.849-1.986 2.066-2.586 1.981-1.009-.143-2.036.568-2.318 1.528-.479 1.636-1.637 2.278-2.887 2.656.035.485.048.977.039 1.486 3.013.315 5.761 2.263 7.881 5.756.28.461.127.811-.341.673-.469-.138-.469-.138-.469-.138l-.19-.056zm-5.697 3.348c0 .507-.413.919-.922.919-.508 0-.923.412-.923.919 0 .506.415.918.923.918.508.001.922-.411.922-.918zm-2.304 8.652c-6.627 0-12-3.14-12-7.001 0-1.936 1.349-3.687 3.568-4.957-.492-.913-.309-1.944.407-2.659.813-.812 2.107-.866 2.955-.181 1.474-.403 3.064-.626 4.717-.638l-.004-.002.353.002c1.656.012 3.249.235 4.726.64.846-.689 2.143-.637 2.956.176.718.718.902 1.751.407 2.666 2.222 1.271 3.571 3.022 3.571 4.958-.001 3.86-5.375 6.996-12 6.996z"/>
     </svg>
 )
 
-// Simplified Bold "P" Icon for PayPal
+// Bold "P" Icon for PayPal with a Hole (evenodd fill rule)
 const SimplePayPalIcon = ({ className }: { className?: string }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-         <path d="M6 3h6.5c3.5 0 6 2.5 6 6s-2.5 6-6 6H9v6H6V3z"/>
+         <path 
+            fillRule="evenodd" 
+            clipRule="evenodd" 
+            d="M7 3C5.34315 3 4 4.34315 4 6V21H9V16H12C16.4183 16 20 12.4183 20 8C20 3.58172 16.4183 3 12 3H7ZM12 11H9V8H12C13.6569 8 15 9.34315 15 11C15 12.6569 13.6569 14 12 14Z" 
+        />
     </svg>
 )
 
@@ -93,7 +98,8 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
         </>
     );
 
-    const cardClasses = "flex flex-col items-center justify-center w-full h-36 md:h-40 bg-surface border border-white/15 shadow-[0_0_20px_rgba(255,255,255,0.08)] rounded-2xl backdrop-blur-md transition-all duration-300 group md:hover:border-white/30 md:hover:shadow-[0_0_35px_rgba(255,255,255,0.2)] relative overflow-hidden";
+    // Added transform-gpu and will-change-transform to fix flickering on scroll/hover
+    const cardClasses = "transform-gpu will-change-transform flex flex-col items-center justify-center w-full h-36 md:h-40 bg-surface border border-white/15 shadow-[0_0_20px_rgba(255,255,255,0.08)] rounded-2xl backdrop-blur-md transition-all duration-300 group md:hover:border-white/30 md:hover:shadow-[0_0_35px_rgba(255,255,255,0.2)] relative overflow-hidden";
 
     if (href) {
         return (
@@ -102,7 +108,6 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -5 }}
-                style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }} // Flicker Fix
                 className={cardClasses}
             >
                 <Content />
@@ -114,7 +119,6 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
         <motion.button
             onClick={handleClick}
             whileHover={{ y: -5 }}
-            style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }} // Flicker Fix
             className={cardClasses}
         >
             <Content />

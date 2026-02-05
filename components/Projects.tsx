@@ -66,8 +66,8 @@ const WebsiteCard = ({ project, index }: { project: typeof websiteProjects[0], i
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.1 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }} // Flicker Fix
-    className="group relative w-full bg-[#080808] border border-white/10 rounded-xl overflow-hidden hover:border-white/30 transition-all duration-300 shadow-lg flex flex-col h-full"
+    // Added transform-gpu and will-change-transform to fix flicker on scroll
+    className="transform-gpu will-change-transform group relative w-full bg-[#080808] border border-white/10 rounded-xl overflow-hidden hover:border-white/30 transition-all duration-300 shadow-lg flex flex-col h-full"
   >
     {/* Gradient Glow Effect on Hover */}
     <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none`} />
@@ -118,8 +118,8 @@ const VideoCard = ({ video, index }: { video: typeof videoProjects[0], index: nu
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }} // Flicker Fix
-      className="w-full relative group"
+      // Added transform-gpu and will-change-transform to fix flicker on scroll
+      className="transform-gpu will-change-transform w-full relative group"
     >
       <div className="relative w-full bg-[#080808] rounded-xl overflow-hidden border border-white/10 shadow-lg md:hover:border-white/30 transition-all duration-300 flex flex-col">
           

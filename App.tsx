@@ -56,6 +56,12 @@ const App: React.FC = () => {
         {loading && <Preloader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
 
+      {/* 
+          CRITICAL FIX: Navbar moved OUTSIDE of motion.main. 
+          The transform on motion.main was breaking 'fixed' positioning.
+      */}
+      {!loading && <Navbar />}
+
       <motion.main 
         initial={{ opacity: 0, filter: 'blur(15px)', scale: 1.02 }}
         animate={{ opacity: loading ? 0 : 1, filter: loading ? 'blur(15px)' : 'blur(0px)', scale: loading ? 1.02 : 1 }}
@@ -66,8 +72,6 @@ const App: React.FC = () => {
           <Noise />
           <Analytics />
           <SpeedInsights />
-
-          {!loading && <Navbar />}
 
           {/* Hero Loads Instantly */}
           <Hero />
