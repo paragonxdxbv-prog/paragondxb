@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Section } from './ui/Section';
-import { MessageSquareQuote, Star, Terminal } from 'lucide-react';
+import { MessageSquareQuote, Star, Terminal, CheckCircle2 } from 'lucide-react';
 
 const testimonials = [
   {
@@ -9,21 +9,24 @@ const testimonials = [
     client: "Nexus Corp",
     role: "FinTech Startup",
     content: "The speed of execution was unnatural. Paragon delivered a fully functional, enterprise-grade architecture three days ahead of schedule. The visuals alone increased our conversion rate by 40%.",
-    rating: 5
+    rating: 5,
+    verified: true
   },
   {
     id: 2,
     client: "Aether Studios",
     role: "Creative Agency",
     content: "We needed a developer who understood cinema, not just code. Paragon bridged that gap perfectly. The motion design is fluid, optimized, and incredibly polished.",
-    rating: 5
+    rating: 5,
+    verified: true
   },
   {
     id: 3,
     client: "Protocol_X",
     role: "Web3 DAO",
     content: "Zero friction. We handed over the brief, and the result was a pixel-perfect implementation. The 'Solo Operative' claim is real—no communication lag, just pure output.",
-    rating: 5
+    rating: 5,
+    verified: true
   }
 ];
 
@@ -58,9 +61,9 @@ export const Testimonials: React.FC = () => {
                 key={t.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.5, delay: Math.min(i * 0.15, 0.3) }}
-                className="bg-[#080808] border border-white/10 p-8 rounded-2xl relative group hover:border-white/30 transition-colors duration-500"
+                viewport={{ once: true, margin: "0px" }} // Immediate trigger
+                transition={{ duration: 0.5, delay: Math.min(i * 0.1, 0.2) }} // Cap delay
+                className="bg-[#080808] border border-white/10 p-8 rounded-2xl relative group hover:border-white/30 transition-colors duration-500 flex flex-col h-full"
              >
                 <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
                     <MessageSquareQuote className="w-12 h-12 text-white" />
@@ -72,12 +75,20 @@ export const Testimonials: React.FC = () => {
                     ))}
                 </div>
 
-                <p className="text-gray-300 leading-relaxed mb-8 relative z-10 font-light">
+                <p className="text-gray-300 leading-relaxed mb-8 relative z-10 font-light flex-grow">
                     "{t.content}"
                 </p>
 
-                <div className="border-t border-white/10 pt-6 flex flex-col">
-                    <span className="text-white font-bold font-display tracking-wide">{t.client}</span>
+                <div className="border-t border-white/10 pt-6 flex flex-col relative">
+                    <div className="flex justify-between items-center">
+                        <span className="text-white font-bold font-display tracking-wide text-lg">{t.client}</span>
+                        {t.verified && (
+                             <div className="flex items-center gap-1 text-xs text-green-500 bg-green-900/20 px-2 py-0.5 rounded-full border border-green-900/30">
+                                <CheckCircle2 className="w-3 h-3" />
+                                <span>Verified</span>
+                             </div>
+                        )}
+                    </div>
                     <span className="text-xs text-gray-500 uppercase tracking-widest mt-1">{t.role}</span>
                 </div>
              </motion.div>

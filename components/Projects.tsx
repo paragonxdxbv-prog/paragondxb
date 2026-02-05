@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Cpu, Clock, Loader2 } from 'lucide-react';
+import { ArrowUpRight, Cpu, Clock, Loader2, Code2, Database, Zap } from 'lucide-react';
 import { Section } from './ui/Section';
 import { Project } from '../types';
 
-const projects: Project[] = [
+const projects: (Project & { tech: string[] })[] = [
   {
     id: 'onyx',
     title: 'Onyx',
@@ -12,7 +12,8 @@ const projects: Project[] = [
     description: 'High-performance data processing architecture.',
     link: 'https://onyx-best.vercel.app/',
     gradient: 'from-slate-900 to-slate-800',
-    image: 'https://i.ibb.co/NdkV2L1k/Screenshot-45.png'
+    image: 'https://i.ibb.co/NdkV2L1k/Screenshot-45.png',
+    tech: ['React', 'Next.js', 'PostgreSQL']
   },
   {
     id: 'nexus',
@@ -21,7 +22,8 @@ const projects: Project[] = [
     description: 'Fluid state management for next-gen UX.',
     link: 'https://nexus-best.vercel.app/',
     gradient: 'from-indigo-950 to-purple-950',
-    image: 'https://i.ibb.co/8gnp69rs/Screenshot-44.png'
+    image: 'https://i.ibb.co/8gnp69rs/Screenshot-44.png',
+    tech: ['Framer Motion', 'Tailwind', 'WebGL']
   },
   {
     id: 'noir',
@@ -30,27 +32,27 @@ const projects: Project[] = [
     description: 'Luxury aesthetics meeting minimalist code.',
     link: 'https://noir-best.vercel.app/',
     gradient: 'from-zinc-900 to-black',
-    image: 'https://i.ibb.co/ZRXwd5JZ/Screenshot-43.png'
+    image: 'https://i.ibb.co/ZRXwd5JZ/Screenshot-43.png',
+    tech: ['Minimal UI', 'Three.js', 'Vercel']
   }
 ];
 
-const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
+const ProjectCard: React.FC<{ project: Project & { tech: string[] }; index: number }> = ({ project, index }) => {
   return (
-    // 1. Motion Wrapper: Handles ONLY the entrance animation
+    // 1. Motion Wrapper: Fast entrance without waiting
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.5, delay: Math.min(index * 0.1, 0.2), ease: "easeOut" }}
+      viewport={{ once: true, margin: "0px" }} // Triggers immediately
+      transition={{ duration: 0.5, delay: Math.min(index * 0.1, 0.2), ease: "easeOut" }} // Max 0.2s delay
       className="w-full"
-      style={{ willChange: 'transform, opacity' }} // Hint browser to promote layer
     >
-      {/* 2. Content Container: Handles hover effects and styling. NO motion props here. */}
+      {/* 2. Content Container */}
       <a
         href={project.link}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block w-full bg-surface border border-white/15 shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)] rounded-xl overflow-hidden md:hover:border-white/40 md:hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.25)] transition-all duration-300"
+        className="group relative block w-full bg-surface border border-white/15 shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)] rounded-xl overflow-hidden md:hover:border-white/40 md:hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.25)] transition-all duration-300 h-full flex flex-col"
       >
         {/* 16:9 Aspect Ratio Container for Image */}
         <div className="relative w-full aspect-video overflow-hidden bg-[#080808]">
@@ -63,26 +65,40 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
            />
            
            <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
+           
+           {/* Overlay on hover */}
+           <div className="absolute inset-0 bg-black/20 md:group-hover:bg-transparent transition-colors duration-300" />
         </div>
 
         {/* Content Below Image */}
-        <div className="relative p-6 border-t border-white/5 bg-[#080808]">
-            <div className="flex justify-between items-start mb-2 relative z-10">
+        <div className="relative p-6 border-t border-white/5 bg-[#080808] flex-grow flex flex-col">
+            <div className="flex justify-between items-start mb-3 relative z-10">
                <div className="flex items-center gap-2">
                    <Cpu className="w-4 h-4 text-accent drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]" />
                    <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">
                        {project.category}
                    </span>
                </div>
-               <ArrowUpRight className="w-5 h-5 text-gray-500 md:group-hover:text-white transition-colors duration-300" />
+               <div className="p-1.5 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors">
+                  <ArrowUpRight className="w-4 h-4 text-gray-500 md:group-hover:text-white transition-colors duration-300" />
+               </div>
             </div>
 
             <h3 className="text-3xl font-display font-bold text-white mb-2 md:group-hover:text-accent transition-colors duration-300 drop-shadow-md">
                {project.title}
             </h3>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
                {project.description}
             </p>
+
+            {/* Tech Stack Tags - New Addition */}
+            <div className="flex flex-wrap gap-2 mt-auto">
+                {project.tech.map((t, i) => (
+                    <div key={i} className="px-2 py-1 rounded-md bg-white/5 border border-white/5 text-[10px] font-mono text-gray-500 uppercase tracking-wide group-hover:border-white/10 group-hover:text-gray-400 transition-colors">
+                        {t}
+                    </div>
+                ))}
+            </div>
         </div>
       </a>
     </motion.div>
@@ -96,7 +112,7 @@ export const Projects: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-4 mb-4">
@@ -110,7 +126,7 @@ export const Projects: React.FC = () => {
           <motion.p 
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="text-gray-400 max-w-md text-right md:text-left"
           >
@@ -125,13 +141,12 @@ export const Projects: React.FC = () => {
         ))}
       </div>
 
-      {/* Large Full-Width "Coming Soon" Box - Passive Glow */}
+      {/* Large Full-Width "Coming Soon" Box */}
       <motion.div
          initial={{ opacity: 0, y: 20 }}
          whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, amount: 0.1 }}
-         transition={{ duration: 0.5, delay: 0.2 }}
-         style={{ willChange: 'transform, opacity' }}
+         viewport={{ once: true, margin: "0px" }}
+         transition={{ duration: 0.5, delay: 0.1 }}
          className="relative w-full overflow-hidden rounded-2xl border border-white/15 bg-black/50 p-12 text-center group md:hover:border-white/30 transition-all duration-500 shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)]"
       >
         {/* CSS-only Animation for Background */}

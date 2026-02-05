@@ -7,8 +7,8 @@ const Stat = ({ label, value, icon: Icon, delay }: { label: string, value: strin
     <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: delay }}
+        viewport={{ once: true, margin: "0px" }}
+        transition={{ duration: 0.5, delay: Math.min(delay, 0.2) }}
         className="flex flex-col items-center justify-center p-6 bg-white/5 border border-white/10 rounded-2xl relative overflow-hidden group hover:border-white/20 transition-colors"
     >
         <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -21,7 +21,7 @@ const Stat = ({ label, value, icon: Icon, delay }: { label: string, value: strin
 export const About: React.FC = () => {
   // Standardized elite easing with TypeScript fix
   const transition = { duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] as const };
-  const viewportConfig = { once: true, amount: 0.1 };
+  const viewportConfig = { once: true, margin: "0px" };
 
   return (
     <Section id="about" className="min-h-[80vh] flex flex-col justify-center py-24">
@@ -73,7 +73,7 @@ export const About: React.FC = () => {
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
-                transition={{ ...transition, delay: 0.15 }}
+                transition={{ ...transition, delay: 0.1 }}
                 className="bg-black/50 border border-white/15 rounded-2xl p-6 backdrop-blur-md shadow-[0_0_25px_rgba(255,255,255,0.08)] hover:shadow-[0_0_35px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
             >
                 <div className="flex items-center gap-4 mb-3">
@@ -89,7 +89,7 @@ export const About: React.FC = () => {
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
-                transition={{ ...transition, delay: 0.25 }}
+                transition={{ ...transition, delay: 0.15 }}
                 className="bg-black/50 border border-white/15 rounded-2xl p-6 backdrop-blur-md shadow-[0_0_25px_rgba(255,255,255,0.08)] hover:shadow-[0_0_35px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
             >
                 <div className="flex items-center gap-4 mb-3">
@@ -105,7 +105,7 @@ export const About: React.FC = () => {
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportConfig}
-                transition={{ ...transition, delay: 0.35 }}
+                transition={{ ...transition, delay: 0.2 }}
                 className="bg-black/50 border border-white/15 rounded-2xl p-6 backdrop-blur-md shadow-[0_0_25px_rgba(255,255,255,0.08)] hover:shadow-[0_0_35px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
             >
                 <div className="flex items-center gap-4 mb-3">
@@ -121,10 +121,10 @@ export const About: React.FC = () => {
 
       {/* System Metrics Bar */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-           <Stat label="Years Active" value="05+" icon={Trophy} delay={0.4} />
-           <Stat label="Projects Shipped" value="40+" icon={Code} delay={0.5} />
-           <Stat label="Client Retention" value="95%" icon={Activity} delay={0.6} />
-           <Stat label="Avg. Efficiency" value="10x" icon={Zap} delay={0.7} />
+           <Stat label="Years Active" value="05+" icon={Trophy} delay={0.2} />
+           <Stat label="Projects Shipped" value="40+" icon={Code} delay={0.25} />
+           <Stat label="Client Retention" value="95%" icon={Activity} delay={0.3} />
+           <Stat label="Avg. Efficiency" value="10x" icon={Zap} delay={0.35} />
       </div>
 
     </Section>

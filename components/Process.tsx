@@ -58,8 +58,8 @@ export const Process: React.FC = () => {
                     key={step.id}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.2 }}
+                    viewport={{ once: true, margin: "0px" }}
+                    transition={{ duration: 0.5, delay: Math.min(i * 0.1, 0.2) }}
                     className="relative flex flex-col items-center text-center group"
                 >
                     {/* Number Badge */}

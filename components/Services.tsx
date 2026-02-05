@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Section } from './ui/Section';
-import { Check, Scale, Server, CreditCard, LayoutDashboard, Globe, Lock, Video, Wrench, Palette, Terminal, Layers, Infinity, ArrowRight, Sparkles, ArrowDown } from 'lucide-react';
+import { Check, Scale, Server, CreditCard, LayoutDashboard, Globe, Lock, Video, Wrench, Palette, Terminal, Layers, Infinity, ArrowRight, Sparkles, ArrowDown, Activity } from 'lucide-react';
 
 const TermsList = () => (
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-gray-400 font-light">
@@ -51,29 +51,36 @@ const ServiceCard = ({
     delay: number
 }) => (
     <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.4, delay: Math.min(delay, 0.2), ease: "easeOut" }}
-        style={{ willChange: 'opacity, transform' }}
-        className="relative bg-gradient-to-br from-[#0A0A0A] to-black border border-white/20 shadow-[0_0_25px_-5px_rgba(255,255,255,0.15)] rounded-2xl p-6 overflow-hidden group hover:border-white/40 hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.3)] transition-all duration-500 h-full flex flex-col backdrop-blur-sm"
+        viewport={{ once: true, margin: "0px" }} // Trigger immediately upon entering
+        transition={{ duration: 0.4, delay: Math.min(delay, 0.1), ease: "easeOut" }} // Cap delay at 0.1s max
+        className="relative bg-gradient-to-br from-[#0A0A0A] to-black border border-white/15 shadow-[0_0_25px_-5px_rgba(255,255,255,0.05)] rounded-2xl p-6 overflow-hidden group hover:border-white/30 hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.2)] transition-all duration-500 h-full flex flex-col backdrop-blur-sm"
     >
          {/* Noise Texture */}
          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.07] pointer-events-none mix-blend-overlay"></div>
 
-         {/* Passive background sheen */}
-         <div className="absolute inset-0 bg-white/5 opacity-50 group-hover:opacity-75 transition-opacity pointer-events-none" />
+         {/* Holographic Sheen on Hover */}
+         <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none transform translate-y-full group-hover:-translate-y-full" />
          
-         <div className="absolute -right-4 -bottom-4 opacity-[0.07] group-hover:opacity-[0.15] transition-opacity duration-500 rotate-12 pointer-events-none">
+         {/* Background Icon Watermark */}
+         <div className="absolute -right-4 -bottom-4 opacity-[0.05] group-hover:opacity-[0.1] transition-opacity duration-500 rotate-12 pointer-events-none">
             <Icon className="w-32 h-32 text-white" />
         </div>
         
-        <div className="relative z-10 mb-5 p-3 bg-white/10 w-fit rounded-xl border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.1)] backdrop-blur-md">
-            <Icon className="w-6 h-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
+        <div className="relative z-10 flex justify-between items-start mb-5">
+            <div className="p-3 bg-white/5 w-fit rounded-xl border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)] backdrop-blur-md group-hover:bg-white/10 transition-colors">
+                <Icon className="w-6 h-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
+            </div>
+            {/* Status Dot */}
+            <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-500/10 border border-green-500/20">
+                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-[10px] font-mono text-green-500 uppercase tracking-wider">Available</span>
+            </div>
         </div>
         
         <div className="relative z-10 flex-grow">
-            <h3 className="text-xl font-bold text-white mb-3 tracking-tight drop-shadow-md">{title}</h3>
+            <h3 className="text-xl font-bold text-white mb-3 tracking-tight drop-shadow-md group-hover:text-accent transition-colors">{title}</h3>
             <p className="text-gray-400 text-sm leading-relaxed font-light">
                 {desc}
             </p>
@@ -81,7 +88,9 @@ const ServiceCard = ({
 
         <div className="relative z-10 mt-6 pt-6 border-t border-white/10 flex items-center justify-between opacity-80 group-hover:opacity-100 transition-opacity">
             <span className="text-xs font-mono uppercase tracking-widest text-white font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]">Custom Scope</span>
-            <ArrowRight className="w-4 h-4 text-white -translate-x-2 group-hover:translate-x-0 transition-transform duration-300" />
+            <div className="p-1 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
+                 <ArrowRight className="w-3 h-3 text-white -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+            </div>
         </div>
     </motion.div>
 );
