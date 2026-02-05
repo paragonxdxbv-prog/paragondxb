@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import Lenis from '@studio-freight/lenis';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
 import { TechStack } from './components/TechStack';
@@ -56,7 +56,12 @@ const App: React.FC = () => {
         {loading && <Preloader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
 
-      <main className={`bg-[#030303] text-white min-h-screen relative selection:bg-white selection:text-black overflow-x-hidden ${loading ? 'h-screen overflow-hidden' : ''}`}>
+      <motion.main 
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: loading ? 0 : 1, y: loading ? 50 : 0 }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+        className={`bg-[#030303] text-white min-h-screen relative selection:bg-white selection:text-black overflow-x-hidden ${loading ? 'h-screen overflow-hidden' : ''}`}
+      >
           
           <Noise />
           <Analytics />
@@ -83,7 +88,7 @@ const App: React.FC = () => {
                 <Footer />
             </Suspense>
           </div>
-      </main>
+      </motion.main>
     </>
   );
 };
