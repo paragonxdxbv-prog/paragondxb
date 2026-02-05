@@ -43,7 +43,7 @@ const ProjectCard: React.FC<{ project: Project & { tech: string[] }; index: numb
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px" }} // Triggers immediately
+      viewport={{ once: true, margin: "-50px" }} // Trigger slightly before
       transition={{ duration: 0.5, delay: Math.min(index * 0.1, 0.2), ease: "easeOut" }} // Max 0.2s delay
       className="w-full"
     >
@@ -52,7 +52,7 @@ const ProjectCard: React.FC<{ project: Project & { tech: string[] }; index: numb
         href={project.link}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block w-full bg-surface border border-white/15 shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)] rounded-xl overflow-hidden md:hover:border-white/40 md:hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.25)] transition-all duration-300 h-full flex flex-col"
+        className="group relative block w-full bg-surface border border-white/10 shadow-[0_0_20px_-5px_rgba(255,255,255,0.05)] rounded-xl overflow-hidden md:hover:border-white/30 md:hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.15)] transition-all duration-500 h-full flex flex-col"
       >
         {/* 16:9 Aspect Ratio Container for Image */}
         <div className="relative w-full aspect-video overflow-hidden bg-[#080808]">
