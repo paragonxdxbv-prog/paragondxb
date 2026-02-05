@@ -63,18 +63,18 @@ const containerVariants: Variants = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1
+      staggerChildren: 0.1,
+      delayChildren: 0.05
     }
   }
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   show: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.5, ease: "easeOut" }
   }
 };
 
@@ -174,7 +174,7 @@ export const Projects: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-4 mb-4">
@@ -188,7 +188,7 @@ export const Projects: React.FC = () => {
           <motion.p 
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.6 }}
             className="text-gray-400 max-w-md text-right md:text-left text-lg font-light"
           >
@@ -206,12 +206,13 @@ export const Projects: React.FC = () => {
           CRITICAL FIX: 
           Using parent variants (containerVariants) to control children.
           Viewport detection happens ONCE on this container.
+          'amount: 0.1' means it triggers as soon as 10% is visible, but once:true locks it.
       */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, margin: "-50px" }}
+        viewport={{ once: true, amount: 0.1 }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24"
       >
          {websiteProjects.map((p) => (
@@ -236,7 +237,7 @@ export const Projects: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, margin: "-50px" }}
+        viewport={{ once: true, amount: 0.1 }}
         className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16"
       >
         {videoProjects.map((vid) => (
@@ -248,7 +249,7 @@ export const Projects: React.FC = () => {
       <motion.div
          initial={{ opacity: 0, y: 20 }}
          whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true }}
+         viewport={{ once: true, amount: 0.2 }}
          transition={{ duration: 0.5 }}
          className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black/50 p-12 text-center group md:hover:border-white/20 transition-all duration-500"
       >

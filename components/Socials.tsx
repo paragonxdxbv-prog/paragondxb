@@ -19,9 +19,14 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 // CORRECT REDDIT LOGO: The Snoo face inside a Circle
 const RealRedditIcon = ({ className }: { className?: string }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-       <circle cx="12" cy="12" r="10"/>
-       <path fill="black" d="M16.67,13.13C16.67,13.13,16.67,13.13,16.67,13.13l-0.03-0.16 c-0.54-2.6-2.91-4.52-5.69-4.32c-2.31,0.17-4.2,1.86-4.6,4.14c-0.17,0.96,0.02,1.93,0.51,2.77c-1.34-0.34-2.34-1.55-2.34-3 c0-1.71,1.39-3.1,3.1-3.1c1.47,0,2.71,1.02,3.03,2.41c0.12-0.03,0.25-0.05,0.38-0.05c0.55,0,1,0.45,1,1c0,0.13-0.03,0.26-0.07,0.37 c0.87-0.96,2.11-1.57,3.5-1.57c2.59,0,4.7,2.11,4.7,4.7c0,0.93-0.27,1.8-0.74,2.54C18.66,16.59,17.2,14.65,16.67,13.13z M12,22 c5.52,0,10-4.48,10-10S17.52,2,12,2S2,6.48,2,12S6.48,22,12,22z M17,12c0-0.55-0.45-1-1-1s-1,0.45-1,1s0.45,1,1,1S17,12.55,17,12z M12.92,16.5c0-1.1-0.9-2-2-2s-2,0.9-2,2s0.9,2,2,2S12.92,17.6,12.92,16.5z M8,12c0-0.55-0.45-1-1-1s-1,0.45-1,1s0.45,1,1,1 S8,12.55,8,12z" fillRule="evenodd" clipRule="evenodd" fillOpacity="0" stroke="none" />
-       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.2c-2.4 0-4.3-1.2-4.3-2.7s1.9-2.7 4.3-2.7 4.3 1.2 4.3 2.7-1.9 2.7-4.3 2.7zm4.7-5.5c0 .7-.5 1.2-1.2 1.2s-1.2-.5-1.2-1.2.5-1.2 1.2-1.2 1.2.5 1.2 1.2zm-2.9-2c-2.8 0-5 1.9-5.5 4.5 1.1-.9 2.6-1.5 4.1-1.5s3.1.5 4.1 1.5c-.5-2.6-2.7-4.5-5.5-4.5-.4 0-.9 0-1.3.1.2-.5.5-1.3 2.8-1.9.3-.1.5-.4.4-.7-.1-.3-.4-.5-.7-.4-2.8.6-3.4 1.8-3.6 2.4-.4-.1-.8-.1-1.2-.1zm-4.7 2c0 .7-.5 1.2-1.2 1.2s-1.2-.5-1.2-1.2.5-1.2 1.2-1.2 1.2.5 1.2 1.2z" fill="#FFFFFF"/>
+        <circle cx="12" cy="12" r="10" />
+        <path 
+            fill="inherit" 
+            stroke="black" 
+            strokeWidth="0" 
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.2c-2.4 0-4.3-1.2-4.3-2.7s1.9-2.7 4.3-2.7 4.3 1.2 4.3 2.7-1.9 2.7-4.3 2.7zm4.7-5.5c0 .7-.5 1.2-1.2 1.2s-1.2-.5-1.2-1.2.5-1.2 1.2-1.2 1.2.5 1.2 1.2zm-2.9-2c-2.8 0-5 1.9-5.5 4.5 1.1-.9 2.6-1.5 4.1-1.5s3.1.5 4.1 1.5c-.5-2.6-2.7-4.5-5.5-4.5-.4 0-.9 0-1.3.1.2-.5.5-1.3 2.8-1.9.3-.1.5-.4.4-.7-.1-.3-.4-.5-.7-.4-2.8.6-3.4 1.8-3.6 2.4-.4-.1-.8-.1-1.2-.1zm-4.7 2c0 .7-.5 1.2-1.2 1.2s-1.2-.5-1.2-1.2.5-1.2 1.2-1.2 1.2.5 1.2 1.2z"
+            style={{ fill: '#FFFFFF' }}
+        />
     </svg>
 )
 
@@ -142,8 +147,8 @@ const containerVariants: Variants = {
     show: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.15,
-            delayChildren: 0.1
+            staggerChildren: 0.1,
+            delayChildren: 0.05
         }
     }
 };
@@ -169,12 +174,13 @@ export const Socials: React.FC = () => {
                 CRITICAL FIX: 
                 Using parent variants (containerVariants) to control children.
                 Viewport detection happens ONCE on this container.
+                'amount: 0.1' means it triggers as soon as 10% is visible, but once:true locks it.
             */}
              <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true, amount: 0.1 }}
                 className="mb-16"
             >
                 <div className="flex items-center justify-center gap-3 mb-8">
@@ -240,7 +246,7 @@ export const Socials: React.FC = () => {
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true, amount: 0.1 }}
             >
                  <div className="flex items-center justify-center gap-3 mb-8">
                     <div className="h-px w-12 bg-white/10 shadow-[0_0_5px_rgba(255,255,255,0.5)]" />
