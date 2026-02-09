@@ -12,7 +12,7 @@ const ServiceNode = ({
 }: { 
     icon: any, 
     title: string, 
-    desc: string,
+    desc: string, 
     index: number,
     isLocked?: boolean
 }) => (
@@ -95,7 +95,7 @@ export const Services: React.FC = () => {
                 viewport={{ once: true }}
                 className="text-gray-400 max-w-md text-lg font-light leading-relaxed font-mono"
             >
-                >> SELECT MODULE <br/>
+                &gt;&gt; SELECT MODULE <br/>
                 Elite execution. <span className="text-white">Zero latency.</span>
             </motion.p>
         </div>
