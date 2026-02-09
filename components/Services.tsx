@@ -35,7 +35,7 @@ const ServiceNode = ({
         <div className="absolute left-0 top-[40px] w-6 h-[2px] bg-white/10 group-hover:bg-white/50 transition-colors duration-500" />
 
         <div className={`
-            ml-4 p-6 rounded-sm border border-white/5 bg-black/40 backdrop-blur-sm transition-all duration-500 relative overflow-hidden
+            ml-4 p-6 rounded-sm border border-white/5 bg-black/40 backdrop-blur-sm transition-all duration-500 relative overflow-hidden hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]
             ${!isLocked && 'group-hover:border-white/30 group-hover:bg-white/5'}
         `}>
              {/* Hover Glare */}
@@ -97,6 +97,8 @@ export const Services: React.FC = () => {
             >
                 &gt;&gt; SELECT MODULE <br/>
                 Elite execution. <span className="text-white">Zero latency.</span>
+                <br />
+                <span className="text-xs text-yellow-500 mt-2 block">* CUSTOM PROJECT = CUSTOM PRICE</span>
             </motion.p>
         </div>
 
@@ -113,7 +115,7 @@ export const Services: React.FC = () => {
         </div>
 
         {/* Custom Scope CTA - Redesigned */}
-        <div className="ml-0 md:ml-8 border border-white/20 bg-black p-8 md:p-12 relative overflow-hidden group cursor-pointer hover:border-white transition-colors duration-500">
+        <div className="ml-0 md:ml-8 border border-white/20 bg-black p-8 md:p-12 relative overflow-hidden group cursor-pointer hover:border-white transition-colors duration-500 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
             <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">

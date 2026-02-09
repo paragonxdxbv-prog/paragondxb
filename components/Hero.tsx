@@ -17,10 +17,18 @@ export const Hero: React.FC = () => {
          <img 
             src="https://i.ibb.co/h1sp6T4v/Extend-dis-picture-2k-202602092014.jpg" 
             alt="Hero Background" 
-            className="w-full h-full object-cover"
+            // object-[50%_15%] positions the image to focus on the top center (Head/Plane) and cuts off legs
+            className="w-full h-full object-cover object-[50%_15%]"
          />
-         {/* Stronger Gradient Overlay for Text Readability against the new image */}
-         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/30" />
+         
+         {/* Global Gradient Overlay for Text Readability */}
+         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
+
+         {/* Corner "Black Smoke" Vignettes */}
+         <div className="absolute top-0 left-0 w-[50vw] h-[50vh] bg-gradient-to-br from-black via-black/80 to-transparent pointer-events-none" />
+         <div className="absolute top-0 right-0 w-[50vw] h-[50vh] bg-gradient-to-bl from-black via-black/80 to-transparent pointer-events-none" />
+         <div className="absolute bottom-0 left-0 w-[50vw] h-[50vh] bg-gradient-to-tr from-black via-black/80 to-transparent pointer-events-none" />
+         <div className="absolute bottom-0 right-0 w-[50vw] h-[50vh] bg-gradient-to-tl from-black via-black/80 to-transparent pointer-events-none" />
       </motion.div>
 
       {/* Content */}
@@ -36,12 +44,21 @@ export const Hero: React.FC = () => {
             </h1>
             
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8 mt-4">
-                <div className="h-[2px] w-24 bg-white hidden md:block mt-4 box-shadow-[0_0_10px_white]" />
+                <div className="h-[2px] w-24 bg-white hidden md:block mt-4 shadow-[0_0_15px_white]" />
                 
-                <p className="text-lg md:text-2xl text-gray-200 font-light leading-relaxed max-w-2xl text-shadow-md">
-                    Forging elite digital realities. <br />
-                    <span className="font-bold text-white">Cinematic Visuals</span> fused with <span className="font-bold text-white">Disciplined Code</span>.
-                </p>
+                <div>
+                    <p className="text-lg md:text-2xl text-gray-200 font-light leading-relaxed max-w-2xl text-shadow-md">
+                        Forging elite digital realities. <br />
+                        <span className="font-bold text-white">Cinematic Visuals</span> fused with <span className="font-bold text-white">Disciplined Code</span>.
+                    </p>
+                    
+                    {/* Custom Price Notice */}
+                    <div className="mt-4 inline-block px-3 py-1 border border-white/30 bg-black/40 backdrop-blur-md rounded-sm">
+                        <p className="text-xs font-mono text-gray-300 uppercase tracking-widest">
+                            <span className="text-white font-bold">* NOTICE:</span> Custom Project = Custom Price
+                        </p>
+                    </div>
+                </div>
             </div>
         </motion.div>
       </div>

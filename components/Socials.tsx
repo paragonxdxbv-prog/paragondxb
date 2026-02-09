@@ -39,7 +39,8 @@ const Card = ({
         target="_blank" 
         rel="noopener noreferrer"
         onClick={action}
-        className={`${colSpan} relative p-6 bg-black border border-white/10 hover:border-white transition-all duration-300 flex flex-col justify-between min-h-[160px] group overflow-hidden`}
+        // Added shadow-[0_0_15px_rgba(255,255,255,0.1)] on hover for the global white glow request
+        className={`${colSpan} relative p-6 bg-black border border-white/10 hover:border-white transition-all duration-300 flex flex-col justify-between min-h-[160px] group overflow-hidden hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]`}
     >
         {/* Hover Glow Background */}
         <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -96,7 +97,7 @@ export const Socials: React.FC = () => {
             {/* 2. Email (Interactive Copy) */}
             <div 
                 onClick={handleCopy}
-                className="col-span-2 md:col-span-1 relative p-6 bg-black border border-white/10 hover:border-white transition-all duration-300 flex flex-col justify-between min-h-[160px] group cursor-pointer"
+                className="col-span-2 md:col-span-1 relative p-6 bg-black border border-white/10 hover:border-white transition-all duration-300 flex flex-col justify-between min-h-[160px] group cursor-pointer hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]"
             >
                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                     {copied ? <Check className="w-5 h-5 text-white" /> : <Copy className="w-5 h-5 text-white" />}
@@ -128,10 +129,10 @@ export const Socials: React.FC = () => {
                 href="https://www.instagram.com/paragondxb/reels/"
             />
 
-            {/* 5. Etsy */}
+            {/* 5. Etsy - Renamed from Store */}
             <Card 
                 icon={ShoppingBag} 
-                label="Store" 
+                label="Etsy" 
                 subLabel="Digital Assets" 
                 href="https://www.etsy.com/shop/ParagonDXB"
             />
