@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Section } from './ui/Section';
-import { Globe, Server, Layers, Terminal, Video, Palette, Wrench, Infinity, ArrowDown, ShieldAlert, Lock } from 'lucide-react';
+import { Globe, Server, Layers, Terminal, Video, Palette, Wrench, Infinity, ArrowDown, ShieldAlert, Lock, Banknote } from 'lucide-react';
 
 const ServiceCard = ({ 
     icon: Icon, 
@@ -16,48 +16,40 @@ const ServiceCard = ({
     index: number,
     isLocked?: boolean
 }) => (
-    <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }} 
-        transition={{ duration: 0.4, delay: index * 0.05 }}
-        className={`relative p-8 border backdrop-blur-md transition-all duration-300 flex flex-col justify-between h-full group rounded-xl overflow-hidden
+    <div
+        className={`relative p-8 border-2 flex flex-col justify-between h-full group transition-all duration-300
             ${isLocked 
-                ? 'bg-white/5 border-white/10 border-dashed opacity-50' 
-                : 'bg-black/40 border-white/10 hover:bg-white/10 hover:border-white/40 hover:-translate-y-2 shadow-lg'
+                ? 'bg-gray-100 border-gray-200 border-dashed opacity-70' 
+                : 'bg-white border-black hover:bg-black hover:text-white hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]'
             }`}
+        style={{ willChange: 'transform' }}
     >
-        {/* Hover Gradient */}
-        {!isLocked && <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />}
-
-        <div className="relative z-10">
+        <div>
             <div className="flex justify-between items-start mb-6">
-                <div className="p-3 bg-white/5 rounded-lg border border-white/10 group-hover:bg-white group-hover:text-black transition-colors duration-300">
-                    <Icon className={`w-6 h-6 ${isLocked ? 'text-gray-500' : 'text-white group-hover:text-black'}`} strokeWidth={1.5} />
-                </div>
-                <span className={`font-mono text-xs font-bold tracking-widest ${isLocked ? 'text-gray-600' : 'text-gray-500 group-hover:text-white'}`}>
+                <Icon className={`w-8 h-8 ${isLocked ? 'text-gray-400' : 'text-black group-hover:text-white'}`} strokeWidth={1.5} />
+                <span className={`font-mono text-xs font-bold tracking-widest ${isLocked ? 'text-gray-400' : 'text-gray-400 group-hover:text-white/50'}`}>
                     0{index + 1}
                 </span>
             </div>
             
-            <h3 className="text-2xl font-bold font-display mb-4 tracking-tight uppercase text-white">{title}</h3>
-            <p className={`text-sm leading-relaxed font-light ${isLocked ? 'text-gray-600' : 'text-gray-400 group-hover:text-gray-200'}`}>
+            <h3 className="text-2xl font-bold font-display mb-4 tracking-tight uppercase">{title}</h3>
+            <p className={`text-sm leading-relaxed font-light ${isLocked ? 'text-gray-500' : 'text-gray-600 group-hover:text-gray-300'}`}>
                 {desc}
             </p>
         </div>
 
         {isLocked && (
-            <div className="mt-6 flex items-center gap-2 text-xs font-mono text-gray-500 uppercase tracking-widest">
+            <div className="mt-6 flex items-center gap-2 text-xs font-mono text-gray-400 uppercase tracking-widest">
                 <Lock className="w-3 h-3" />
                 <span>Classified</span>
             </div>
         )}
-    </motion.div>
+    </div>
 );
 
 export const Services: React.FC = () => {
   return (
-    <Section id="services" className="py-32">
+    <Section id="services" className="py-32 bg-white text-black">
       
       <div className="relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
@@ -66,23 +58,24 @@ export const Services: React.FC = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
             >
-                <h2 className="text-5xl md:text-8xl font-display font-black text-white tracking-tighter mb-4 drop-shadow-2xl">
+                <h2 className="text-5xl md:text-8xl font-display font-black text-black tracking-tighter mb-4">
                     CAPABILITIES
                 </h2>
-                <div className="h-2 w-32 bg-white rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]" />
+                <div className="h-2 w-32 bg-black" />
             </motion.div>
             
             <motion.p 
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="text-gray-300 max-w-md text-lg font-light leading-relaxed"
+                className="text-gray-600 max-w-md text-lg font-light leading-relaxed"
             >
                 Elite execution tailored to your specific objectives. 
-                <span className="font-bold text-white"> No templates. No shortcuts.</span>
+                <span className="font-bold text-black"> No templates. No shortcuts.</span>
             </motion.p>
         </div>
 
+        {/* Removed motion.div staggerChildren for simple grid to fix flickering */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
             <ServiceCard index={0} icon={Globe} title="Web Architecture" desc="High-performance websites using Vercel, Firebase & React. Speed, security, and SEO optimized by default." />
             <ServiceCard index={1} icon={Server} title="Discord Setup" desc="Advanced community infrastructure. Channels, roles, bots & permission hierarchies ready for launch." />
@@ -96,20 +89,22 @@ export const Services: React.FC = () => {
         </div>
 
         {/* Custom Scope CTA */}
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-white/5 border border-white/10 backdrop-blur-xl p-12 md:p-20 rounded-3xl relative overflow-hidden group cursor-pointer hover:border-white/30 transition-all duration-500"
-        >
-            <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-in-out" />
+        <div className="bg-black text-white p-12 md:p-20 relative overflow-hidden group cursor-pointer border border-black shadow-xl">
+            <div className="absolute inset-0 bg-neutral-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div>
-                    <h3 className="text-3xl md:text-5xl font-display font-bold mb-4 text-white">Custom Scope?</h3>
-                    <p className="text-gray-400 max-w-xl text-lg">
-                        I do not sell off-the-shelf templates. Your project's cost is a function of <span className="text-white font-bold border-b border-white/50">complexity</span>, <span className="text-white font-bold border-b border-white/50">timeline</span>, and <span className="text-white font-bold border-b border-white/50">value</span>.
+                    <div className="flex items-center gap-3 mb-4">
+                        <Banknote className="w-8 h-8 text-white" />
+                        <h3 className="text-3xl md:text-5xl font-display font-bold">Custom Scope</h3>
+                    </div>
+                    
+                    <p className="text-gray-400 max-w-xl text-lg mb-4">
+                        I do not sell off-the-shelf templates. Your project's cost is a function of complexity and value.
                     </p>
+                    <div className="inline-block border border-white/30 px-4 py-2 bg-white/10 text-white font-mono uppercase text-sm tracking-wider">
+                        Pricing: Custom Quote
+                    </div>
                 </div>
                 
                 <div className="flex items-center gap-4">
@@ -118,7 +113,7 @@ export const Services: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
       </div>
     </Section>
   );

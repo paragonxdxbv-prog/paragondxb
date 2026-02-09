@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Youtube, Instagram, ShoppingBag, Check, Mail, User, ArrowUpRight } from 'lucide-react';
+import { Youtube, Instagram, ShoppingBag, Mail, ArrowUpRight } from 'lucide-react';
 import { Section } from './ui/Section';
 
 const RealDiscordIcon = ({ className }: { className?: string }) => (
@@ -40,7 +39,7 @@ const BentoCard = ({
         href={href} 
         target="_blank" 
         rel="noopener noreferrer"
-        className={`${colSpan} ${bg} relative p-6 rounded-2xl border border-white/5 overflow-hidden group hover:border-white/20 transition-all duration-300 flex flex-col justify-between min-h-[160px] backdrop-blur-sm`}
+        className={`${colSpan} ${bg} relative p-6 rounded-none border border-white/20 overflow-hidden group hover:border-white transition-all duration-300 flex flex-col justify-between min-h-[160px]`}
     >
         <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
             <ArrowUpRight className="w-5 h-5 text-white" />
@@ -54,9 +53,6 @@ const BentoCard = ({
             <h4 className="text-white font-bold text-lg">{label}</h4>
             <p className="text-gray-500 text-xs font-mono uppercase tracking-wider mt-1">{subLabel}</p>
         </div>
-        
-        {/* Shine Effect */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
     </a>
 );
 
@@ -73,7 +69,7 @@ export const Socials: React.FC = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             
-            {/* Primary - Discord (Large) */}
+            {/* 1. Discord (Big) */}
             <BentoCard 
                 colSpan="col-span-2 md:col-span-2 md:row-span-2" 
                 icon={RealDiscordIcon} 
@@ -84,7 +80,7 @@ export const Socials: React.FC = () => {
                 hoverColor="text-[#5865F2]"
             />
 
-            {/* YouTube */}
+            {/* 2. YouTube */}
             <BentoCard 
                 icon={Youtube} 
                 label="YouTube" 
@@ -93,7 +89,7 @@ export const Socials: React.FC = () => {
                 hoverColor="text-[#FF0000]"
             />
 
-            {/* Instagram */}
+            {/* 3. Instagram */}
             <BentoCard 
                 icon={Instagram} 
                 label="Instagram" 
@@ -102,7 +98,7 @@ export const Socials: React.FC = () => {
                 hoverColor="text-[#E1306C]"
             />
 
-            {/* Email */}
+            {/* 4. Email */}
             <BentoCard 
                 icon={Mail} 
                 label="Email" 
@@ -110,7 +106,7 @@ export const Socials: React.FC = () => {
                 href="mailto:paragonxdxbv@gmail.com"
             />
 
-            {/* Etsy */}
+            {/* 5. Etsy */}
             <BentoCard 
                 icon={ShoppingBag} 
                 label="Shop Assets" 
@@ -119,7 +115,7 @@ export const Socials: React.FC = () => {
                 hoverColor="text-[#F1641E]"
             />
             
-            {/* PayPal - Added Back */}
+            {/* 6. PayPal */}
             <BentoCard 
                 icon={SimplePayPalIcon}
                 label="PayPal"
@@ -128,7 +124,7 @@ export const Socials: React.FC = () => {
                 hoverColor="text-[#003087]"
             />
 
-            {/* Reddit - Added Back */}
+            {/* 7. Reddit */}
              <BentoCard 
                 icon={RealRedditIcon}
                 label="Reddit"
@@ -137,7 +133,7 @@ export const Socials: React.FC = () => {
                 hoverColor="text-[#FF4500]"
             />
 
-            {/* TikTok - Wide */}
+            {/* 8. TikTok (Wide) */}
             <BentoCard 
                 colSpan="col-span-2" 
                 icon={TikTokIcon} 

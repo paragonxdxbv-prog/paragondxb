@@ -7,9 +7,8 @@ import { TechStack } from './components/TechStack';
 import { Preloader } from './components/ui/Preloader';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import { FluidBackground } from './components/ui/FluidBackground';
 
-// Standard Imports to FIX FLICKERING (Lazy loading causes layout shifts on scroll)
+// Components
 import { About } from './components/About';
 import { Process } from './components/Process';
 import { Projects } from './components/Projects';
@@ -28,12 +27,12 @@ const App: React.FC = () => {
     }
 
     const lenis = new Lenis({
-      duration: 0.75,
+      duration: 0.8,
       easing: (t) => 1 - Math.pow(1 - t, 4),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.9,
+      wheelMultiplier: 0.8, // Slightly lower for more control
       touchMultiplier: 2,
     });
 
@@ -55,32 +54,62 @@ const App: React.FC = () => {
         {loading && <Preloader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
 
-      <FluidBackground />
-
       {!loading && <Navbar />}
 
       <motion.main 
         initial={{ opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1 }}
         transition={{ duration: 1 }}
-        className={`relative min-h-screen ${loading ? 'h-screen overflow-hidden' : ''}`}
+        className={`relative min-h-screen bg-black ${loading ? 'h-screen overflow-hidden' : ''}`}
       >
           <Analytics />
           <SpeedInsights />
 
-          {/* Sections are now transparent to let FluidBackground show through */}
-          <div className="relative z-10">
-              <Hero />
-              <TechStack />
-              <About />
-              <Process />
-              <Services />
-              <Projects />
-              <FAQ />
-              <Socials />
-              <Testimonials />
-              <Footer />
+          {/* Section 1: Hero (Image + Black) */}
+          <Hero />
+          
+          {/* Section 2: Tech Stack (Black) */}
+          <div className="relative z-20 bg-black">
+             <TechStack />
           </div>
+          
+          {/* Section 3: About (White - Yin) */}
+          <div className="relative z-10 bg-white text-black">
+             <About />
+          </div>
+
+          {/* Section 4: Process (Black - Yang) */}
+          <div className="relative z-10 bg-black text-white">
+             <Process />
+          </div>
+
+          {/* Section 5: Services (White - Yin) */}
+          <div className="relative z-10 bg-white text-black">
+             <Services />
+          </div>
+
+          {/* Section 6: Projects (Black - Yang) */}
+          <div className="relative z-10 bg-black text-white">
+             <Projects />
+          </div>
+
+          {/* Section 7: FAQ (White - Yin) */}
+          <div className="relative z-10 bg-white text-black">
+             <FAQ />
+          </div>
+
+          {/* Section 8: Socials (Black - Yang) */}
+          <div className="relative z-10 bg-black text-white">
+             <Socials />
+          </div>
+
+          {/* Section 9: Testimonials (White - Yin) */}
+          <div className="relative z-10 bg-white text-black">
+             <Testimonials />
+          </div>
+
+           {/* Section 10: Footer (Black) */}
+          <Footer />
       </motion.main>
     </>
   );
