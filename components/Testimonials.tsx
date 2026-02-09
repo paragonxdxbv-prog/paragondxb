@@ -26,7 +26,8 @@ const REVIEWS = [
 ];
 
 const ReviewCard = ({ client, text }: { client: string, text: string }) => (
-    <div className="flex-shrink-0 w-80 p-6 bg-black border border-white/10 mx-4 flex flex-col justify-between h-48 hover:border-white transition-colors duration-300">
+    // Added passive glow: shadow-[0_0_15px_rgba(255,255,255,0.05)]
+    <div className="flex-shrink-0 w-80 p-6 bg-black border border-white/10 mx-4 flex flex-col justify-between h-48 hover:border-white transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
         <div>
             <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (

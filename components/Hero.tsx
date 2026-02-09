@@ -17,18 +17,15 @@ export const Hero: React.FC = () => {
          <img 
             src="https://i.ibb.co/h1sp6T4v/Extend-dis-picture-2k-202602092014.jpg" 
             alt="Hero Background" 
-            // object-[50%_15%] positions the image to focus on the top center (Head/Plane) and cuts off legs
+            // FIXED: Focus on top center (Head/Plane) to cut off legs
             className="w-full h-full object-cover object-[50%_15%]"
          />
          
-         {/* Global Gradient Overlay for Text Readability */}
-         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
+         {/* 1. Cinematic Vignette (Smooth radial gradient, NO hard lines) */}
+         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_60%,rgba(0,0,0,0.9)_100%)]" />
 
-         {/* Corner "Black Smoke" Vignettes */}
-         <div className="absolute top-0 left-0 w-[50vw] h-[50vh] bg-gradient-to-br from-black via-black/80 to-transparent pointer-events-none" />
-         <div className="absolute top-0 right-0 w-[50vw] h-[50vh] bg-gradient-to-bl from-black via-black/80 to-transparent pointer-events-none" />
-         <div className="absolute bottom-0 left-0 w-[50vw] h-[50vh] bg-gradient-to-tr from-black via-black/80 to-transparent pointer-events-none" />
-         <div className="absolute bottom-0 right-0 w-[50vw] h-[50vh] bg-gradient-to-tl from-black via-black/80 to-transparent pointer-events-none" />
+         {/* 2. Bottom Fade for Text Readability */}
+         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
       </motion.div>
 
       {/* Content */}
@@ -52,10 +49,11 @@ export const Hero: React.FC = () => {
                         <span className="font-bold text-white">Cinematic Visuals</span> fused with <span className="font-bold text-white">Disciplined Code</span>.
                     </p>
                     
-                    {/* Custom Price Notice */}
-                    <div className="mt-4 inline-block px-3 py-1 border border-white/30 bg-black/40 backdrop-blur-md rounded-sm">
+                    {/* Notice Badge */}
+                    <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 border border-white/20 bg-black/50 backdrop-blur-md rounded-sm shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                        <div className="w-2 h-2 bg-white rounded-full animate-pulse shadow-[0_0_10px_white]" />
                         <p className="text-xs font-mono text-gray-300 uppercase tracking-widest">
-                            <span className="text-white font-bold">* NOTICE:</span> Custom Project = Custom Price
+                            <span className="text-white font-bold">NOTICE:</span> Custom Project = Custom Pricing
                         </p>
                     </div>
                 </div>

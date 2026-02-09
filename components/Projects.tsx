@@ -119,7 +119,8 @@ const itemVariants: Variants = {
 const ComingSoonCard = () => (
     <motion.div 
         variants={itemVariants}
-        className="w-full h-full min-h-[300px] border-2 border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center p-8 text-center hover:border-white/30 transition-colors duration-300 rounded-sm"
+        // Added passive glow
+        className="w-full h-full min-h-[300px] border-2 border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center p-8 text-center hover:border-white/30 transition-all duration-300 rounded-sm shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_25px_rgba(255,255,255,0.1)]"
     >
         <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-4 animate-pulse">
             <Plus className="w-6 h-6 text-gray-400" />
@@ -132,8 +133,8 @@ const ComingSoonCard = () => (
 const WebsiteCard = ({ project }: { project: typeof websiteProjects[0] }) => (
   <motion.div
     variants={itemVariants}
-    // Fixed flicker: Removed layout props, simplified hover, added glow
-    className="group relative w-full bg-black border border-white/10 overflow-hidden hover:border-white transition-all duration-300 flex flex-col h-full rounded-sm hover:shadow-[0_0_25px_rgba(255,255,255,0.15)]"
+    // Added passive glow: shadow-[0_0_15px_rgba(255,255,255,0.07)]
+    className="group relative w-full bg-black border border-white/10 overflow-hidden hover:border-white transition-all duration-300 flex flex-col h-full rounded-sm shadow-[0_0_15px_rgba(255,255,255,0.07)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)]"
   >
     {/* Image Container */}
     <div className="relative w-full aspect-video overflow-hidden bg-black border-b border-white/10">
@@ -162,7 +163,7 @@ const WebsiteCard = ({ project }: { project: typeof websiteProjects[0] }) => (
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2 border border-white bg-black/80 text-white font-bold flex items-center gap-2 hover:bg-white hover:text-black transition-all duration-300"
+              className="px-6 py-2 border border-white bg-black/80 text-white font-bold flex items-center gap-2 hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_10px_white]"
             >
                 <span>INSPECT</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -193,7 +194,8 @@ const VideoCard = ({ video }: { video: typeof videoProjects[0] }) => {
       variants={itemVariants}
       className="w-full relative group"
     >
-      <div className="relative w-full bg-black rounded-sm overflow-hidden border border-white/10 hover:border-white transition-all duration-300 flex flex-col hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+      {/* Added passive glow */}
+      <div className="relative w-full bg-black rounded-sm overflow-hidden border border-white/10 hover:border-white transition-all duration-300 flex flex-col shadow-[0_0_15px_rgba(255,255,255,0.07)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)]">
           <div className="relative w-full pb-[177.78%] bg-black flex items-center justify-center overflow-hidden">
             <iframe 
                 src={`https://www.youtube.com/embed/${video.youtubeId}?playsinline=1&rel=0&controls=0&loop=1`}
@@ -245,7 +247,7 @@ export const Projects: React.FC = () => {
         initial={{ opacity: 0, scale: 0.98 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        className="mb-16 p-6 border border-yellow-500/20 bg-yellow-500/5 flex items-start gap-4 backdrop-blur-sm"
+        className="mb-16 p-6 border border-yellow-500/20 bg-yellow-500/5 flex items-start gap-4 backdrop-blur-sm shadow-[0_0_15px_rgba(234,179,8,0.1)]"
       >
         <AlertTriangle className="w-6 h-6 text-yellow-500 shrink-0 mt-1 animate-pulse" />
         <div>
@@ -301,7 +303,7 @@ export const Projects: React.FC = () => {
         ))}
         {/* More Coming Soon Card for Videos */}
         <motion.div variants={itemVariants} className="w-full relative group">
-             <div className="w-full pb-[177.78%] border-2 border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center relative hover:border-white/30 transition-colors">
+             <div className="w-full pb-[177.78%] border-2 border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center relative hover:border-white/30 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_25px_rgba(255,255,255,0.1)]">
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-2">
                     <Plus className="w-5 h-5 text-gray-500 mb-2" />
                     <span className="text-[10px] font-bold text-gray-500 text-center uppercase">More Content Loading...</span>
