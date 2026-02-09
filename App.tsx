@@ -1,24 +1,23 @@
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
 import { TechStack } from './components/TechStack';
-import { Noise } from './components/ui/Noise';
 import { Preloader } from './components/ui/Preloader';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { FluidBackground } from './components/ui/FluidBackground';
 
-// Lazy Load Heavy Components
-const About = React.lazy(() => import('./components/About').then(module => ({ default: module.About })));
-const Process = React.lazy(() => import('./components/Process').then(module => ({ default: module.Process })));
-const Projects = React.lazy(() => import('./components/Projects').then(module => ({ default: module.Projects })));
-const Socials = React.lazy(() => import('./components/Socials').then(module => ({ default: module.Socials })));
-const Services = React.lazy(() => import('./components/Services').then(module => ({ default: module.Services })));
-const ProductShowcase = React.lazy(() => import('./components/ProductShowcase').then(module => ({ default: module.ProductShowcase })));
-const Testimonials = React.lazy(() => import('./components/Testimonials').then(module => ({ default: module.Testimonials })));
-const FAQ = React.lazy(() => import('./components/FAQ').then(module => ({ default: module.FAQ })));
-const Footer = React.lazy(() => import('./components/Footer').then(module => ({ default: module.Footer })));
+// Standard Imports to FIX FLICKERING (Lazy loading causes layout shifts on scroll)
+import { About } from './components/About';
+import { Process } from './components/Process';
+import { Projects } from './components/Projects';
+import { Socials } from './components/Socials';
+import { Services } from './components/Services';
+import { Testimonials } from './components/Testimonials';
+import { FAQ } from './components/FAQ';
+import { Footer } from './components/Footer';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -56,65 +55,32 @@ const App: React.FC = () => {
         {loading && <Preloader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
 
+      <FluidBackground />
+
       {!loading && <Navbar />}
 
       <motion.main 
         initial={{ opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1 }}
         transition={{ duration: 1 }}
-        className={`bg-black min-h-screen relative overflow-x-hidden ${loading ? 'h-screen overflow-hidden' : ''}`}
+        className={`relative min-h-screen ${loading ? 'h-screen overflow-hidden' : ''}`}
       >
-          
           <Analytics />
           <SpeedInsights />
 
-          {/* Section 1: Hero (Black) */}
-          <Hero />
-          
-          {/* Section 2: Tech Stack (Black) */}
-          <TechStack />
-          
-          <Suspense fallback={<div className="h-screen w-full bg-white" />}>
-              {/* Section 3: About (White) */}
-              <div className="bg-white text-black relative z-10">
-                 <About />
-              </div>
-
-              {/* Section 4: Process (Black) */}
-              <div className="bg-black text-white relative z-10">
-                 <Noise />
-                 <Process />
-              </div>
-
-              {/* Section 5: Services (White) */}
-              <div className="bg-white text-black relative z-10">
-                 <Services />
-              </div>
-
-              {/* Section 6: Projects (Black) */}
-              <div className="bg-black text-white relative z-10">
-                 <Noise />
-                 <Projects />
-              </div>
-
-              {/* Section 7: FAQ (White) */}
-              <div className="bg-white text-black relative z-10">
-                 <FAQ />
-              </div>
-
-              {/* Section 8: Socials (Black) */}
-              <div className="bg-black text-white relative z-10">
-                 <Socials />
-              </div>
-
-              {/* Section 9: Testimonials / Client Intel (White - Marquee) */}
-              <div className="bg-white text-black relative z-10">
-                 <Testimonials />
-              </div>
-
-               {/* Section 10: Footer (Black) */}
+          {/* Sections are now transparent to let FluidBackground show through */}
+          <div className="relative z-10">
+              <Hero />
+              <TechStack />
+              <About />
+              <Process />
+              <Services />
+              <Projects />
+              <FAQ />
+              <Socials />
+              <Testimonials />
               <Footer />
-          </Suspense>
+          </div>
       </motion.main>
     </>
   );

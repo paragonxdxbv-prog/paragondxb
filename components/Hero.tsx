@@ -1,33 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export const Hero: React.FC = () => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 200]);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div id="hero" className="relative h-screen w-full overflow-hidden flex flex-col justify-end pb-32 md:pb-24 bg-black transform-gpu">
+    <div id="hero" className="relative h-screen w-full overflow-hidden flex flex-col justify-end pb-32 md:pb-24 transform-gpu">
       
-      {/* Background */}
-      <motion.div 
-        style={{ y, scale: 1.1 }}
-        className="absolute inset-0 z-0 bg-black will-change-transform" 
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
-        <div className="absolute inset-0 bg-black/20 z-10" /> 
-        
-        <motion.img 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isLoaded ? 1 : 0 }}
-          transition={{ duration: 1 }}
-          src="https://i.ibb.co/TxDGgNY7/Make-dis-picture-2k-202601182124.jpg" 
-          alt="Hero Background" 
-          fetchPriority="high"
-          onLoad={() => setIsLoaded(true)}
-          className="w-full h-full object-cover object-top"
-        />
-      </motion.div>
+      {/* Background - Now handled by global FluidBackground, but we can add a subtle vignette here */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-80" />
 
       {/* Content */}
       <div className="relative z-30 px-6 max-w-7xl mx-auto w-full text-center md:text-left">
@@ -36,26 +18,28 @@ export const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
-            {/* Title Container - Removed Hover Glitch Effects */}
+            {/* Title Container */}
             <div className="relative inline-block group">
+                {/* 
+                   Mix Blend Mode Difference here creates the "Text inverting over blobs" effect 
+                   Text is White. Background blobs are White. White on White with Difference = Black.
+                   Text on Black bg = White. 
+                */}
                 <h1 className="relative z-10 text-[13vw] md:text-9xl font-display font-bold text-white mb-2 drop-shadow-2xl leading-[0.9] tracking-tighter mix-blend-difference">
-                    PARA<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-purple">GON</span>
+                    PARA<span className="text-white/50">GON</span>
                 </h1>
             </div>
             
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8 mt-4">
-                <div className="h-[2px] w-24 bg-gradient-to-r from-cyan to-purple shadow-[0_0_20px_rgba(255,255,255,0.8)] hidden md:block mt-4" />
+                <div className="h-[2px] w-24 bg-white shadow-[0_0_20px_rgba(255,255,255,0.8)] hidden md:block mt-4 mix-blend-difference" />
                 
-                <p className="text-lg md:text-2xl text-gray-300 font-light leading-relaxed max-w-2xl text-shadow-sm">
+                <p className="text-lg md:text-2xl text-gray-200 font-light leading-relaxed max-w-2xl text-shadow-sm mix-blend-difference">
                     Forging elite digital realities. <br />
-                    <span className="text-cyan font-medium text-glow-cyan">Cinematic visuals</span> fused with <span className="text-purple font-medium text-glow-purple">Cyberpunk precision</span>.
+                    <span className="font-bold text-white">Cinematic Visuals</span> fused with <span className="font-bold text-white">Disciplined Code</span>.
                 </p>
             </div>
         </motion.div>
       </div>
-      
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#030303] to-transparent z-20 pointer-events-none" />
     </div>
   );
 };

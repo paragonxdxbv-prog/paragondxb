@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
 import { Section } from './ui/Section';
-import { ExternalLink, ArrowUpRight, AlertTriangle, Play, Smartphone } from 'lucide-react';
+import { ExternalLink, ArrowUpRight, AlertTriangle, Play, Smartphone, Film } from 'lucide-react';
 
 const websiteProjects = [
   {
     id: 'sovereign',
     title: 'SOVEREIGN',
     category: 'Luxury Commerce',
-    description: 'Bespoke e-commerce experience with WebGL product viewing.',
+    description: 'Bespoke e-commerce experience. Clean lines, disciplined layout, high-value aesthetic.',
     link: 'https://sovergine.vercel.app/',
     image: 'https://i.ibb.co/0VnHMk2Y/Screenshot-77.png',
     isNew: true
@@ -17,7 +17,7 @@ const websiteProjects = [
     id: 'vortex',
     title: 'VORTEX',
     category: 'Motion Interface',
-    description: 'High-velocity animation engine for next-gen portfolios.',
+    description: 'High-velocity animation engine. For those who move fast and break nothing.',
     link: 'https://vortex-orpin-phi.vercel.app/',
     image: 'https://i.ibb.co/wNhcsjV4/Screenshot-74.png',
     isNew: true
@@ -26,7 +26,7 @@ const websiteProjects = [
     id: 'trihood',
     title: 'TRIHOOD',
     category: 'Community Hub',
-    description: 'Social engagement platform with real-time interactive elements.',
+    description: 'Social engagement platform. Building tribes, not just traffic.',
     link: 'https://trihood.vercel.app/',
     image: 'https://i.ibb.co/vCkk9759/Screenshot-75.png',
     isNew: true
@@ -35,7 +35,7 @@ const websiteProjects = [
     id: 'vantage',
     title: 'VANTAGE',
     category: 'Corporate Elite',
-    description: 'Minimalist, high-authority design for premium agencies.',
+    description: 'Minimalist authority. Design that commands respect in the boardroom.',
     link: 'https://vantage-steel.vercel.app/',
     image: 'https://i.ibb.co/SX9P52St/Screenshot-76.png',
     isNew: true
@@ -44,7 +44,7 @@ const websiteProjects = [
     id: 'onyx',
     title: 'Onyx',
     category: 'Enterprise Engine',
-    description: 'High-performance data processing architecture.',
+    description: 'High-performance architecture. Scalable systems for infinite growth.',
     link: 'https://onyx-best.vercel.app/',
     image: 'https://i.ibb.co/NdkV2L1k/Screenshot-45.png',
     isNew: false
@@ -53,7 +53,7 @@ const websiteProjects = [
     id: 'nexus',
     title: 'Nexus',
     category: 'Interactive Framework',
-    description: 'Fluid state management for next-gen UX.',
+    description: 'Fluid state management. A seamless flow of logic and design.',
     link: 'https://nexus-best.vercel.app/',
     image: 'https://i.ibb.co/8gnp69rs/Screenshot-44.png',
     isNew: false
@@ -62,7 +62,7 @@ const websiteProjects = [
     id: 'noir',
     title: 'Noir',
     category: 'Prestige Platform',
-    description: 'Luxury aesthetics meeting minimalist code.',
+    description: 'Dark mode aesthetics. Luxury lives in the shadows.',
     link: 'https://noir-best.vercel.app/',
     image: 'https://i.ibb.co/ZRXwd5JZ/Screenshot-43.png',
     isNew: false
@@ -73,26 +73,26 @@ const videoProjects = [
   {
     id: 'vid1',
     youtubeId: "YWx4_89diXU", 
-    title: "High-Impact Edit",
-    category: "Short Form"
+    title: "The Grind",
+    category: "Motivation"
   },
   {
     id: 'vid2',
     youtubeId: "s_4J9QY3fnQ",
-    title: "Visual FX Showcase",
-    category: "VFX"
+    title: "Focus",
+    category: "Discipline"
   },
   {
     id: 'vid3',
     youtubeId: "K4GUu6VIKaE",
-    title: "Motion Graphics",
-    category: "Animation"
+    title: "Visuals",
+    category: "Cinematic"
   },
   {
     id: 'vid4',
     youtubeId: "WCzweEH23Lk",
-    title: "Cyberpunk Aesthetic",
-    category: "Style Test"
+    title: "Aesthetics",
+    category: "Lifestyle"
   }
 ];
 
@@ -119,17 +119,17 @@ const itemVariants: Variants = {
 const WebsiteCard = ({ project }: { project: typeof websiteProjects[0] }) => (
   <motion.div
     variants={itemVariants}
-    className="group relative w-full bg-neutral-900 border border-white/10 overflow-hidden hover:border-white/50 transition-all duration-300 flex flex-col h-full"
+    className="group relative w-full bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden hover:border-white/40 transition-all duration-500 flex flex-col h-full rounded-xl shadow-lg"
   >
-    <div className="relative w-full aspect-video overflow-hidden bg-black border-b border-white/10">
+    <div className="relative w-full aspect-video overflow-hidden bg-black/50 border-b border-white/5">
         <div className="absolute top-3 left-3 z-20">
             {project.isNew ? (
-                 <span className="px-2 py-1 bg-white text-black text-[10px] font-bold uppercase tracking-wider">
-                    New
+                 <span className="px-2 py-1 bg-white text-black text-[10px] font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+                    Fresh Drop
                  </span>
             ) : (
-                <span className="px-2 py-1 bg-black/50 text-white border border-white/20 text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">
-                    Legacy
+                <span className="px-2 py-1 bg-black/60 text-white border border-white/20 text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">
+                    Classic
                  </span>
             )}
         </div>
@@ -137,18 +137,18 @@ const WebsiteCard = ({ project }: { project: typeof websiteProjects[0] }) => (
         <img 
             src={project.image} 
             alt={project.title}
-            className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+            className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
             loading="lazy"
         />
         
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/60 backdrop-blur-[2px]">
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50 backdrop-blur-[2px]">
             <a 
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-white text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-2 hover:bg-gray-200"
+              className="px-6 py-3 bg-white text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-2 hover:bg-gray-200 shadow-xl rounded-full"
             >
-                <span>VISIT SITE</span>
+                <span>INSPECT</span>
                 <ArrowUpRight className="w-4 h-4" />
             </a>
         </div>
@@ -158,9 +158,9 @@ const WebsiteCard = ({ project }: { project: typeof websiteProjects[0] }) => (
         <div>
             <div className="flex justify-between items-start mb-2">
                 <h3 className="text-2xl font-display font-bold text-white tracking-tight">{project.title}</h3>
-                <ExternalLink className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors duration-300" />
+                <ExternalLink className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors duration-300" />
             </div>
-            <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-3">{project.category}</p>
+            <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-3">{project.category}</p>
             <p className="text-sm text-gray-400 font-light leading-relaxed border-l-2 border-white/10 pl-3 group-hover:border-white transition-colors">
                 {project.description}
             </p>
@@ -175,11 +175,11 @@ const VideoCard = ({ video }: { video: typeof videoProjects[0] }) => {
       variants={itemVariants}
       className="w-full relative group"
     >
-      <div className="relative w-full bg-neutral-900 overflow-hidden border border-white/10 hover:border-white transition-all duration-300 flex flex-col">
-          <div className="relative w-full pb-[177.78%] bg-black flex items-center justify-center overflow-hidden">
+      <div className="relative w-full bg-black/40 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-white/40 transition-all duration-300 flex flex-col shadow-lg">
+          <div className="relative w-full pb-[177.78%] bg-black/50 flex items-center justify-center overflow-hidden">
             <iframe 
                 src={`https://www.youtube.com/embed/${video.youtubeId}?playsinline=1&rel=0&controls=0&loop=1`}
-                className="absolute inset-0 w-full h-full border-0 z-10 grayscale group-hover:grayscale-0 transition-all duration-500"
+                className="absolute inset-0 w-full h-full border-0 z-10 grayscale group-hover:grayscale-0 transition-all duration-500 opacity-90 group-hover:opacity-100"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 title={video.title}
@@ -192,13 +192,16 @@ const VideoCard = ({ video }: { video: typeof videoProjects[0] }) => {
                 className="absolute inset-0 z-20 bg-transparent"
                 aria-label="Watch on YouTube"
              />
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-30 border border-white/20">
-                <Play className="w-5 h-5 text-white fill-white" />
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-30 border border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                <Play className="w-6 h-6 text-white fill-white" />
              </div>
           </div>
-          <div className="p-3 bg-black border-t border-white/10 relative z-30">
-                <h3 className="text-white font-bold tracking-wider text-xs mb-0.5">{video.title}</h3>
-                <span className="text-[9px] text-gray-500 font-mono uppercase tracking-widest">{video.category}</span>
+          <div className="p-4 bg-black/60 border-t border-white/5 relative z-30 backdrop-blur-md">
+                <h3 className="text-white font-bold tracking-wider text-sm mb-1">{video.title}</h3>
+                <span className="text-[10px] text-gray-400 font-mono uppercase tracking-widest flex items-center gap-2">
+                    <Film className="w-3 h-3" />
+                    {video.category}
+                </span>
           </div>
       </div>
     </motion.div>
@@ -207,7 +210,7 @@ const VideoCard = ({ video }: { video: typeof videoProjects[0] }) => {
 
 export const Projects: React.FC = () => {
   return (
-    <Section id="projects" className="py-32 bg-black text-white">
+    <Section id="projects" className="py-32">
       
       <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <motion.div
@@ -216,10 +219,10 @@ export const Projects: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-5xl md:text-8xl font-display font-black text-white tracking-tighter mb-4">
-                SELECTED WORKS
+            <h2 className="text-5xl md:text-8xl font-display font-black text-white tracking-tighter mb-4 drop-shadow-2xl">
+                THE WORK
             </h2>
-            <div className="h-2 w-32 bg-white" />
+            <div className="h-2 w-32 bg-white rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]" />
           </motion.div>
       </div>
 
@@ -227,20 +230,20 @@ export const Projects: React.FC = () => {
         initial={{ opacity: 0, scale: 0.98 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        className="mb-16 p-6 border border-yellow-500/30 bg-yellow-500/5 flex items-start gap-4"
+        className="mb-16 p-6 border-l-4 border-yellow-500 bg-black/40 backdrop-blur-md flex items-start gap-4 rounded-r-xl"
       >
         <AlertTriangle className="w-6 h-6 text-yellow-500 shrink-0 mt-1" />
         <div>
-            <h4 className="text-yellow-500 font-bold uppercase tracking-wider text-sm mb-1">Concept Demos</h4>
+            <h4 className="text-yellow-500 font-bold uppercase tracking-wider text-sm mb-1">Demo Environment</h4>
             <p className="text-gray-400 text-sm leading-relaxed max-w-3xl">
-                The projects below are <span className="text-white font-bold">1-5 hour speedbuilds</span>. They demonstrate velocity and aesthetic range, not production-ready code. Custom client work includes full QA and optimization.
+                The projects below are <span className="text-white font-bold">1-5 hour speedbuilds</span>. They demonstrate raw velocity and aesthetic capability. Production builds include rigorous QA, SEO optimization, and analytics integration.
             </p>
         </div>
       </motion.div>
 
       <div className="mb-8 flex items-center gap-3">
-         <div className="w-3 h-3 bg-white" />
-         <h3 className="text-2xl font-display font-bold text-white uppercase tracking-wider">Web Architecture</h3>
+         <div className="w-3 h-3 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+         <h3 className="text-2xl font-display font-bold text-white uppercase tracking-wider">Digital Architecture</h3>
       </div>
       
       <motion.div 
@@ -257,14 +260,15 @@ export const Projects: React.FC = () => {
 
       <div className="mb-8 flex items-center justify-between">
          <div className="flex items-center gap-3">
-            <div className="w-3 h-3 bg-white" />
+            <div className="w-3 h-3 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
             <div>
-                <h3 className="text-2xl font-display font-bold text-white uppercase tracking-wider">Content Creation</h3>
+                <h3 className="text-2xl font-display font-bold text-white uppercase tracking-wider">Cinematic Motivation</h3>
+                <p className="text-gray-500 text-sm font-mono mt-1">Pursuit of Excellence</p>
             </div>
          </div>
-         <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10">
-            <Smartphone className="w-4 h-4 text-gray-400" />
-            <span className="text-xs font-mono text-gray-400">VERTICAL FORMAT</span>
+         <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full border border-white/20 backdrop-blur-md">
+            <Smartphone className="w-4 h-4 text-white" />
+            <span className="text-xs font-mono text-gray-300">9:16 VERTICAL</span>
          </div>
       </div>
       
