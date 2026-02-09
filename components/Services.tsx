@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Section } from './ui/Section';
-import { Globe, Server, Layers, Terminal, Video, Palette, Wrench, Infinity, ArrowDown, ShieldAlert, Lock, Banknote, Cpu } from 'lucide-react';
+import { Globe, Server, Layers, Terminal, Video, Palette, Wrench, Infinity, ShieldAlert, Lock, Cpu, AlertTriangle } from 'lucide-react';
 
 const ServiceNode = ({ 
     icon: Icon, 
@@ -98,8 +98,6 @@ export const Services: React.FC = () => {
             >
                 &gt;&gt; SELECT MODULE <br/>
                 Elite execution. <span className="text-white">Zero latency.</span>
-                <br />
-                <span className="text-xs text-yellow-500 mt-2 block">* NOTICE: CUSTOM PROJECT = CUSTOM PRICE</span>
             </motion.p>
         </div>
 
@@ -115,15 +113,12 @@ export const Services: React.FC = () => {
             <ServiceNode index={8} icon={ShieldAlert} title="[Redacted]" desc="Classified future capabilities." isLocked={true} />
         </div>
 
-        {/* 
-           NEW: "Omnipotence" Capability Card 
-           Declared separate from the grid for maximum impact.
-        */}
+        {/* MERGED: Omnipotence + Custom Project + Warning */}
         <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="w-full mb-12 p-10 md:p-14 border border-white/20 bg-black relative overflow-hidden group shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(255,255,255,0.15)] transition-all duration-500 rounded-sm"
+            className="w-full mb-12 p-8 md:p-14 border border-white/20 bg-black relative overflow-hidden group shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(255,255,255,0.15)] transition-all duration-500 rounded-sm"
         >
              {/* Dynamic Shine Effect */}
              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out pointer-events-none" />
@@ -141,6 +136,35 @@ export const Services: React.FC = () => {
                       From the surface web to complex backend infrastructure. If it exists in the digital zone, it is within operational capabilities.
                   </p>
 
+                  {/* YELLOW WARNING & PRICING PROTOCOL */}
+                  <div className="w-full max-w-4xl mx-auto mb-10 p-6 border-l-4 border-yellow-500 bg-yellow-900/10 backdrop-blur-sm text-left relative overflow-hidden group/alert hover:bg-yellow-900/20 transition-colors">
+                      {/* Subtle animated scanline */}
+                      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(234,179,8,0.05)_50%,transparent_100%)] animate-[scroll_5s_linear_infinite]" />
+                      
+                      <div className="relative z-10 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+                          <div className="flex gap-4">
+                              <AlertTriangle className="w-8 h-8 text-yellow-500 shrink-0 mt-1 animate-pulse" />
+                              <div>
+                                  <h4 className="text-yellow-500 font-bold font-display uppercase tracking-widest text-lg mb-1">
+                                      BILLING PROTOCOL: CUSTOM PROJECT = CUSTOM PRICE
+                                  </h4>
+                                  <p className="text-gray-300 text-sm font-mono leading-relaxed">
+                                      Pricing is custom-calibrated based on your specific requirements. We do not offer fixed rates for bespoke solutions.
+                                  </p>
+                              </div>
+                          </div>
+                          <div className="shrink-0 w-full md:w-auto">
+                               <a 
+                                  href="#socials"
+                                  className="block text-center border border-white px-8 py-3 bg-white text-black font-bold uppercase text-xs tracking-wider hover:bg-gray-200 transition-colors shadow-[0_0_15px_white]"
+                               >
+                                  Request Quote
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+
+                  {/* Legal Notice */}
                   <div className="inline-flex items-center gap-3 px-6 py-3 border border-red-500/50 bg-red-950/20 rounded-sm backdrop-blur-md shadow-[0_0_20px_rgba(239,68,68,0.15)]">
                       <ShieldAlert className="w-6 h-6 text-red-500" />
                       <span className="text-xs md:text-sm font-bold text-red-400 uppercase tracking-widest">
@@ -150,32 +174,6 @@ export const Services: React.FC = () => {
              </div>
         </motion.div>
 
-        {/* Custom Scope CTA */}
-        <div className="ml-0 md:ml-8 border border-white/20 bg-black p-8 md:p-12 relative overflow-hidden group cursor-pointer hover:border-white transition-colors duration-500 shadow-[0_0_20px_rgba(255,255,255,0.08)] hover:shadow-[0_0_35px_rgba(255,255,255,0.2)]">
-            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                <div>
-                    <div className="flex items-center gap-3 mb-4">
-                        <Banknote className="w-8 h-8 text-white" />
-                        <h3 className="text-3xl md:text-4xl font-display font-bold text-white">Custom Project?</h3>
-                    </div>
-                    
-                    <p className="text-gray-400 max-w-xl text-sm font-mono mb-6 leading-relaxed">
-                        // INITIALIZE CUSTOM QUOTE PROTOCOL <br/>
-                        Pricing is custom-calibrated based on your specific requirements, requested features, and timeline. 
-                        We do not offer fixed rates for bespoke solutions.
-                    </p>
-                    <div className="inline-block border border-white px-6 py-2 bg-white text-black font-bold uppercase text-xs tracking-wider hover:bg-gray-200 transition-colors shadow-[0_0_15px_white]">
-                        Request Quote
-                    </div>
-                </div>
-                
-                <div className="hidden md:block">
-                     <ArrowDown className="w-12 h-12 text-white/20 group-hover:text-white transition-colors duration-500" />
-                </div>
-            </div>
-        </div>
       </div>
     </Section>
   );
