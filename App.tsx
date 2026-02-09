@@ -9,7 +9,7 @@ import { Preloader } from './components/ui/Preloader';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
-// Lazy Load Heavy Components for Better TTI (Time To Interactive)
+// Lazy Load Heavy Components
 const About = React.lazy(() => import('./components/About').then(module => ({ default: module.About })));
 const Process = React.lazy(() => import('./components/Process').then(module => ({ default: module.Process })));
 const Projects = React.lazy(() => import('./components/Projects').then(module => ({ default: module.Projects })));
@@ -56,42 +56,65 @@ const App: React.FC = () => {
         {loading && <Preloader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
 
-      {/* 
-          CRITICAL FIX: Navbar moved OUTSIDE of motion.main. 
-          The transform on motion.main was breaking 'fixed' positioning.
-      */}
       {!loading && <Navbar />}
 
       <motion.main 
-        initial={{ opacity: 0, filter: 'blur(15px)', scale: 1.02 }}
-        animate={{ opacity: loading ? 0 : 1, filter: loading ? 'blur(15px)' : 'blur(0px)', scale: loading ? 1.02 : 1 }}
-        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-        className={`bg-[#030303] text-white min-h-screen relative selection:bg-white selection:text-black overflow-x-hidden ${loading ? 'h-screen overflow-hidden' : ''}`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: loading ? 0 : 1 }}
+        transition={{ duration: 1 }}
+        className={`bg-black min-h-screen relative overflow-x-hidden ${loading ? 'h-screen overflow-hidden' : ''}`}
       >
           
-          <Noise />
           <Analytics />
           <SpeedInsights />
 
-          {/* Hero Loads Instantly */}
+          {/* Section 1: Hero (Black) */}
           <Hero />
           
-          <div className="relative z-10 bg-[#030303]">
-            <TechStack />
-            
-            {/* Suspense Wrapper for Lazy Loaded Sections */}
-            <Suspense fallback={<div className="h-screen w-full bg-black" />}>
-                <About />
-                <Process />
-                <Services />
-                <Projects />
-                <Testimonials />
-                <ProductShowcase />
-                <FAQ />
-                <Socials />
-                <Footer />
-            </Suspense>
-          </div>
+          {/* Section 2: Tech Stack (Black) */}
+          <TechStack />
+          
+          <Suspense fallback={<div className="h-screen w-full bg-white" />}>
+              {/* Section 3: About (White) */}
+              <div className="bg-white text-black relative z-10">
+                 <About />
+              </div>
+
+              {/* Section 4: Process (Black) */}
+              <div className="bg-black text-white relative z-10">
+                 <Noise />
+                 <Process />
+              </div>
+
+              {/* Section 5: Services (White) */}
+              <div className="bg-white text-black relative z-10">
+                 <Services />
+              </div>
+
+              {/* Section 6: Projects (Black) */}
+              <div className="bg-black text-white relative z-10">
+                 <Noise />
+                 <Projects />
+              </div>
+
+              {/* Section 7: FAQ (White) */}
+              <div className="bg-white text-black relative z-10">
+                 <FAQ />
+              </div>
+
+              {/* Section 8: Socials (Black) */}
+              <div className="bg-black text-white relative z-10">
+                 <Socials />
+              </div>
+
+              {/* Section 9: Testimonials / Client Intel (White - Marquee) */}
+              <div className="bg-white text-black relative z-10">
+                 <Testimonials />
+              </div>
+
+               {/* Section 10: Footer (Black) */}
+              <Footer />
+          </Suspense>
       </motion.main>
     </>
   );

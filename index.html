@@ -20,54 +20,33 @@
             colors: {
               background: '#000000',
               surface: '#050505',
+              paper: '#FFFFFF', // Light section background
               primary: '#ffffff',
               secondary: '#9CA3AF',
-              accent: '#FFFFFF', // Legacy fallback
-              cyan: '#00F0FF',
-              purple: '#BD00FF',
+              accent: '#000000', 
             },
             backgroundImage: {
-              'neon-gradient': 'linear-gradient(to right, #00F0FF, #BD00FF)',
-              'neon-gradient-vertical': 'linear-gradient(to bottom, #00F0FF, #BD00FF)',
+               'grid-black': "linear-gradient(to right, #222 1px, transparent 1px), linear-gradient(to bottom, #222 1px, transparent 1px)",
+               'grid-white': "linear-gradient(to right, #ddd 1px, transparent 1px), linear-gradient(to bottom, #ddd 1px, transparent 1px)",
             },
             animation: {
               'glow': 'glow 2s ease-in-out infinite alternate',
-              'scan': 'scan 4s linear infinite',
-              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'spin-slow': 'spin 8s linear infinite',
-              'spin-reverse': 'spin-reverse 10s linear infinite',
-              'glitch-1': 'glitch-1 2.5s infinite linear alternate-reverse',
-              'glitch-2': 'glitch-2 3s infinite linear alternate-reverse',
+              'scroll': 'scroll 40s linear infinite',
+              'scroll-reverse': 'scroll-reverse 40s linear infinite',
             },
             keyframes: {
+              scroll: {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-100%)' },
+              },
+              'scroll-reverse': {
+                '0%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(0)' },
+              },
               glow: {
-                '0%': { boxShadow: '0 0 5px rgba(0, 240, 255, 0.2)' },
-                '100%': { boxShadow: '0 0 20px rgba(189, 0, 255, 0.6)' },
+                '0%': { boxShadow: '0 0 5px rgba(255, 255, 255, 0.2)' },
+                '100%': { boxShadow: '0 0 20px rgba(255, 255, 255, 0.6)' },
               },
-              scan: {
-                '0%': { transform: 'translateY(-100%)' },
-                '100%': { transform: 'translateY(100%)' },
-              },
-              'spin-reverse': {
-                '0%': { transform: 'rotate(0deg)' },
-                '100%': { transform: 'rotate(-360deg)' },
-              },
-              'glitch-1': {
-                 '0%': { clipPath: 'inset(20% 0 80% 0)' },
-                 '20%': { clipPath: 'inset(60% 0 1% 0)' },
-                 '40%': { clipPath: 'inset(40% 0 50% 0)' },
-                 '60%': { clipPath: 'inset(80% 0 5% 0)' },
-                 '80%': { clipPath: 'inset(10% 0 70% 0)' },
-                 '100%': { clipPath: 'inset(30% 0 20% 0)' },
-              },
-              'glitch-2': {
-                 '0%': { clipPath: 'inset(10% 0 60% 0)' },
-                 '20%': { clipPath: 'inset(80% 0 5% 0)' },
-                 '40%': { clipPath: 'inset(30% 0 20% 0)' },
-                 '60%': { clipPath: 'inset(15% 0 80% 0)' },
-                 '80%': { clipPath: 'inset(55% 0 10% 0)' },
-                 '100%': { clipPath: 'inset(40% 0 30% 0)' },
-              }
             }
           },
         },
@@ -89,11 +68,7 @@
         -moz-osx-font-smoothing: grayscale;
         -webkit-tap-highlight-color: transparent;
         touch-action: pan-y;
-        
-        /* Stop bounce effect */
         overscroll-behavior: none;
-
-        /* REMOVED TRANSFORM from body to restore 'fixed' positioning context for Navbar */
       }
       
       /* Completely hide scrollbar */
@@ -105,16 +80,14 @@
         scrollbar-width: none;  /* Firefox */
       }
       
-      .text-glow {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      .text-outline {
+        -webkit-text-stroke: 1px rgba(0,0,0,0.2);
+        color: transparent;
       }
 
-      .text-glow-cyan {
-        text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
-      }
-
-      .text-glow-purple {
-        text-shadow: 0 0 15px rgba(189, 0, 255, 0.6);
+      .text-outline-white {
+        -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+        color: transparent;
       }
       
       img {

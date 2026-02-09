@@ -23,35 +23,34 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    // Changed bottom-8 to bottom-12 to account for zoom: 0.75 scaling
-    <div className="fixed bottom-12 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none">
+    <div className="fixed bottom-8 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none">
       <motion.div 
-        initial={{ y: 50, opacity: 0 }}
+        initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
-        className="pointer-events-auto bg-black/90 md:bg-black/80 md:backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-2 ring-1 ring-cyan/20 shadow-[0_0_20px_rgba(0,240,255,0.1)] hover:shadow-[0_0_30px_rgba(0,240,255,0.2)] transition-shadow duration-500"
+        className="pointer-events-auto bg-white border border-gray-200 rounded-full px-2 py-2 flex items-center gap-1 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] ring-1 ring-black/5"
       >
         {navItems.map((item) => (
           <motion.button
             key={item.id}
             onClick={() => scrollToSection(item.id)}
-            whileHover={{ y: -5 }}
-            whileTap={{ scale: 0.9 }}
-            className="group relative flex flex-col items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="relative flex flex-col items-center justify-center w-12 h-12 rounded-full group"
             aria-label={item.label}
           >
-            <item.icon className="relative z-10 w-5 h-5 md:w-6 md:h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
+            <item.icon className="w-5 h-5 text-gray-500 group-hover:text-black transition-colors duration-300 relative z-10" />
             
+            {/* Active Indicator (Dot) */}
+            <div className="absolute -bottom-1 w-1 h-1 bg-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            {/* Background Hover */}
+            <div className="absolute inset-0 bg-gray-100 rounded-full scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 -z-10" />
+
             {/* Tooltip */}
-            <span className="absolute -top-12 scale-0 group-hover:scale-100 transition-transform duration-200 bg-black/90 backdrop-blur-md border border-white/20 text-white text-xs px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 whitespace-nowrap shadow-[0_0_15px_rgba(255,255,255,0.1)] pointer-events-none">
+            <span className="absolute -top-10 bg-black text-white text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
               {item.label}
             </span>
-            
-            {/* Active/Hover Glow - Animated Spring */}
-            <motion.div 
-              layoutId="navGlow"
-              className="absolute inset-0 rounded-full bg-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
-            />
           </motion.button>
         ))}
       </motion.div>
