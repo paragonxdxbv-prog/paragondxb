@@ -5,15 +5,15 @@ import { Check, Scale, Server, CreditCard, LayoutDashboard, Globe, Lock, Video, 
 
 // --- Engagement Protocols (Tactical Data Cards) ---
 const ProtocolCard = ({ number, title, text, icon: Icon }: { number: string, title: string, text: string, icon: any }) => (
-    <div className="relative group p-6 bg-[#080808] border border-white/10 rounded-xl hover:bg-[#0A0A0A] hover:border-white/20 transition-all duration-300 overflow-hidden">
+    <div className="relative group p-6 bg-[#080808] border border-white/10 rounded-xl hover:bg-[#0A0A0A] hover:border-cyan/30 transition-all duration-300 overflow-hidden">
         {/* Hover Scan Effect */}
-        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-green-500/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
         
         <div className="flex justify-between items-start mb-4">
-             <div className="p-2 bg-white/5 rounded-md text-gray-400 group-hover:text-white group-hover:bg-white/10 transition-colors">
+             <div className="p-2 bg-white/5 rounded-md text-gray-400 group-hover:text-cyan group-hover:bg-cyan/10 transition-colors">
                 <Icon className="w-5 h-5" />
              </div>
-             <span className="text-xs font-mono text-gray-700 group-hover:text-green-500 transition-colors">PROT_0{number}</span>
+             <span className="text-xs font-mono text-gray-700 group-hover:text-cyan transition-colors">PROT_0{number}</span>
         </div>
         
         <h4 className="text-white font-bold text-sm mb-2 font-display tracking-wide uppercase">{title}</h4>
@@ -31,13 +31,13 @@ const TermsSection = () => (
                 <h4 className="font-bold text-xl uppercase tracking-wider text-white font-display mb-1">Directives</h4>
                 <p className="text-gray-500 text-xs font-mono uppercase tracking-widest">Rules of Engagement</p>
             </div>
-            <Activity className="w-5 h-5 text-green-500 animate-pulse" />
+            <Activity className="w-5 h-5 text-purple animate-pulse" />
          </div>
          
          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
-            <ProtocolCard icon={CreditCard} number="1" title="Secure Retainer" text="50% initialization fee required to provision resources and lock the development window." />
+            <ProtocolCard icon={CreditCard} number="1" title="Secure Retainer" text="50% initialization fee required. This locks the development window and provisions server resources." />
             <ProtocolCard icon={Database} number="2" title="Asset Staging" text="Brand keys, copy, and visual assets must be uploaded to the secure vault prior to Day 0." />
-            <ProtocolCard icon={Lock} number="3" title="Scope Freeze" text="Agreed objectives are absolute. Additional requests are queued for Phase 2 Deployment." />
+            <ProtocolCard icon={Lock} number="3" title="Scope Freeze" text="Agreed objectives are absolute. Additional requests are flagged as new tickets and billed separately." />
             <ProtocolCard icon={Fingerprint} number="4" title="Solo Channel" text="One encrypted channel. One operative. No committees. Pure signal, zero noise." />
          </div>
     </div>
@@ -45,20 +45,20 @@ const TermsSection = () => (
 
 // --- Technical Arsenal (Server Rack Style) ---
 const TechArsenal = () => (
-    <div className="bg-[#030303] border border-white/10 rounded-3xl p-8 relative overflow-hidden h-full flex flex-col justify-between group hover:border-white/20 transition-colors">
+    <div className="bg-[#030303] border border-white/10 rounded-3xl p-8 relative overflow-hidden h-full flex flex-col justify-between group hover:border-purple/30 transition-colors">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black/80 pointer-events-none" />
         
         {/* Header */}
         <div className="relative z-10 flex justify-between items-start mb-8">
             <div className="flex items-center gap-3">
-                 <div className="p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-white/30 transition-colors">
+                 <div className="p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-purple/30 transition-colors">
                     <Server className="w-5 h-5 text-white" />
                 </div>
                 <div>
                     <h3 className="text-lg font-bold text-white uppercase tracking-wider font-display">Armory</h3>
                     <div className="flex items-center gap-2 mt-1">
-                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                        <span className="text-[10px] text-green-500 font-mono tracking-widest uppercase">Online</span>
+                        <span className="w-1.5 h-1.5 bg-cyan rounded-full animate-pulse"></span>
+                        <span className="text-[10px] text-cyan font-mono tracking-widest uppercase">Online</span>
                     </div>
                 </div>
             </div>
@@ -73,10 +73,10 @@ const TechArsenal = () => (
         {/* Rack Units */}
         <div className="relative z-10 space-y-3">
             {[
-                { icon: Globe, color: "text-blue-400", bg: "bg-blue-500", name: "Vercel Edge", type: "NET" },
-                { icon: Database, color: "text-yellow-400", bg: "bg-yellow-500", name: "Firebase", type: "DB" },
-                { icon: Lock, color: "text-green-400", bg: "bg-green-500", name: "Auth Zero", type: "SEC" },
-                { icon: Cpu, color: "text-purple-400", bg: "bg-purple-500", name: "React Core", type: "LIB" },
+                { icon: Globe, color: "text-cyan", bg: "bg-cyan", name: "Vercel Edge", type: "NET" },
+                { icon: Database, color: "text-purple", bg: "bg-purple", name: "Firebase", type: "DB" },
+                { icon: Lock, color: "text-white", bg: "bg-white", name: "Auth Zero", type: "SEC" },
+                { icon: Cpu, color: "text-gray-400", bg: "bg-gray-500", name: "React Core", type: "LIB" },
             ].map((item, i) => (
                 <div key={i} className="group/item flex items-center justify-between p-3 bg-white/[0.03] border border-white/5 hover:border-white/20 rounded-lg transition-all duration-300 hover:bg-white/[0.06]">
                     <div className="flex items-center gap-3">
@@ -112,7 +112,7 @@ const ServiceCard = ({
         // FIX: Using amount: 0.1 instead of margin ensures reliable trigger even with zoom
         viewport={{ once: true, amount: 0.1 }} 
         transition={{ duration: 0.4, delay: 0, ease: "easeOut" }}
-        className={`relative bg-[#080808] border ${isLocked ? 'border-white/5 border-dashed' : 'border-white/10'} rounded-2xl p-6 overflow-hidden group hover:border-white/30 hover:bg-[#0A0A0A] transition-all duration-500 h-full flex flex-col`}
+        className={`relative bg-[#080808] border ${isLocked ? 'border-white/5 border-dashed' : 'border-white/10'} rounded-2xl p-6 overflow-hidden group hover:border-cyan/30 hover:bg-[#0A0A0A] transition-all duration-500 h-full flex flex-col`}
     >
         {/* Background Icon Watermark */}
          <div className="absolute -right-6 -bottom-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-500 rotate-12 pointer-events-none">
@@ -120,13 +120,13 @@ const ServiceCard = ({
         </div>
         
         <div className="relative z-10 flex justify-between items-start mb-5">
-            <div className={`p-3 w-fit rounded-xl border transition-colors ${isLocked ? 'bg-white/5 border-white/5 text-gray-600' : 'bg-white/5 border-white/10 text-white group-hover:bg-white/10 group-hover:text-white'}`}>
+            <div className={`p-3 w-fit rounded-xl border transition-colors ${isLocked ? 'bg-white/5 border-white/5 text-gray-600' : 'bg-white/5 border-white/10 text-white group-hover:bg-cyan/10 group-hover:border-cyan/30 group-hover:text-cyan'}`}>
                 <Icon className="w-6 h-6" />
             </div>
             
             {!isLocked ? (
-                <div className="px-2 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-[10px] font-mono text-green-500 uppercase tracking-wider flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                <div className="px-2 py-1 rounded-full bg-cyan/10 border border-cyan/20 text-[10px] font-mono text-cyan uppercase tracking-wider flex items-center gap-1.5 shadow-[0_0_8px_rgba(0,240,255,0.2)]">
+                    <div className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
                     Available
                 </div>
             ) : (
@@ -147,7 +147,7 @@ const ServiceCard = ({
         <div className={`relative z-10 mt-6 pt-6 border-t flex items-center justify-between transition-opacity ${isLocked ? 'border-white/5 opacity-30' : 'border-white/10 opacity-50 group-hover:opacity-100'}`}>
             <span className="text-xs font-mono uppercase tracking-widest text-white font-bold">{isLocked ? 'Classified' : 'Initialize'}</span>
             {!isLocked && (
-                <ArrowRight className="w-4 h-4 text-white -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+                <ArrowRight className="w-4 h-4 text-white -rotate-45 group-hover:rotate-0 group-hover:text-cyan transition-all duration-300" />
             )}
         </div>
     </motion.div>
@@ -190,14 +190,14 @@ export const Services: React.FC = () => {
 
       {/* THE "BLACK KEY" CARD (Custom Scope) */}
       <div className="mb-20 max-w-4xl mx-auto">
-        <div className="relative bg-gradient-to-br from-[#0a0a0a] to-black border border-white/10 p-8 md:p-12 rounded-3xl text-center overflow-hidden group hover:border-white/30 transition-all duration-500 shadow-2xl">
+        <div className="relative bg-gradient-to-br from-[#0a0a0a] to-black border border-white/10 p-8 md:p-12 rounded-3xl text-center overflow-hidden group hover:border-purple/30 transition-all duration-500 shadow-2xl">
             {/* Holographic Sheen Effect */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none transform -skew-x-12" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none transform -skew-x-12" />
             
             <div className="relative z-10 flex flex-col items-center">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
-                    <ScanLine className="w-4 h-4 text-white" />
-                    <span className="text-xs font-mono text-white tracking-widest uppercase">Obsidian Tier Access</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+                    <ScanLine className="w-4 h-4 text-purple" />
+                    <span className="text-xs font-mono text-purple tracking-widest uppercase">Obsidian Tier Access</span>
                 </div>
                 
                 <h3 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 drop-shadow-md">
@@ -206,7 +206,7 @@ export const Services: React.FC = () => {
                 
                 <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10">
                     I do not sell off-the-shelf templates. I engineer bespoke solutions. <br className="hidden md:block"/>
-                    Your project's cost is a function of <span className="text-white border-b border-white/20 pb-0.5">complexity</span>, <span className="text-white border-b border-white/20 pb-0.5">timeline</span>, and <span className="text-white border-b border-white/20 pb-0.5">value</span>.
+                    Your project's cost is a function of <span className="text-cyan font-bold border-b border-cyan/50 pb-0.5">complexity</span>, <span className="text-purple font-bold border-b border-purple/50 pb-0.5">timeline</span>, and <span className="text-white border-b border-white/50 pb-0.5">value</span>.
                 </p>
                 
                 <div className="flex flex-col items-center gap-3 opacity-60 group-hover:opacity-100 transition-opacity">

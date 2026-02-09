@@ -39,16 +39,16 @@ export const Hero: React.FC = () => {
             {/* Title Container - Removed Hover Glitch Effects */}
             <div className="relative inline-block group">
                 <h1 className="relative z-10 text-[13vw] md:text-9xl font-display font-bold text-white mb-2 drop-shadow-2xl leading-[0.9] tracking-tighter mix-blend-difference">
-                    PARA<span className="text-gray-500">GON</span>
+                    PARA<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-purple">GON</span>
                 </h1>
             </div>
             
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8 mt-4">
-                <div className="h-[2px] w-24 bg-white shadow-[0_0_20px_rgba(255,255,255,0.8)] hidden md:block mt-4" />
+                <div className="h-[2px] w-24 bg-gradient-to-r from-cyan to-purple shadow-[0_0_20px_rgba(255,255,255,0.8)] hidden md:block mt-4" />
                 
                 <p className="text-lg md:text-2xl text-gray-300 font-light leading-relaxed max-w-2xl text-shadow-sm">
                     Forging elite digital realities. <br />
-                    <span className="text-white font-medium">Cinematic visuals</span> fused with <span className="text-white font-medium text-glow">Cyberpunk precision</span>.
+                    <span className="text-cyan font-medium text-glow-cyan">Cinematic visuals</span> fused with <span className="text-purple font-medium text-glow-purple">Cyberpunk precision</span>.
                 </p>
             </div>
         </motion.div>
