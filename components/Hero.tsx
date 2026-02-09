@@ -15,12 +15,12 @@ export const Hero: React.FC = () => {
         className="absolute inset-0 z-0"
       >
          <img 
-            src="https://i.ibb.co/TxDGgNY7/Make-dis-picture-2k-202601182124.jpg" 
+            src="https://i.ibb.co/h1sp6T4v/Extend-dis-picture-2k-202602092014.jpg" 
             alt="Hero Background" 
             className="w-full h-full object-cover"
          />
-         {/* Gradient Overlay for Text Readability */}
-         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90" />
+         {/* Stronger Gradient Overlay for Text Readability against the new image */}
+         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/30" />
       </motion.div>
 
       {/* Content */}
@@ -31,14 +31,14 @@ export const Hero: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
             {/* Title Container */}
-            <h1 className="text-[13vw] md:text-9xl font-display font-bold text-white mb-2 leading-[0.9] tracking-tighter">
-                PARA<span className="text-gray-500">GON</span>
+            <h1 className="text-[13vw] md:text-9xl font-display font-bold text-white mb-2 leading-[0.9] tracking-tighter drop-shadow-2xl">
+                PARA<span className="text-gray-400">GON</span>
             </h1>
             
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8 mt-4">
-                <div className="h-[2px] w-24 bg-white hidden md:block mt-4" />
+                <div className="h-[2px] w-24 bg-white hidden md:block mt-4 box-shadow-[0_0_10px_white]" />
                 
-                <p className="text-lg md:text-2xl text-gray-300 font-light leading-relaxed max-w-2xl text-shadow-sm">
+                <p className="text-lg md:text-2xl text-gray-200 font-light leading-relaxed max-w-2xl text-shadow-md">
                     Forging elite digital realities. <br />
                     <span className="font-bold text-white">Cinematic Visuals</span> fused with <span className="font-bold text-white">Disciplined Code</span>.
                 </p>

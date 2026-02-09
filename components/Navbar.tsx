@@ -23,34 +23,34 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-8 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none">
+    <div className="fixed bottom-10 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none">
       <motion.div 
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
-        // mix-blend-difference is key here. It makes the navbar invert colors based on background.
-        className="pointer-events-auto backdrop-blur-md bg-white/10 border border-white/20 rounded-full px-3 py-2 flex items-center gap-2 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+        // Increased padding (px-6 py-4) and backdrop blur intensity
+        className="pointer-events-auto backdrop-blur-xl bg-black/40 border border-white/20 rounded-full px-6 py-3 flex items-center gap-4 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)]"
       >
         {navItems.map((item) => (
           <motion.button
             key={item.id}
             onClick={() => scrollToSection(item.id)}
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.15, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="relative flex flex-col items-center justify-center w-12 h-12 rounded-full group"
+            className="relative flex flex-col items-center justify-center w-14 h-14 rounded-full group"
             aria-label={item.label}
           >
-            {/* Icon with difference blend mode for high contrast */}
-            <item.icon className="w-5 h-5 text-white mix-blend-difference group-hover:opacity-70 transition-opacity duration-300 relative z-10" />
+            {/* Icon - Increased size w-7 h-7 */}
+            <item.icon className="w-7 h-7 text-gray-400 group-hover:text-white transition-colors duration-300 relative z-10" strokeWidth={1.5} />
             
-            {/* Active Indicator */}
-            <div className="absolute -bottom-1 w-1 h-1 bg-white mix-blend-difference rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {/* Active Indicator / Hover Glow */}
+            <div className="absolute -bottom-1 w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_10px_white]" />
             
             {/* Background Hover */}
-            <div className="absolute inset-0 bg-white mix-blend-overlay rounded-full scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-20 transition-all duration-300 -z-10" />
+            <div className="absolute inset-0 bg-white/10 rounded-full scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 -z-10" />
 
             {/* Tooltip */}
-            <span className="absolute -top-12 bg-black/80 backdrop-blur-md border border-white/10 text-white text-[10px] font-bold px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+            <span className="absolute -top-16 bg-black border border-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap shadow-xl transform translate-y-2 group-hover:translate-y-0">
               {item.label}
             </span>
           </motion.button>

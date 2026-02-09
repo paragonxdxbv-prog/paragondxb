@@ -1,5 +1,5 @@
-import React from 'react';
-import { Youtube, Instagram, ShoppingBag, Mail, ArrowUpRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Youtube, Instagram, ShoppingBag, Mail, ArrowUpRight, Copy, Check } from 'lucide-react';
 import { Section } from './ui/Section';
 
 const RealDiscordIcon = ({ className }: { className?: string }) => (
@@ -26,30 +26,33 @@ const SimplePayPalIcon = ({ className }: { className?: string }) => (
     </svg>
 )
 
-const BentoCard = ({ 
+const Card = ({ 
     icon: Icon, 
     label, 
     subLabel, 
     href, 
     colSpan = "col-span-1",
-    bg = "bg-neutral-900",
-    hoverColor = "group-hover:text-white"
+    action
 }: any) => (
     <a 
         href={href} 
         target="_blank" 
         rel="noopener noreferrer"
-        className={`${colSpan} ${bg} relative p-6 rounded-none border border-white/20 overflow-hidden group hover:border-white transition-all duration-300 flex flex-col justify-between min-h-[160px]`}
+        onClick={action}
+        className={`${colSpan} relative p-6 bg-black border border-white/10 hover:border-white transition-all duration-300 flex flex-col justify-between min-h-[160px] group overflow-hidden`}
     >
-        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+        {/* Hover Glow Background */}
+        <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
             <ArrowUpRight className="w-5 h-5 text-white" />
         </div>
         
-        <div className="mb-4">
-            <Icon className={`w-8 h-8 text-gray-400 transition-colors duration-300 ${hoverColor}`} />
+        <div className="mb-4 relative z-10">
+            <Icon className="w-8 h-8 text-gray-500 group-hover:text-white transition-colors duration-300" />
         </div>
         
-        <div>
+        <div className="relative z-10">
             <h4 className="text-white font-bold text-lg">{label}</h4>
             <p className="text-gray-500 text-xs font-mono uppercase tracking-wider mt-1">{subLabel}</p>
         </div>
@@ -57,91 +60,105 @@ const BentoCard = ({
 );
 
 export const Socials: React.FC = () => {
+  const [copied, setCopied] = useState(false);
+  const email = "paragonxdxbv@gmail.com";
+
+  const handleCopy = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
-    <Section id="socials" className="py-24 bg-black text-white">
+    <Section id="socials" className="py-24">
       <div className="max-w-5xl mx-auto">
-        <div className="mb-12">
+        <div className="mb-16 flex flex-col items-center text-center">
             <h2 className="text-4xl md:text-6xl font-display font-black text-white mb-4">
-                CONNECT & <span className="text-gray-600">EXPLORE</span>
+                CONNECT & EXPLORE
             </h2>
-            <div className="h-1 w-24 bg-white" />
+            <p className="text-gray-500 max-w-lg mx-auto">
+                Join the network. Access assets. Initiate communication.
+            </p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             
             {/* 1. Discord (Big) */}
-            <BentoCard 
+            <Card 
                 colSpan="col-span-2 md:col-span-2 md:row-span-2" 
                 icon={RealDiscordIcon} 
-                label="Community Server" 
-                subLabel="Join the Elite" 
+                label="Community" 
+                subLabel="Discord Server" 
                 href="https://discord.gg/4qh2cxzeZm"
-                bg="bg-[#5865F2]/10 hover:bg-[#5865F2]/20"
-                hoverColor="text-[#5865F2]"
             />
 
-            {/* 2. YouTube */}
-            <BentoCard 
+            {/* 2. Email (Interactive Copy) */}
+            <div 
+                onClick={handleCopy}
+                className="col-span-2 md:col-span-1 relative p-6 bg-black border border-white/10 hover:border-white transition-all duration-300 flex flex-col justify-between min-h-[160px] group cursor-pointer"
+            >
+                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                    {copied ? <Check className="w-5 h-5 text-white" /> : <Copy className="w-5 h-5 text-white" />}
+                </div>
+                
+                <div className="mb-4 relative z-10">
+                    <Mail className="w-8 h-8 text-gray-500 group-hover:text-white transition-colors duration-300" />
+                </div>
+                
+                <div className="relative z-10">
+                    <h4 className="text-white font-bold text-lg">{copied ? "Copied" : "Email"}</h4>
+                    <p className="text-gray-500 text-xs font-mono uppercase tracking-wider mt-1">{email}</p>
+                </div>
+            </div>
+
+            {/* 3. YouTube */}
+            <Card 
                 icon={Youtube} 
                 label="YouTube" 
                 subLabel="@ParagonDXB" 
                 href="https://www.youtube.com/@ParagonDXB"
-                hoverColor="text-[#FF0000]"
             />
 
-            {/* 3. Instagram */}
-            <BentoCard 
+            {/* 4. Instagram */}
+            <Card 
                 icon={Instagram} 
                 label="Instagram" 
                 subLabel="@paragondxb" 
                 href="https://www.instagram.com/paragondxb/reels/"
-                hoverColor="text-[#E1306C]"
-            />
-
-            {/* 4. Email */}
-            <BentoCard 
-                icon={Mail} 
-                label="Email" 
-                subLabel="Direct Line" 
-                href="mailto:paragonxdxbv@gmail.com"
             />
 
             {/* 5. Etsy */}
-            <BentoCard 
+            <Card 
                 icon={ShoppingBag} 
-                label="Shop Assets" 
-                subLabel="Etsy Store" 
+                label="Store" 
+                subLabel="Digital Assets" 
                 href="https://www.etsy.com/shop/ParagonDXB"
-                hoverColor="text-[#F1641E]"
             />
             
             {/* 6. PayPal */}
-            <BentoCard 
+            <Card 
                 icon={SimplePayPalIcon}
                 label="PayPal"
-                subLabel="Direct Pay"
+                subLabel="Send Payment" 
                 href="https://www.paypal.com/paypalme/AndresRiosXYZ"
-                hoverColor="text-[#003087]"
             />
 
             {/* 7. Reddit */}
-             <BentoCard 
+             <Card 
                 icon={RealRedditIcon}
                 label="Reddit"
                 subLabel="@AndresRiosXYZ"
                 href="https://www.reddit.com/user/AndresRiosXYZ/"
-                hoverColor="text-[#FF4500]"
             />
 
             {/* 8. TikTok (Wide) */}
-            <BentoCard 
+            <Card 
                 colSpan="col-span-2" 
                 icon={TikTokIcon} 
                 label="TikTok" 
-                subLabel="Viral Content" 
+                subLabel="@paragonxv" 
                 href="https://www.tiktok.com/@paragonxv"
-                bg="bg-neutral-900"
-                hoverColor="text-[#00F2EA]"
             />
 
         </div>

@@ -9,11 +9,11 @@ const Stat = ({ label, value, icon: Icon, delay }: { label: string, value: strin
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, margin: "0px" }}
         transition={{ duration: 0.5, delay: Math.min(delay, 0.2) }}
-        className="flex flex-col items-center justify-center p-6 border-2 border-black/5 bg-gray-50 hover:bg-black hover:text-white transition-colors duration-300 group"
+        className="flex flex-col items-center justify-center p-6 border border-white/10 bg-black hover:border-white transition-colors duration-300 group"
     >
-        <Icon className="w-5 h-5 text-gray-400 mb-2 group-hover:text-white transition-colors" />
-        <span className="text-4xl font-display font-black mb-1">{value}</span>
-        <span className="text-xs uppercase tracking-widest opacity-60">{label}</span>
+        <Icon className="w-5 h-5 text-gray-500 mb-2 group-hover:text-white transition-colors" />
+        <span className="text-4xl font-display font-black mb-1 text-white">{value}</span>
+        <span className="text-xs uppercase tracking-widest text-gray-500">{label}</span>
     </motion.div>
 );
 
@@ -29,11 +29,11 @@ export const About: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="w-12 h-2 bg-black mb-8" />
-            <h2 className="text-5xl md:text-7xl font-display font-black leading-[0.9] mb-8 text-black tracking-tighter">
+            <div className="w-12 h-1 bg-white mb-8" />
+            <h2 className="text-5xl md:text-7xl font-display font-black leading-[0.9] mb-8 text-white tracking-tighter">
               NO TEAM.<br />
               NO AGENCIES.<br />
-              <span className="text-gray-400">
+              <span className="text-gray-500">
                 JUST THE ARCHITECT.
               </span>
             </h2>
@@ -44,9 +44,9 @@ export const About: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-gray-700 font-light leading-relaxed mb-8"
+            className="text-xl text-gray-400 font-light leading-relaxed mb-8"
           >
-             The digital landscape is flooded with noise, slow teams, and bloated agencies. I operate differently. I am a <span className="font-bold text-black border-b-2 border-black">Solo Operative</span>. When you hire me, you get me—direct communication, pure execution, and zero middlemen.
+             The digital landscape is flooded with noise, slow teams, and bloated agencies. I operate differently. I am a <span className="font-bold text-white border-b border-white">Solo Operative</span>. When you hire me, you get me—direct communication, pure execution, and zero middlemen.
            </motion.p>
         </div>
 
@@ -56,13 +56,13 @@ export const About: React.FC = () => {
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="p-8 border-l-4 border-black bg-gray-50"
+                className="p-8 border-l-2 border-white bg-white/5"
             >
                 <div className="flex items-center gap-4 mb-2">
-                    <Target className="w-6 h-6 text-black" />
-                    <h3 className="text-xl font-bold text-black uppercase">Precision</h3>
+                    <Target className="w-6 h-6 text-white" />
+                    <h3 className="text-xl font-bold text-white uppercase">Precision</h3>
                 </div>
-                <p className="text-gray-600">
+                <p className="text-gray-400">
                     No templates. Every line of code is placed with intent. Systems built to scale and convert.
                 </p>
             </motion.div>
@@ -72,13 +72,13 @@ export const About: React.FC = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="p-8 border-l-4 border-black bg-gray-50"
+                className="p-8 border-l-2 border-white bg-white/5"
             >
                 <div className="flex items-center gap-4 mb-2">
-                    <Zap className="w-6 h-6 text-black" />
-                    <h3 className="text-xl font-bold text-black uppercase">Velocity</h3>
+                    <Zap className="w-6 h-6 text-white" />
+                    <h3 className="text-xl font-bold text-white uppercase">Velocity</h3>
                 </div>
-                <p className="text-gray-600">
+                <p className="text-gray-400">
                     Time is the asset. I work in rapid sprints to deliver high-fidelity results weeks ahead of schedule.
                 </p>
             </motion.div>
@@ -88,13 +88,13 @@ export const About: React.FC = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="p-8 border-l-4 border-black bg-gray-50"
+                className="p-8 border-l-2 border-white bg-white/5"
             >
                 <div className="flex items-center gap-4 mb-2">
-                    <Shield className="w-6 h-6 text-black" />
-                    <h3 className="text-xl font-bold text-black uppercase">Ownership</h3>
+                    <Shield className="w-6 h-6 text-white" />
+                    <h3 className="text-xl font-bold text-white uppercase">Ownership</h3>
                 </div>
-                <p className="text-gray-600">
+                <p className="text-gray-400">
                     From concept to deployment, I take full responsibility. No passing the buck. Just results.
                 </p>
             </motion.div>
