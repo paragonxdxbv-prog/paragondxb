@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
 import { TechStack } from './components/TechStack';
-import { Preloader } from './components/ui/Preloader';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { GlobalBackground } from './components/ui/GlobalBackground';
@@ -15,13 +13,13 @@ import { Process } from './components/Process';
 import { Projects } from './components/Projects';
 import { Socials } from './components/Socials';
 import { Services } from './components/Services';
+import { Expertise } from './components/Expertise';
 import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
+import { ProductShowcase } from './components/ProductShowcase';
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
@@ -51,19 +49,14 @@ const App: React.FC = () => {
 
   return (
     <>
-      <AnimatePresence mode='wait'>
-        {loading && <Preloader onComplete={() => setLoading(false)} />}
-      </AnimatePresence>
-
       <GlobalBackground />
 
-      {!loading && <Navbar />}
+      <div className="relative z-50">
+        <Navbar />
+      </div>
 
-      <motion.main 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: loading ? 0 : 1 }}
-        transition={{ duration: 1 }}
-        className={`relative min-h-screen ${loading ? 'h-screen overflow-hidden' : ''}`}
+      <main 
+        className="relative min-h-screen"
       >
           <Analytics />
           <SpeedInsights />
@@ -72,18 +65,19 @@ const App: React.FC = () => {
           
           <div className="relative z-10">
               <Hero />
+              <Socials />
               <TechStack />
               <About />
+              <Expertise />
               <Process />
               <Services />
+              <ProductShowcase />
               <Projects />
               <FAQ />
               <Testimonials /> 
-              {/* Socials moved BELOW Testimonials as requested */}
-              <Socials />
               <Footer />
           </div>
-      </motion.main>
+      </main>
     </>
   );
 };

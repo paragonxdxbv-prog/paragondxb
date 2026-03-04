@@ -2,11 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const languages = [
-  "REACT", "NEXT.JS", "TYPESCRIPT", "NODE.JS", "PYTHON", "POSTGRESQL", "SQL", "JAVASCRIPT"
+  "REACT", "NEXT.JS", "TYPESCRIPT", "NODE.JS", "PYTHON", "POSTGRESQL", "SQL", "JAVASCRIPT", "RUST", "GO", "C++", "MONGODB", "REDIS", "AWS", "AZURE"
 ];
 
 const tools = [
-  "VERCEL", "FIREBASE", "SUPABASE", "DOCKER", "FIGMA", "TAILWIND", "FRAMER MOTION", "THREE.JS", "GIT"
+  "VERCEL", "FIREBASE", "SUPABASE", "DOCKER", "FIGMA", "TAILWIND", "FRAMER MOTION", "THREE.JS", "GIT", "KUBERNETES", "STRIPE", "SANITY", "PRISMIC", "GSAP"
 ];
 
 const MarqueeRow = ({ items, direction = "left", speed = 20 }: { items: string[], direction?: "left" | "right", speed?: number }) => (

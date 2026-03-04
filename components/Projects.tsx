@@ -8,7 +8,9 @@ const websiteProjects = [
     id: 'sovereign',
     title: 'SOVEREIGN',
     category: 'Luxury Commerce',
-    description: 'Bespoke e-commerce. Clean lines, disciplined layout.',
+    description: 'Bespoke e-commerce architecture for high-end fashion. Clean lines, disciplined layout, and zero-latency checkout.',
+    metrics: '+140% Conversion Rate',
+    tech: ['Next.js', 'Tailwind', 'Stripe', 'Framer Motion'],
     link: 'https://sovergine.vercel.app/',
     image: 'https://i.ibb.co/0VnHMk2Y/Screenshot-77.png',
     isNew: true
@@ -17,7 +19,9 @@ const websiteProjects = [
     id: 'vortex',
     title: 'VORTEX',
     category: 'Motion Interface',
-    description: 'High-velocity animation engine. Move fast.',
+    description: 'High-velocity animation engine for creative agencies. Pushing the boundaries of WebGL and interaction design.',
+    metrics: '0.8s Load Time',
+    tech: ['React', 'Three.js', 'Framer Motion', 'WebGL'],
     link: 'https://vortex-orpin-phi.vercel.app/',
     image: 'https://i.ibb.co/wNhcsjV4/Screenshot-74.png',
     isNew: true
@@ -26,7 +30,9 @@ const websiteProjects = [
     id: 'trihood',
     title: 'TRIHOOD',
     category: 'Community Hub',
-    description: 'Social engagement platform. Building tribes.',
+    description: 'Social engagement platform for digital tribes. Real-time interaction and scalable community infrastructure.',
+    metrics: '10k+ Active Users',
+    tech: ['React', 'Firebase', 'Tailwind', 'WebSockets'],
     link: 'https://trihood.vercel.app/',
     image: 'https://i.ibb.co/vCkk9759/Screenshot-75.png',
     isNew: true
@@ -35,36 +41,33 @@ const websiteProjects = [
     id: 'vantage',
     title: 'VANTAGE',
     category: 'Corporate Elite',
-    description: 'Minimalist authority. Commands respect.',
+    description: 'Minimalist authority for enterprise-level consulting. A digital presence that commands respect and trust.',
+    metrics: 'Enterprise Grade',
+    tech: ['Next.js', 'TypeScript', 'Sanity CMS', 'Tailwind'],
     link: 'https://vantage-steel.vercel.app/',
     image: 'https://i.ibb.co/SX9P52St/Screenshot-76.png',
     isNew: true
   },
   {
     id: 'onyx',
-    title: 'Onyx',
+    title: 'ONYX',
     category: 'Enterprise Engine',
-    description: 'Scalable systems for infinite growth.',
+    description: 'Scalable backend systems for infinite growth. Handling millions of requests with absolute reliability.',
+    metrics: '99.99% Uptime',
+    tech: ['React', 'Node.js', 'PostgreSQL', 'Docker'],
     link: 'https://onyx-best.vercel.app/',
     image: 'https://i.ibb.co/NdkV2L1k/Screenshot-45.png',
     isNew: false
   },
   {
     id: 'nexus',
-    title: 'Nexus',
+    title: 'NEXUS',
     category: 'Interactive Framework',
-    description: 'Fluid state management and logic.',
+    description: 'Fluid state management and real-time logic for collaborative workspaces. Seamless synchronization across clients.',
+    metrics: 'Real-time Sync',
+    tech: ['React', 'WebSockets', 'Redux', 'Node.js'],
     link: 'https://nexus-best.vercel.app/',
     image: 'https://i.ibb.co/8gnp69rs/Screenshot-44.png',
-    isNew: false
-  },
-  {
-    id: 'noir',
-    title: 'Noir',
-    category: 'Prestige Platform',
-    description: 'Dark mode aesthetics. Luxury shadows.',
-    link: 'https://noir-best.vercel.app/',
-    image: 'https://i.ibb.co/ZRXwd5JZ/Screenshot-43.png',
     isNew: false
   }
 ];
@@ -178,11 +181,27 @@ const WebsiteCard = ({ project }: { project: typeof websiteProjects[0] }) => (
         <div>
             <div className="flex justify-between items-start mb-2 relative z-10">
                 <h3 className="text-2xl font-display font-bold text-white tracking-tight group-hover:text-shadow-sm">{project.title}</h3>
+                {project.metrics && (
+                   <span className="text-[10px] font-mono text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-sm border border-emerald-400/20">
+                       {project.metrics}
+                   </span>
+                )}
             </div>
             <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-3">{project.category}</p>
-            <p className="text-sm text-gray-400 font-light leading-relaxed border-l border-white/10 pl-3 group-hover:border-white/50 transition-colors">
+            <p className="text-sm text-gray-400 font-light leading-relaxed border-l border-white/10 pl-3 group-hover:border-white/50 transition-colors mb-4">
                 {project.description}
             </p>
+            
+            {/* Tech Stack Tags */}
+            {project.tech && (
+                <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                    {project.tech.map((t, i) => (
+                        <span key={i} className="text-[9px] font-mono text-gray-400 uppercase tracking-wider bg-white/5 px-2 py-1 rounded-sm">
+                            {t}
+                        </span>
+                    ))}
+                </div>
+            )}
         </div>
     </div>
   </motion.div>
@@ -239,7 +258,10 @@ export const Projects: React.FC = () => {
             <h2 className="text-5xl md:text-8xl font-display font-black text-white tracking-tighter mb-4">
                 THE WORK
             </h2>
-            <div className="h-2 w-32 bg-white box-shadow-[0_0_10px_white]" />
+            <div className="h-2 w-32 bg-white box-shadow-[0_0_10px_white] mb-6" />
+            <p className="text-gray-400 max-w-2xl text-lg font-light leading-relaxed font-mono">
+                A curated selection of high-performance digital assets. Every project is engineered for speed, conversion, and absolute visual dominance.
+            </p>
           </motion.div>
       </div>
 

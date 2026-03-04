@@ -6,19 +6,23 @@ import { Plus, Minus, HelpCircle, ArrowRight } from 'lucide-react';
 const faqs = [
   {
     question: "Do you outsource any work?",
-    answer: "Negative. I am the sole architect. When you hire Paragon, you get my code, my design, and my attention. This ensures absolute consistency and security across the entire stack."
+    answer: "Negative. I am the sole architect. When you hire Paragon, you get my code, my design, and my attention. This ensures absolute consistency and security across the entire stack. No middlemen, no dilution of quality."
   },
   {
     question: "What is your typical timeline?",
-    answer: "Velocity is a core tenant. A standard high-performance landing page takes 3-5 days. Complex full-stack applications typically range from 2-4 weeks depending on the scope defined in The Brief."
+    answer: "Velocity is a core tenant. A standard high-performance landing page takes 3-5 days. Complex full-stack applications typically range from 2-4 weeks. I operate on a high-velocity schedule to ensure your market entry is rapid and decisive."
   },
   {
     question: "Do you provide hosting?",
-    answer: "Yes. I deploy primarily on Vercel's global edge network. It is the fastest, most secure infrastructure available. I handle the DNS, SSL, and continuous deployment pipelines."
+    answer: "Yes. I deploy primarily on Vercel's global edge network. It is the fastest, most secure infrastructure available. I handle the DNS, SSL, and continuous deployment pipelines, ensuring 99.9% uptime and global availability."
   },
   {
     question: "What happens after the project is done?",
-    answer: "You receive full ownership of the codebase. I provide a handover package with documentation. I also offer a 'Retainer Mode' for clients who need ongoing updates and feature expansions."
+    answer: "You receive full ownership of the codebase. I provide a handover package with documentation. I also offer a 'Retainer Mode' for clients who need ongoing updates, feature expansions, and technical oversight."
+  },
+  {
+    question: "Can you handle high-traffic systems?",
+    answer: "Absolutely. I architect for scale. Using serverless functions, edge caching, and optimized database queries, I ensure your platform remains stable and responsive even under extreme load."
   }
 ];
 

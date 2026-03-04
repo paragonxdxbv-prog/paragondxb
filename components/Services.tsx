@@ -102,15 +102,15 @@ export const Services: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 mb-24">
-            <ServiceNode index={0} icon={Globe} title="Web Architecture" desc="High-performance frameworks (React, Next.js). SEO optimized structure." />
-            <ServiceNode index={1} icon={Server} title="Discord Infrastructure" desc="Community servers. Role hierarchy, security bots, and automation." />
-            <ServiceNode index={2} icon={Layers} title="UI / UX Systems" desc="Interactive component libraries. Fluid motion. User-centric design." />
-            <ServiceNode index={3} icon={Terminal} title="Backend Logic" desc="API integration, database management, and server-side scripting." />
-            <ServiceNode index={4} icon={Video} title="Cinematic Production" desc="High-retention editing. Sound design. Visual storytelling." />
-            <ServiceNode index={5} icon={Palette} title="Brand Identity" desc="Visual language. Logos, typography, and aesthetic direction." />
-            <ServiceNode index={6} icon={Wrench} title="Custom Operations" desc="Bespoke solutions for unique digital problems." />
-            <ServiceNode index={7} icon={Infinity} title="Full Stack" desc="End-to-end development. From concept to deployment." />
-            <ServiceNode index={8} icon={ShieldAlert} title="[Redacted]" desc="Classified future capabilities." isLocked={true} />
+            <ServiceNode index={0} icon={Globe} title="Web Architecture" desc="High-performance frameworks (React, Next.js). SEO optimized structure, edge delivery, and flawless responsive execution across all devices." />
+            <ServiceNode index={1} icon={Server} title="Cloud Infrastructure" desc="Scalable backend systems. Database optimization, serverless architecture, and secure API development for enterprise-grade applications." />
+            <ServiceNode index={2} icon={Layers} title="UI / UX Systems" desc="Bespoke component libraries. Fluid motion design, high-fidelity interactions, and conversion-focused user journeys." />
+            <ServiceNode index={3} icon={Terminal} title="Automation Logic" desc="Custom bots, workflow automation, and deep API integrations to eliminate manual friction and accelerate business operations." />
+            <ServiceNode index={4} icon={Video} title="Cinematic Production" desc="High-retention video editing. Sound design, visual storytelling, and motion graphics engineered for maximum audience engagement." />
+            <ServiceNode index={5} icon={Palette} title="Brand Identity" desc="Visual language development. Logos, typography, aesthetic direction, and comprehensive design systems that command authority." />
+            <ServiceNode index={6} icon={Wrench} title="Custom Operations" desc="Bespoke technical solutions for unique and complex digital problems. If it requires custom logic, I build it from the ground up." />
+            <ServiceNode index={7} icon={Infinity} title="Full Stack Protocol" desc="End-to-end product development. From initial concept and wireframing to global deployment and post-launch optimization." />
+            <ServiceNode index={8} icon={ShieldAlert} title="[Redacted]" desc="Classified future capabilities. Access restricted to elite tier clients. Advanced AI integration and experimental web technologies." isLocked={true} />
         </div>
 
         {/* MERGED: Omnipotence + Custom Project + Warning */}
@@ -118,45 +118,45 @@ export const Services: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="w-full mb-12 p-8 md:p-14 border border-white/20 bg-black relative overflow-hidden group shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(255,255,255,0.15)] transition-all duration-500 rounded-sm"
+            className="w-full mb-12 p-8 md:p-20 border border-white/20 bg-black relative overflow-hidden group shadow-[0_0_50px_rgba(255,255,255,0.05)] hover:shadow-[0_0_80px_rgba(255,255,255,0.15)] transition-all duration-700 rounded-sm"
         >
              {/* Dynamic Shine Effect */}
-             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out pointer-events-none" />
+             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1500 ease-in-out pointer-events-none" />
              
              <div className="relative z-10 flex flex-col items-center text-center">
-                  <div className="mb-6 p-4 rounded-full bg-white/5 border border-white/10 shadow-[0_0_20px_white]">
-                      <Globe className="w-10 h-10 text-white animate-pulse" strokeWidth={1.5} />
+                  <div className="mb-10 p-6 rounded-full bg-white/5 border border-white/10 shadow-[0_0_30px_white] group-hover:scale-110 transition-transform duration-500">
+                      <Globe className="w-12 h-12 text-white animate-pulse" strokeWidth={1} />
                   </div>
                   
-                  <h3 className="text-4xl md:text-7xl font-display font-black text-white uppercase tracking-tighter mb-6 drop-shadow-2xl">
-                      IF IT'S ONLINE,<br/> I CAN DO IT.
+                  <h3 className="text-5xl md:text-9xl font-display font-black text-white uppercase tracking-tighter mb-8 drop-shadow-2xl leading-[0.85]">
+                      IF IT'S DIGITAL,<br/> I CAN ARCHITECT IT.
                   </h3>
                   
-                  <p className="text-gray-400 text-lg md:text-xl font-mono mb-10 max-w-3xl leading-relaxed">
-                      From the surface web to complex backend infrastructure. If it exists in the digital zone, it is within operational capabilities.
+                  <p className="text-gray-400 text-xl md:text-2xl font-light mb-12 max-w-4xl leading-relaxed">
+                      From the surface web to complex distributed systems. If it exists in the digital realm, it is within operational capabilities. I don't just build; I dominate the stack.
                   </p>
 
                   {/* YELLOW WARNING & PRICING PROTOCOL */}
-                  <div className="w-full max-w-4xl mx-auto mb-10 p-6 border-l-4 border-yellow-500 bg-yellow-900/10 backdrop-blur-sm text-left relative overflow-hidden group/alert hover:bg-yellow-900/20 transition-colors">
+                  <div className="w-full max-w-5xl mx-auto mb-12 p-8 border-l-4 border-yellow-500 bg-yellow-900/10 backdrop-blur-md text-left relative overflow-hidden group/alert hover:bg-yellow-900/20 transition-all duration-500">
                       {/* Subtle animated scanline */}
-                      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(234,179,8,0.05)_50%,transparent_100%)] animate-[scroll_5s_linear_infinite]" />
+                      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(234,179,8,0.08)_50%,transparent_100%)] animate-[scroll_8s_linear_infinite]" />
                       
-                      <div className="relative z-10 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
-                          <div className="flex gap-4">
-                              <AlertTriangle className="w-8 h-8 text-yellow-500 shrink-0 mt-1 animate-pulse" />
+                      <div className="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between">
+                          <div className="flex gap-6">
+                              <AlertTriangle className="w-10 h-10 text-yellow-500 shrink-0 mt-1 animate-pulse" />
                               <div>
-                                  <h4 className="text-yellow-500 font-bold font-display uppercase tracking-widest text-lg mb-1">
-                                      BILLING PROTOCOL: CUSTOM PROJECT = CUSTOM PRICE
+                                  <h4 className="text-yellow-500 font-bold font-display uppercase tracking-[0.2em] text-xl mb-2">
+                                      BILLING PROTOCOL: BESPOKE SOLUTIONS
                                   </h4>
-                                  <p className="text-gray-300 text-sm font-mono leading-relaxed">
-                                      Pricing is custom-calibrated based on your specific requirements. We do not offer fixed rates for bespoke solutions.
+                                  <p className="text-gray-300 text-base font-mono leading-relaxed max-w-2xl">
+                                      Pricing is custom-calibrated based on technical complexity and operational urgency. We do not offer fixed rates for elite-tier bespoke solutions.
                                   </p>
                               </div>
                           </div>
                           <div className="shrink-0 w-full md:w-auto">
                                <a 
-                                  href="#socials"
-                                  className="block text-center border border-white px-8 py-3 bg-white text-black font-bold uppercase text-xs tracking-wider hover:bg-gray-200 transition-colors shadow-[0_0_15px_white]"
+                                  href="mailto:paragonxdxbv@gmail.com?subject=Custom%20Project%20Quote"
+                                  className="block text-center border border-white px-10 py-4 bg-white text-black font-bold uppercase text-sm tracking-widest hover:bg-gray-200 transition-all shadow-[0_0_20px_white] hover:shadow-[0_0_40px_white]"
                                >
                                   Request Quote
                               </a>
@@ -165,9 +165,9 @@ export const Services: React.FC = () => {
                   </div>
 
                   {/* Legal Notice */}
-                  <div className="inline-flex items-center gap-3 px-6 py-3 border border-red-500/50 bg-red-950/20 rounded-sm backdrop-blur-md shadow-[0_0_20px_rgba(239,68,68,0.15)]">
-                      <ShieldAlert className="w-6 h-6 text-red-500" />
-                      <span className="text-xs md:text-sm font-bold text-red-400 uppercase tracking-widest">
+                  <div className="inline-flex items-center gap-4 px-8 py-4 border border-red-500/50 bg-red-950/20 rounded-sm backdrop-blur-md shadow-[0_0_30px_rgba(239,68,68,0.15)]">
+                      <ShieldAlert className="w-7 h-7 text-red-500" />
+                      <span className="text-sm md:text-base font-bold text-red-400 uppercase tracking-[0.3em]">
                           ATTENTION: STRICT LEGAL COMPLIANCE. NO BLACK HAT OPS.
                       </span>
                   </div>

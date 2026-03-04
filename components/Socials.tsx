@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Youtube, Instagram, ShoppingBag, Mail, ArrowUpRight, Copy, Check } from 'lucide-react';
 import { Section } from './ui/Section';
+import { motion } from 'framer-motion';
 
 const RealDiscordIcon = ({ className }: { className?: string }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -34,7 +35,13 @@ const Card = ({
     colSpan = "col-span-1",
     action
 }: any) => (
-    <a 
+    <motion.a 
+        whileHover={{ scale: 1.02, y: -5 }}
+        whileTap={{ scale: 0.98 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
         href={href} 
         target="_blank" 
         rel="noopener noreferrer"
@@ -57,7 +64,7 @@ const Card = ({
             <h4 className="text-white font-bold text-lg">{label}</h4>
             <p className="text-gray-500 text-xs font-mono uppercase tracking-wider mt-1">{subLabel}</p>
         </div>
-    </a>
+    </motion.a>
 );
 
 export const Socials: React.FC = () => {
@@ -95,7 +102,13 @@ export const Socials: React.FC = () => {
             />
 
             {/* 2. Email (Interactive Copy) */}
-            <div 
+            <motion.div 
+                whileHover={{ scale: 1.02, y: -5 }}
+                whileTap={{ scale: 0.98 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
                 onClick={handleCopy}
                 className="col-span-2 md:col-span-1 relative p-6 bg-black border border-white/10 hover:border-white transition-all duration-300 flex flex-col justify-between min-h-[160px] group cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.07)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)]"
             >
@@ -109,9 +122,9 @@ export const Socials: React.FC = () => {
                 
                 <div className="relative z-10">
                     <h4 className="text-white font-bold text-lg">{copied ? "Copied" : "Email"}</h4>
-                    <p className="text-gray-500 text-xs font-mono uppercase tracking-wider mt-1">{email}</p>
+                    <p className="text-gray-500 text-[10px] md:text-xs font-mono uppercase tracking-wider mt-1 break-all">{email}</p>
                 </div>
-            </div>
+            </motion.div>
 
             {/* 3. YouTube */}
             <Card 
