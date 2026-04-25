@@ -116,6 +116,7 @@ function Nav({ scrollYProgress }: { scrollYProgress: any }) {
       <div className="flex items-center gap-3 sm:gap-6 text-[7px] sm:text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-white/70">
         <button onClick={() => scrollTo('capabilities')} className="hover:text-white transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-px after:bg-accent hover:after:w-full after:transition-all after:duration-300">SERVICES</button>
         <button onClick={() => scrollTo('process')} className="hover:text-white transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-px after:bg-accent hover:after:w-full after:transition-all after:duration-300">PROCESS</button>
+        <a href="https://contra.com/paragon_dxb" target="_blank" rel="noreferrer" className="hover:text-white transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-px after:bg-accent hover:after:w-full after:transition-all after:duration-300">CONTRA</a>
       </div>
       
       {/* Right: Pill */}
@@ -544,6 +545,17 @@ function Contact() {
             </span>
           </button>
           
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mb-8">
+            <a href="https://contra.com/paragon_dxb" target="_blank" rel="noreferrer" className="group relative flex flex-col items-center justify-center p-12 border border-accent/30 bg-accent/5 hover:bg-accent hover:border-accent transition-all duration-500 overflow-hidden text-center">
+              <span className="font-black text-2xl md:text-3xl uppercase tracking-tighter text-white group-hover:scale-110 transition-transform duration-500 z-10">HIRE US ON CONTRA</span>
+              <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-accent group-hover:text-white/80 mt-2 z-10 transition-colors">contra.com/paragon_dxb</span>
+            </a>
+            <a href="https://on.contra.com/t9nTJJ" target="_blank" rel="noreferrer" className="group relative flex flex-col items-center justify-center p-12 border border-white/20 bg-white/5 hover:bg-white hover:border-white transition-all duration-500 overflow-hidden text-center">
+              <span className="font-black text-2xl md:text-3xl uppercase tracking-tighter text-white group-hover:text-black group-hover:scale-110 transition-all duration-500 z-10">START A PROJECT</span>
+              <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-white/50 group-hover:text-black/60 mt-2 z-10 transition-colors">on.contra.com/t9nTJJ</span>
+            </a>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
              {SOCIALS.map(link => (
                <a key={link.name} href={link.url} target="_blank" rel="noreferrer" className="flex items-center justify-between p-6 border border-white/10 bg-white/[0.02] hover:bg-black hover:border-accent group transition-all duration-300 relative overflow-hidden">
