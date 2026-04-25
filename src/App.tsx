@@ -545,7 +545,11 @@ function Contact() {
             </span>
           </button>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full mb-8">
+            <a href="https://paragondxb.contra.com" target="_blank" rel="noreferrer" className="group relative flex flex-col items-center justify-center p-12 border border-white/20 bg-white/5 hover:bg-white hover:border-white transition-all duration-500 overflow-hidden text-center">
+              <span className="font-black text-2xl md:text-3xl uppercase tracking-tighter text-white group-hover:text-black group-hover:scale-110 transition-all duration-500 z-10">PORTFOLIO</span>
+              <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-white/50 group-hover:text-black/60 mt-2 z-10 transition-colors">paragondxb.contra.com</span>
+            </a>
             <a href="https://contra.com/paragon_dxb" target="_blank" rel="noreferrer" className="group relative flex flex-col items-center justify-center p-12 border border-accent/30 bg-accent/5 hover:bg-accent hover:border-accent transition-all duration-500 overflow-hidden text-center">
               <span className="font-black text-2xl md:text-3xl uppercase tracking-tighter text-white group-hover:scale-110 transition-transform duration-500 z-10">HIRE US ON CONTRA</span>
               <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-accent group-hover:text-white/80 mt-2 z-10 transition-colors">contra.com/paragon_dxb</span>
