@@ -47,7 +47,7 @@ function CustomCursor() {
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-accent rounded-full pointer-events-none z-[100] shadow-[0_0_15px_rgba(255,0,0,1)] hidden md:block"
+        className="fixed top-0 left-0 w-2 h-2 bg-accent rounded-full pointer-events-none z-[9999] shadow-[0_0_15px_rgba(255,0,0,1)] hidden md:block"
         animate={{
           x: mousePosition.x - 4,
           y: mousePosition.y - 4,
@@ -56,7 +56,7 @@ function CustomCursor() {
         transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
       />
       <motion.div
-        className="fixed top-0 left-0 w-10 h-10 border-2 border-accent/50 rounded-full pointer-events-none z-[100] shadow-[0_0_20px_rgba(255,0,0,0.5)] hidden md:block"
+        className="fixed top-0 left-0 w-10 h-10 border border-accent rounded-full pointer-events-none z-[9999] shadow-[0_0_30px_rgba(255,0,0,0.6)] bg-accent/5 backdrop-blur-[2px] hidden md:block"
         animate={{
           x: mousePosition.x - 20,
           y: mousePosition.y - 20,
@@ -409,6 +409,10 @@ function Portfolio() {
                 <img src="https://i.ibb.co/hJd8yP3Z/Cerberus.jpg" alt="Paragon Logo" className="w-[40%] object-contain opacity-50 grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" />
              </div>
              
+             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 z-50 flex items-center justify-center cursor-pointer">
+                <span className="text-white font-black tracking-[0.2em] uppercase border border-white/20 px-8 py-4 rounded-full text-sm hover:bg-white hover:text-black transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)]">View Project</span>
+             </div>
+             
              <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-accent opacity-0 group-hover:opacity-10 blur-[150px] transition-all duration-1000 z-0 pointer-events-none rounded-full" />
           </motion.div>
 
@@ -583,7 +587,7 @@ function Manifesto() {
   ];
 
   return (
-    <section className="py-40 md:py-60 px-6 md:px-12 bg-black flex flex-col items-center justify-center text-center relative border-y border-white/5">
+    <section className="py-40 md:py-60 px-6 md:px-12 bg-black flex flex-col items-center justify-center text-center relative border-t border-white/5">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,0,0,0.05)_0%,_transparent_70%)] pointer-events-none" />
       
       <div className="max-w-5xl flex flex-col items-center gap-16 md:gap-32 relative z-10 w-full">
@@ -598,22 +602,22 @@ function Manifesto() {
         </motion.h3>
 
         <div className="flex flex-col gap-10 md:gap-16 w-full mt-10 md:mt-20">
-          {lines.map((line, i) => (
+          {lines.map((line, i) => {
+            let textSize = i < 3 ? "text-3xl md:text-5xl lg:text-6xl text-white/90" : "text-2xl md:text-4xl lg:text-5xl text-white/50";
+            if (i === 2) textSize = "text-[1.5rem] sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[44px] text-white/90";
+            
+            return (
             <motion.h2
               key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: "-20%" }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className={`font-black uppercase tracking-tighter w-full text-center ${
-                i < 3 
-                  ? "text-3xl md:text-5xl lg:text-6xl text-white/90" 
-                  : "text-2xl md:text-4xl lg:text-5xl text-white/50"
-              } ${i === 2 ? 'text-accent underline decoration-accent/30 underline-offset-[12px] md:underline-offset-[20px] pb-4 block' : ''}`}
+              className={`font-black uppercase tracking-tighter w-full text-center ${textSize} ${i === 2 ? 'text-accent underline decoration-accent/30 underline-offset-[12px] md:underline-offset-[20px] pb-4 block' : ''}`}
             >
               {line === "" ? <div className="h-4 md:h-10" /> : line}
             </motion.h2>
-          ))}
+          )})}
         </div>
       </div>
     </section>
@@ -651,7 +655,7 @@ function Footer() {
 
 function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
-    const timer = setTimeout(() => onComplete(), 1000);
+    const timer = setTimeout(() => onComplete(), 2400);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -660,19 +664,53 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.8 }}
-      className="fixed inset-0 z-[100] bg-black flex items-center justify-center pointer-events-none"
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center pointer-events-none"
     >
-      <motion.img 
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.5 }}
-        src="https://i.ibb.co/hJd8yP3Z/Cerberus.jpg" 
-        alt="Paragon Loading" 
-        className="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full shadow-[0_0_50px_rgba(255,0,0,0.3)]"
-        style={{ filter: "grayscale(100%) brightness(200%)" }}
-      />
+      <motion.div
+        initial={{ opacity: 0, y: 80, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        className="flex items-center justify-center mb-10"
+      >
+        <div className="rounded-full border-2 border-accent shadow-[0_0_40px_rgba(255,0,0,0.6)] p-[2px]">
+          <img 
+            src="https://i.ibb.co/hJd8yP3Z/Cerberus.jpg" 
+            alt="Paragon Loading" 
+            className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-full"
+            style={{ filter: "grayscale(100%) brightness(150%)" }}
+          />
+        </div>
+      </motion.div>
+      
+      <div className="flex items-center gap-3 overflow-hidden mb-4">
+        <motion.span
+          initial={{ x: "-100%", opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="font-black text-5xl md:text-7xl tracking-[0.2em] uppercase text-white"
+        >
+          PARAGON
+        </motion.span>
+        <motion.span
+          initial={{ x: "100%", opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="font-black text-5xl md:text-7xl tracking-[0.2em] transform uppercase text-accent drop-shadow-[0_0_15px_rgba(255,0,0,0.8)]"
+        >
+          DXB
+        </motion.span>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
+      >
+        <span className="text-accent text-xs md:text-sm font-bold tracking-[0.5em] uppercase drop-shadow-[0_0_10px_rgba(255,0,0,0.6)]">
+          PARAGONDXB
+        </span>
+      </motion.div>
     </motion.div>
   );
 }
@@ -704,6 +742,7 @@ export default function App() {
 
   return (
     <>
+      <div className="fixed inset-0 pointer-events-none z-[9990] opacity-[0.04] mix-blend-screen" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }}></div>
       <AnimatePresence>
         {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       </AnimatePresence>
