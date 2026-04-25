@@ -370,9 +370,48 @@ function WhyParagon() {
   );
 }
 
+const PROJECTS = [
+  {
+    title: "OBSCURA",
+    category: "Fashion & Retail",
+    desc: "Dark luxury fashion brand. Editorial aesthetic. Full ecommerce experience.",
+    tech: "Next.js, Tailwind, GSAP, Lenis",
+    link: "https://obscura-tau.vercel.app/",
+    image: "https://i.ibb.co/997VZs17/Screenshot-374.png",
+    badge: "FRESH DROP"
+  },
+  {
+    title: "NOIR MARKET",
+    category: "E-Commerce",
+    desc: "Premium dark dropshipping store. Curated lifestyle products. Working cart.",
+    tech: "Next.js, Tailwind, GSAP, Lenis",
+    link: "https://noir-market-iota.vercel.app/",
+    image: "https://i.ibb.co/8gStXyv9/Screenshot-376.png",
+    badge: "FRESH DROP"
+  },
+  {
+    title: "OBSIDIAN",
+    category: "Restaurant & Hospitality",
+    desc: "Ultra luxury fine dining and cocktail bar. Reservation system included.",
+    tech: "Next.js, Tailwind, GSAP, Lenis",
+    link: "https://obsidian-two-omega.vercel.app/",
+    image: "https://i.ibb.co/chdq442L/Screenshot-375.png",
+    badge: "FRESH DROP"
+  },
+  {
+    title: "AXIOM",
+    category: "SaaS Platform",
+    desc: "AI-powered analytics and automation platform. Full pricing, FAQ, dashboard.",
+    tech: "Next.js, Tailwind, GSAP, Lenis",
+    link: "https://axiom-eight-rose.vercel.app/",
+    image: "https://i.ibb.co/zTBRn1gh/Screenshot-373.png",
+    badge: "FRESH DROP"
+  }
+];
+
 function Portfolio() {
   return (
-    <section className="py-32 px-6 md:px-12 bg-black border-y border-white/5">
+    <section id="work" className="py-32 px-6 md:px-12 bg-black border-y border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="mb-20">
           <motion.h2 
@@ -393,7 +432,7 @@ function Portfolio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="group relative border border-white/10 bg-[#0a0a0a] overflow-hidden p-8 md:p-12 flex flex-col md:flex-row items-center gap-10 hover:border-accent hover:shadow-[0_0_30px_rgba(255,0,0,0.1)] transition-all duration-500"
+            className="group relative border border-white/10 bg-[#0a0a0a] overflow-hidden p-8 md:p-12 flex flex-col md:row items-center gap-10 hover:border-accent hover:shadow-[0_0_30px_rgba(255,0,0,0.1)] transition-all duration-500"
           >
              <div className="flex-1 flex flex-col items-start z-10 w-full relative">
                 <span className="px-3 py-1 border border-accent/50 text-accent text-[10px] sm:text-xs font-black tracking-[0.2em] mb-6 uppercase shadow-[0_0_10px_rgba(255,0,0,0.2)] bg-accent/10">Fresh Drop</span>
@@ -410,24 +449,43 @@ function Portfolio() {
                 <img src="https://i.ibb.co/hJd8yP3Z/Cerberus.jpg" alt="Paragon Logo" className="w-[40%] object-contain opacity-50 grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" />
              </div>
              
-             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 z-50 flex items-center justify-center cursor-pointer">
+             <div onClick={() => window.open('https://paragondxb.contra.com', '_blank')} className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 z-50 flex items-center justify-center cursor-pointer">
                 <span className="text-white font-black tracking-[0.2em] uppercase border border-white/20 px-8 py-4 rounded-full text-sm hover:bg-white hover:text-black transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)]">View Project</span>
              </div>
              
              <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-accent opacity-0 group-hover:opacity-10 blur-[150px] transition-all duration-1000 z-0 pointer-events-none rounded-full" />
           </motion.div>
 
+          {/* New Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[1, 2].map((i) => (
+            {PROJECTS.map((project, i) => (
               <motion.div
                  key={i}
                  initial={{ opacity: 0, y: 30 }}
                  whileInView={{ opacity: 1, y: 0 }}
                  viewport={{ once: true, margin: "-100px" }}
-                 transition={{ duration: 0.6, delay: i * 0.2 }}
-                 className="p-10 border border-white/5 bg-[#0a0a0a] flex items-center justify-center min-h-[250px]"
+                 transition={{ duration: 0.6, delay: i * 0.1 }}
+                 className="group relative border border-white/10 bg-[#0a0a0a] overflow-hidden p-6 md:p-10 flex flex-col items-start gap-6 hover:border-accent hover:shadow-[0_0_30px_rgba(255,0,0,0.1)] transition-all duration-500"
               >
-                 <p className="text-[10px] sm:text-xs text-white/30 uppercase tracking-[0.4em] font-black text-center leading-loose">// MORE PROJECTS<br/>DROPPING SOON</p>
+                  <div className="flex-1 flex flex-col items-start z-10 w-full relative">
+                    <span className="px-2 py-1 border border-accent/50 text-accent text-[9px] font-black tracking-[0.1em] mb-4 uppercase shadow-[0_0_10px_rgba(255,0,0,0.2)] bg-accent/10">{project.badge}</span>
+                    <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter mb-2">{project.title}</h3>
+                    <p className="text-white/40 text-[9px] uppercase tracking-[0.2em] mb-4 font-bold">{project.category}</p>
+                    <p className="text-white/60 font-bold tracking-wide text-xs leading-relaxed mb-6">
+                      {project.desc}
+                    </p>
+                    <div className="flex flex-wrap gap-4 items-center">
+                       <span className="text-[9px] text-white/40 uppercase tracking-[0.2em] font-black">Tech:</span>
+                       <span className="text-[9px] text-white/80 uppercase tracking-[0.2em] font-bold">{project.tech}</span>
+                    </div>
+                  </div>
+                  <div className="w-full aspect-video bg-black/60 border border-white/10 flex items-center justify-center relative overflow-hidden group-hover:border-accent/40 transition-all z-10">
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-40 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                  </div>
+                  
+                  <div onClick={() => window.open(project.link, '_blank')} className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 z-50 flex items-center justify-center cursor-pointer">
+                    <span className="text-white font-black tracking-[0.2em] uppercase border border-white/20 px-6 py-3 rounded-full text-[10px] hover:bg-white hover:text-black transition-colors duration-300">View Project</span>
+                  </div>
               </motion.div>
             ))}
           </div>
