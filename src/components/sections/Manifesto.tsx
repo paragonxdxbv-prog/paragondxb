@@ -33,7 +33,7 @@ export default function Manifesto() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "0px", amount: 0.1 }}
-          className="font-mono text-[#C50022] text-[7px] tracking-widest mb-3"
+          className="font-mono text-[#C50022] text-[10px] uppercase font-bold tracking-[0.25em] mb-4"
         >
           [ THE PARAGON STANDARD ]
         </motion.div>
